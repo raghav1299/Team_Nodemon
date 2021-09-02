@@ -1,38 +1,39 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('products', {
+  return sequelize.define('order_history', {
     inc_id: {
+      autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    product_name: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    tags: {
-      type: DataTypes.STRING(45),
-      allowNull: true
-    },
-    mrp: {
+    item_id: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    image_address: {
-      type: DataTypes.STRING(2048),
+    order_date: {
+      type: DataTypes.STRING(45),
       allowNull: true
     },
     shop_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    user_id: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    rider_id: {
+      type: DataTypes.STRING(45),
       allowNull: true
     },
     ratings: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(45),
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'products',
+    tableName: 'order_history',
     timestamps: false,
     indexes: [
       {

@@ -18,8 +18,10 @@ const sequelize = new Sequelize("shadowfax", "admin", "qazwsx&*%^", {
 });
 
 let models = [
-  require("./../models/restaurants.js"),
-  require("./../models/users.js"),
+  require("./../models/products.js"),
+  require("./../models/shop.js"),
+  require("./../models/tags.js"),
+  require("./../models/user.js"),
 ];
 
 models.forEach((model) => {

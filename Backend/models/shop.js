@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('shopkeeper', {
+  return sequelize.define('shop', {
     inc_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
@@ -44,10 +44,14 @@ module.exports = function(sequelize, DataTypes) {
     shop_status: {
       type: DataTypes.TINYINT,
       allowNull: true
+    },
+    active_orders: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'shopkeeper',
+    tableName: 'shop',
     timestamps: false,
     indexes: [
       {
