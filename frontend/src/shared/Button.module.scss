@@ -1,0 +1,19 @@
+.button {
+    height: 35px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #ffffff;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    svg {
+        &:last-child {
+            margin-left: 5px;
+        }
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
+}
