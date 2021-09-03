@@ -17,6 +17,15 @@ const sequelize = new Sequelize("shadowfax", "admin", "qazwsx&*%^", {
   operatorsAliases: false,
 });
 
+sequelize
+  .authenticate()
+  .then(function (err) {
+    console.log("Connection has been established successfully.");
+  })
+  .catch(function (err) {
+    console.log("Unable to connect to the database:", err);
+  });
+
 let models = [
   require("./../models/products.js"),
   require("./../models/shop.js"),
