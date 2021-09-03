@@ -14,3 +14,17 @@ exports.get_all_products = async (req, res) => {
     res.send(err);
   }
 };
+
+
+exports.get_all_tags = async(req,res)=>{
+  try {
+    const data = await db.tags.findAll();
+    res.status(200).json({
+      status: "success",
+      message: "user_data",
+      data: data,
+    });
+  } catch (error) {
+    res.send(err);
+  }
+}
