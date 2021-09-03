@@ -30,6 +30,22 @@ module.exports = function(sequelize, DataTypes) {
     ratings: {
       type: DataTypes.STRING(45),
       allowNull: true
+    },
+    location: {
+      type: DataTypes.STRING(256),
+      allowNull: true
+    },
+    city: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    state: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    pincode: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
