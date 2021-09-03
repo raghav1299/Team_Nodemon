@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./Home.module.scss";
 
 import Button from "../shared/Button";
+import Modal from "../shared/Modal";
+import Stepper from "../shared/Stepper";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 import lottie from "../assets/lottie.json";
-import road from "../assets/road.png";
 
 export default function Home() {
   return (
@@ -21,6 +22,12 @@ export default function Home() {
           <Button name="Get Started" backgroundColor="#F45C2C" color="#ffffff" width="120px" />
         </div>
       </div>
+
+      <Modal isOpen={true} title="Sign Up" allowClose>
+        <div className={styles.signupForm}>
+          <Stepper steps={["1", "2", "3"]} activeStep={1} />
+        </div>
+      </Modal>
     </div>
   );
 }

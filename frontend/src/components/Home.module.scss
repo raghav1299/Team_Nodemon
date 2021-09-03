@@ -1,3 +1,4 @@
+@import "../shared/colors.scss";
 .wrapper {
     margin-top: 50px !important;
     max-width: 1300px;
@@ -14,7 +15,16 @@
             p {
                 font-size: 46px;
                 margin-bottom: 50px;
+                color: $text-black;
             }
         }
     }
+}
+
+.signupForm {
+    width: 800px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
