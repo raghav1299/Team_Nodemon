@@ -5,6 +5,7 @@ import ml_api
 app = FastAPI(title="ShadowFx | Team Nodemon",
                 description="API endpoints for Leap Hackathon",
                 version="1.0")
+
 origins = ['*']
 app.add_middleware(CORSMiddleware, 
                 allow_origins=origins, 
