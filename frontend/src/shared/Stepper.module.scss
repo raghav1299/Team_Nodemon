@@ -1,0 +1,61 @@
+@import "../shared/colors.scss";
+.wrapper {
+    width: 90%;
+    height: 100%;
+    margin-top: -50px;
+    .steps {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        .line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 2px;
+            background-color: $primary;
+            z-index: 1;
+        }
+        .step {
+            z-index: 2;
+            p {
+                text-align: center;
+                &:first-child {
+                    font-size: 12px;
+                    color: $grey;
+                    margin-top: -20px;
+                    margin-bottom: 5px;
+                }
+                &:last-child {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 14px;
+                    font-weight: 800;
+                    color: #ffffff;
+                    background-color: $grey;
+                    border-radius: 100%;
+                    z-index: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                }
+            }
+        }
+        .activeStep {
+            p {
+                &:last-child {
+                    color: $white;
+                    background-color: $primary;
+                }
+            }
+        }
+    }
+    .content {
+        padding: 0 10px;
+    }
+}

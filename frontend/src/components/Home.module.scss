@@ -1,0 +1,30 @@
+@import "../shared/colors.scss";
+.wrapper {
+    margin-top: 50px !important;
+    max-width: 1300px;
+    margin: 0 auto;
+    .hero {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        .lottie {
+            width: 500px;
+        }
+        .heroText {
+            p {
+                font-size: 46px;
+                margin-bottom: 50px;
+                color: $text-black;
+            }
+        }
+    }
+}
+
+.signupForm {
+    width: 800px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
