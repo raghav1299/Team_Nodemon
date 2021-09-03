@@ -31,6 +31,18 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /api/get_all_tags:
+    get:
+      tags:
+      - Misc
+      summary: get_all_tags
+      operationId: get_all_tags
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
 tags:
 - name: Misc
   description: ''

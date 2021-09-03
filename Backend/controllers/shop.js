@@ -28,3 +28,12 @@ exports.get_all_tags = async(req,res)=>{
     res.send(err);
   }
 }
+
+
+exports.list_products = async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    res.send(err);
+  }
+}
