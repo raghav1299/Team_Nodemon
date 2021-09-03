@@ -29,6 +29,14 @@ module.exports = function(sequelize, DataTypes) {
     ratings: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    tags_string: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
