@@ -51,6 +51,20 @@ module.exports = function(sequelize, DataTypes) {
           { name: "inc_id" },
         ]
       },
+      {
+        name: "tags_idx",
+        using: "BTREE",
+        fields: [
+          { name: "tags" },
+        ]
+      },
+      {
+        name: "tag_idx",
+        using: "BTREE",
+        fields: [
+          { name: "tags_string" },
+        ]
+      },
     ]
   });
 };

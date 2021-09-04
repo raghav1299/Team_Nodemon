@@ -6,6 +6,8 @@ info:
 servers:
 - url: https://api.chetanpareek.tech
   variables: {}
+- url: http://localhost:3000/api
+  variables: {}
 paths:
   /:
     get:
@@ -19,6 +21,9 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+      servers:
+      - url: https://api.chetanpareek.tech
+        variables: {}
   /api/get_all_products:
     get:
       tags:
@@ -31,6 +36,9 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+      servers:
+      - url: https://api.chetanpareek.tech
+        variables: {}
   /api/get_all_tags:
     get:
       tags:
@@ -43,6 +51,34 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+      servers:
+      - url: https://api.chetanpareek.tech
+        variables: {}
+  /get_product_using_inc_id:
+    get:
+      tags:
+      - Misc
+      summary: get_products_using_inc_id
+      operationId: get_products_using_inc_id
+      parameters:
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 21
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      servers:
+      - url: http://localhost:3000/api
+        variables: {}
 tags:
 - name: Misc
   description: ''

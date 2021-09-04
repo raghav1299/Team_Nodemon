@@ -11,3 +11,8 @@ button {
     outline: none;
     cursor: pointer;
 }
+
+input,
+textarea {
+    outline: none;
+}

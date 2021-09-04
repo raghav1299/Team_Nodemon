@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const tags = require("./../models/tags.js");
 var db = {};
 
 const sequelize = new Sequelize("shadowfax", "admin", "qazwsx&*%^", {
@@ -49,5 +50,6 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
+
 
 module.exports = db;
