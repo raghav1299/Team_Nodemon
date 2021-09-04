@@ -8,7 +8,8 @@ def get_data_db(cnx, tag_input):
     db_cursor = cnx.cursor()
     query = f"SELECT * FROM shadowfax.products WHERE( tags_string LIKE '%{tag_input}%' );"
     df_tags = pd.read_sql(query, con=cnx)
-    df_tags.set_index('inc_id', inplace=True)
+    df_tags['id'] = df_tags['inc_id']    
+    df_tags.set_index('id', inplace=True)
     return df_tags
 
 def data_to_dict(df_tags):
