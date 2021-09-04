@@ -52,3 +52,33 @@ exports.get_prodcut_using_inc_id = async(req,res)=>{
     res.send(error);
   }
 }
+
+exports.list_products = async(req,res)=>{
+   try {
+     const p_name = req.query.product_name
+     const mrp = req.query.mrp
+     const image_address = req.query.image_address
+     const shop_id = req.query.shop_id
+     const tags_strings = req.query.tags_string
+     const quantity = req.query.quantity
+    //  console.log(p_name,mrp,image_address,shop_id,tags_strings,quantity);
+     const data = await db.products.create({
+        
+          product_name: p_name,
+          mrp: mrp,
+          image_address: image_address,
+          shop_id: shop_id,
+          tags_string: tags_strings,
+          quantity: quantity
+        
+     })
+    //  console.log(data);
+     console.log('data added');
+     res.status(200).json({
+      status: "success",
+      message: "data added",
+    });
+   } catch (error) {
+     res.send(error)
+   }
+}
