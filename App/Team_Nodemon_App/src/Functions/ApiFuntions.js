@@ -1,8 +1,15 @@
 import axios from "axios";
-import { BASE_URL } from "../Constants/Constants";
+import { BASE_URL_ML, BASE_URL_WEB } from "../Constants/Constants";
 import { showNotification } from "./AppFuntions";
 
-export function API_CALL(config) {
+export function API_CALL(config, { type }) {
+
+    let BASE_URL = null;
+    if (type == "WEB") {
+        BASE_URL = BASE_URL_WEB
+    } else {
+        BASE_URL = BASE_URL_ML
+    }
 
     const API_Config = Object.assign({}, config, {
         url: `${BASE_URL}${config.url}`
