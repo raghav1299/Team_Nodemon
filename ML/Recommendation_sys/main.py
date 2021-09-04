@@ -21,3 +21,5 @@ app.include_router(ml_api.app, prefix = "/api/products", tags=["Routes for Produ
 async def home(request: Request):
     return {"message": "Server up and running", "status": 200}
 
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
