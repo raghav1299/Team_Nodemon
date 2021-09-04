@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import style from "./Stepper.module.scss";
 
 import clsx from "clsx";
@@ -11,6 +11,7 @@ export default function Stepper(props) {
         {props.steps.map((step, index) => (
           <div
             className={clsx(style.step, props.activeStep === index + 1 ? style.activeStep : null)}
+            key={index}
           >
             <p>{step}</p>
             <p>{index + 1}</p>
