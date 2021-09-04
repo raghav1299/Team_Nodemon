@@ -6,10 +6,10 @@ tfifd processing(df_rec)
 call kmeansmodel
 
 '''
-import connect_db as db
-from data_processing import *
-from clustering import *
-from model_train import *
+from .connect_db import *
+from .data_processing import *
+from .clustering import *
+from .model_train import *
 
 # Pipeline :
 # cnx = db.connect_database()
@@ -19,21 +19,25 @@ from model_train import *
 # final_pred = predict_recommendations(df_rec, product)
 
 def predict_products(products):
-    df = get_data_csv()
+    cnx = connect_database()
+    df = get_data_db(cnx)
     try:
         df_rec= table_processing(df)
         vectorizer, X1 = tfidf_processing(df_rec)
         model, order_centroids, terms = kmeans_model(X1, vectorizer)
         vectorizer, X1 = tfidf_processing(df_rec)
         final_pred = predict_recommendations(df_rec, products, model, vectorizer, order_centroids, terms)
+        for prod in products:
+            if prod in final_pred:
+                final_pred.remove(prod)
         df_final = get_final_products(df, final_pred)
         return df_final
     except Exception:
-        print({'status': 404, 'data' : []})
+        return {'status': 404, 'data' : []}
         
 
 def train_model():
-    cnx = db.connect_database()
+    cnx = connect_database()
     df = get_data_db(cnx)
     df_rec= table_processing(df)
     vectorizer, X1 = tfidf_processing(df_rec)
