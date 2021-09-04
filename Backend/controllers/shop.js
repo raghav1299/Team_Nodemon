@@ -21,7 +21,7 @@ exports.get_all_tags = async(req,res)=>{
     const data = await db.tags.findAll();
     res.status(200).json({
       status: "success",
-      message: "user_data",
+      message: "tags_data",
       data: data,
     });
   } catch (error) {
@@ -30,10 +30,25 @@ exports.get_all_tags = async(req,res)=>{
 }
 
 
-exports.list_products = async(req,res)=>{
+exports.get_prodcut_using_inc_id = async(req,res)=>{
   try {
-    
+    const incId = req.query.inc_id
+    console.log(incId);
+    const data = await db.products.findOne({
+      where:{inc_id:incId}
+    })
+    if(data){
+      res.status(200).json({
+        status: "success",
+        message: "product_data",
+        data: data,
+      });
+    }  
+    else{
+      res.send('inc_id not found')
+    }
+  
   } catch (error) {
-    res.send(err);
+    res.send(error);
   }
 }
