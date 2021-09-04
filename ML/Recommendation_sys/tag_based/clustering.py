@@ -46,9 +46,10 @@ def sort_recommendations(df_rec, final_pred, n):
         df_rec1 = df_rec.loc[df_rec.index == i+1]
         a = list(df_rec1['tags_string'])
         p = list(df_rec1['product_name'])
-        # print(p_idx[0])
-        a1 = a[0].split(', ')
+        a1 = a[0].split(',')
+        a1 = [x.strip() for x in a1]
         res = len([a1.index(idx) for idx in final_pred if idx in a1])/len(a1)
+        print(res)
         max_res.append(res)
         max_prod.append(p[0])
     
