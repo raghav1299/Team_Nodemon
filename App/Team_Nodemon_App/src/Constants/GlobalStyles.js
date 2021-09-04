@@ -1,8 +1,10 @@
 export const COLORS = {
 
     WHITE: "#ffffff",
-    GREY: "#9b9999",
+    GREY: "#455a64",
     BLACK: "#414141",
+    ORANGE: "#F45C2C"
+
 
 
 

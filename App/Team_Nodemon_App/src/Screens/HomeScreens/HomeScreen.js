@@ -1,30 +1,83 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TextInput } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { API_CALL } from '../../Functions/ApiFuntions';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { COLORS } from '../../Constants/GlobalStyles';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import { Loader, LoaderV1 } from '../../Components/Components';
+export default function HomeScreen({ navigation }) {
 
-export default function HomeScreen() {
+    const [isLoading, setLoading] = useState(true)
+    const [isLoadingList, setLoadingList] = useState(false)
 
     const [productsData, setProductsData] = useState([])
+    const [categoriesData, setCategoriesData] = useState([])
+    const [selectedCategory, setSelectedCategory] = useState("All")
+
+
     useEffect(() => {
         initPageLoadEvents();
     }, [])
+
     async function initPageLoadEvents(params) {
+        const productsData = await getAllProductsList();
+        const categoryList = await getCategoriesList();
+
+        if (productsData && categoryList) {
+            setLoading(false)
+        }
+    }
+
+    async function getAllProductsList(params) {
+        let status = false
         try {
             const data = await API_CALL({
-
                 url: "/api/get_all_products",
                 method: 'get'
 
-            })
+            }, { type: "WEB" })
             // console.log(data)
             setProductsData(data.data)
+            status = true;
+        } catch (error) {
+            console.log(error)
+        }
+        return status;
+    }
+    async function getCategoriesList(params) {
+        let status = false
+        try {
+            const data = await API_CALL({
+                url: "/api/get_all_tags",
+                method: 'get'
+            }, { type: "WEB" })
+            // console.log(data)
+            status = true;
+            setCategoriesData([{ inc_id: "intial", tag: "All" }, ...data.data])
         } catch (error) {
 
+            console.log(error)
         }
+        return status;
     }
-    function renderItemFunc({ item }) {
+    async function getProductsbyTag(tag) {
+        setLoadingList(true)
+        try {
+            const data = await API_CALL({
+
+                url: `/api/products/tags/${tag}`,
+                method: 'get'
+
+            }, { type: "ML" })
+            console.log(data.data)
+            setProductsData(data.data)
+
+        } catch (error) {
+            console.log(error)
+        }
+        setLoadingList(false)
+    }
+    function renderProductsFunc({ item }) {
         function CardInfo(params) {
             const { title, desc } = params;
             return (
@@ -40,11 +93,16 @@ export default function HomeScreen() {
 
         }
         return (
-            <View style={{
+            <Pressable style={{
                 width: wp(96), backgroundColor: COLORS.WHITE,
                 paddingVertical: hp(2), elevation: 10, alignSelf: "center",
                 marginVertical: hp(1), borderRadius: 5
-            }}>
+            }}
+                onPress={() => {
+                    navigation.navigate("ProductInfoScreen", item)
+                }}
+
+            >
                 <View style={{ flexDirection: "row" }}>
                     <Image
                         source={{ uri: item.image_address }}
@@ -77,57 +135,112 @@ export default function HomeScreen() {
 
                     </View>
                 </View>
+            </Pressable>
+        )
+    }
+    function renderCategoriesFunc({ item }) {
+        return (
+            <TouchableOpacity
+                style={{
+                    backgroundColor: selectedCategory == item.tag ? COLORS.ORANGE : COLORS.GREY,
+                    marginHorizontal: 10, paddingHorizontal: 14,
+                    paddingVertical: 8, borderRadius: 50
+                }}
+                onPress={async () => {
+                    setSelectedCategory(item.tag)
+                    let tag = item.tag.split(" ").join("")
+                    if (selectedCategory !== item.tag) {
+                        if (tag == "All") {
+                            setLoadingList(true)
+                            const productsData = await getAllProductsList();
+                            if (productsData) {
+                                setLoadingList(false)
+                            }
+                            setLoadingList(false)
+                        } else {
+                            getProductsbyTag(tag)
+                        }
+                    }
+                }}
+                activeOpacity={0.75}
+            >
+                <Text style={{
+                    color: COLORS.WHITE
+                }}>
+                    {item.tag}
+                </Text>
+            </TouchableOpacity>
+        )
+
+    }
+    function SearchBar(params) {
+        return (
+            <View style={{ height: hp(9), width: wp(100), backgroundColor: COLORS.GREY, justifyContent: "center" }}>
+                <View
+                    style={{
+                        height: hp(5.4), backgroundColor: COLORS.WHITE, alignSelf: "center", alignItems: "center",
+                        borderRadius: 10, flexDirection: "row", width: wp(90)
+                    }}
+                >
+                    <TextInput
+                        style={{
+                            width: wp(80),
+                            paddingLeft: "5%",
+                            fontSize: hp(2)
+                        }}
+                        placeholder={"Search...."}
+
+                    />
+                    <MaterialIcons
+                        name={"search"}
+                        size={30}
+                    // style={{ marginRight: "5%" }}
+                    />
+                </View>
             </View>
         )
     }
+
     return (
-        <View style={styles.mainContainerStyle}>
-            <View>
-                <TextInput
-                    style={{ borderWidth: 1, width: wp(96) }}
-                />
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={{ marginHorizontal: "10%", backgroundColor: "red" }}>
-                        Spices
-                    </Text>
-                    <Text style={{ marginHorizontal: "10%", backgroundColor: "red" }}>
-                        SWEET
-                    </Text>
-                </View>
-            </View>
-            <FlatList
-                data={productsData}
-                renderItem={renderItemFunc}
-                keyExtractor={(item) => item.inc_id}
-            />
-        </View >
+        isLoading ?
+            <Loader />
+            :
+            <>
+                <SearchBar />
+                <View style={styles.mainContainerStyle}>
+                    <View>
+
+                        <View style={{ flexDirection: "row", marginVertical: "2%" }}>
+
+                            <FlatList
+                                data={categoriesData}
+                                horizontal={true}
+                                renderItem={renderCategoriesFunc}
+                                showsHorizontalScrollIndicator={false}
+                                keyExtractor={(item) => item.inc_id}
+
+                            />
+                        </View>
+                    </View>
+                    {isLoadingList ?
+                        <Loader /> :
+                        <FlatList
+                            data={productsData}
+                            renderItem={renderProductsFunc}
+                            keyExtractor={(item) => item.inc_id}
+                        />
+                    }
+
+                </View >
+            </>
     );
 }
 
 const styles = StyleSheet.create({
     mainContainerStyle: {
         flex: 1,
-        paddingTop: hp(1)
-    },
-    courseCard: {
-        width: wp(45),
-        paddingBottom: hp(2.4),
-        backgroundColor: COLORS.WHITE,
-        marginHorizontal: 10,
-        elevation: 6,
-        marginVertical: 10
-
-
-    },
-    resultsCard: {
-        width: wp(45),
-        paddingBottom: hp(2.4),
-        backgroundColor: COLORS.WHITE,
-        marginHorizontal: 10,
-        elevation: 6,
-        alignItems: "center",
-        marginVertical: 10
-
+        paddingTop: hp(1),
 
     }
+
 })
