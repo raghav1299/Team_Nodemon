@@ -10,7 +10,7 @@ def connect_database():
                                       password=os.environ.get('password'),
                                 host=os.environ.get('host'),
                                 database=os.environ.get('database'))
-        print("Database Connected Successful")
+        # print("Database Connected Successful")
         return cnx
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
