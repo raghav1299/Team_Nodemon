@@ -38,7 +38,7 @@ def show_recommendations(df_rec, vectorizer, model, products, order_centroids, t
         final_pred = get_cluster(res, order_centroids, terms, final_pred)
     return final_pred
 
-def sort_recommendations(df_rec, final_pred):
+def sort_recommendations(df_rec, final_pred, n):
     max_res = []
     max_prod = []
     max_idx = []
@@ -46,22 +46,23 @@ def sort_recommendations(df_rec, final_pred):
         df_rec1 = df_rec.loc[df_rec.index == i+1]
         a = list(df_rec1['tags_string'])
         p = list(df_rec1['product_name'])
-        p_idx = list(df_rec1.index)
         # print(p_idx[0])
         a1 = a[0].split(', ')
         res = len([a1.index(idx) for idx in final_pred if idx in a1])/len(a1)
         max_res.append(res)
-        max_idx.append(p_idx[0])
         max_prod.append(p[0])
-        
-    sorted_products = [x for _,x in sorted(zip(max_res, max_prod))][::-1]
-    return sorted_products[:6]
+    
+    print(max_res)
+    print(max_prod)
+    sorted_products = [x for y,x in sorted(zip(max_res, max_prod)) if y>0.33][::-1]
+    num = 6 + n - 1
+    return sorted_products[:num]
 
 def predict_recommendations(df_rec, products, model, vectorizer, order_centroids, terms):
     final_pred = []
     # try:
     # print(products)
     final_pred = show_recommendations(df_rec, vectorizer, model, products,  order_centroids, terms)
-    return sort_recommendations(df_rec, final_pred)
+    return sort_recommendations(df_rec, final_pred, len(products))
     # except Exception:
     #     print("Check product Name")
