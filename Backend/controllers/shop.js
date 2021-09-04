@@ -82,3 +82,27 @@ exports.list_products = async(req,res)=>{
      res.send(error)
    }
 }
+
+
+exports.get_products_by_shop_id = async(req,res)=>{
+  try {
+    const id = req.query.id
+    const data = await db.products.findAll({
+      where:{shop_id:id}
+    })
+    if(data){
+      res.status(200).json({
+        status: "success",
+        message: "product_data",
+        total_items:data.length,
+        data: data,
+      });
+    }  
+    else{
+      res.send('id not found')
+    }
+  
+  } catch (error) {
+    res.send(error);
+  }
+}

@@ -12,6 +12,7 @@ app.route("/login_rider");
 
 //shop APIs
 app.route("/list_products").post(shop.list_products);
+app.route("/get_products_by_shop_id").get(shop.get_products_by_shop_id);
 app.route("/stock_update");
 
 //user APIs
