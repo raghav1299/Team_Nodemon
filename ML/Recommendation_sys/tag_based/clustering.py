@@ -6,12 +6,12 @@ from sklearn.metrics import adjusted_rand_score
 
 def print_cluster(i, order_centroids,terms, final_pred):
     # print("Cluster %d:" % i),
-    for ind in order_centroids[i, :5]:
+    for ind in order_centroids[i, :4]:
         print(' %s' % terms[ind])
 
 def get_cluster(i,order_centroids, terms, final_pred):
     # print("Cluster %d:" % i),
-    for ind in order_centroids[i, :5]:
+    for ind in order_centroids[i, :4]:
         # print(terms[ind])
         if terms[ind] not in final_pred:
             final_pred.append(terms[ind])
@@ -36,6 +36,7 @@ def show_recommendations(df_rec, vectorizer, model, products, order_centroids, t
             pred_freq.append(prediction[0])
         res = max(set(pred_freq), key = pred_freq.count)
         final_pred = get_cluster(res, order_centroids, terms, final_pred)
+    # print(final_pred)
     return final_pred
 
 def sort_recommendations(df_rec, final_pred, n):
@@ -49,15 +50,19 @@ def sort_recommendations(df_rec, final_pred, n):
         a1 = a[0].split(',')
         a1 = [x.strip() for x in a1]
         res = len([a1.index(idx) for idx in final_pred if idx in a1])/len(a1)
-        print(res)
         max_res.append(res)
         max_prod.append(p[0])
+        i=0
+    # print(max_prod)
     
-    print(max_res)
-    print(max_prod)
-    sorted_products = [x for y,x in sorted(zip(max_res, max_prod)) if y>0.33][::-1]
-    num = 6 + n - 1
-    return sorted_products[:num]
+    sorted_products = [x for y,x in sorted(zip(max_res, max_prod)) if y>=0.4][::-1]
+    sorted_res = [y for y,x in sorted(zip(max_res, max_prod)) if y>=0.4][::-1]
+    # print(sorted_products)
+    # print(sorted_res)
+    if len(sorted_products) > 7:
+        num = int(len(sorted_products) * 0.8)
+        sorted_products = sorted_products[:num]
+    return sorted_products
 
 def predict_recommendations(df_rec, products, model, vectorizer, order_centroids, terms):
     final_pred = []

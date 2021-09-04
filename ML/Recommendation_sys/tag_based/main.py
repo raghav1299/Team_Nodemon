@@ -32,7 +32,8 @@ def predict_products(products):
                 final_pred.remove(prod)
         df_final = get_final_products(df, final_pred)
         return df_final
-    except Exception:
+    except Exception as e:
+        print(e)
         return {'status': 404, 'data' : []}
         
 
