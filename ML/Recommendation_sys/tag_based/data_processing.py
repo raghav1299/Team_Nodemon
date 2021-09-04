@@ -24,5 +24,19 @@ def table_processing(df):
     df_rec = df.drop(labels=['tags','mrp', 'image_address', 'shop_id','ratings','quantity'], axis=1)
     return df_rec;
 
+def get_final_products(df, final_pred):
+    final_dict = {}
+    if final_pred == []:
+        resp = 404
+    else:
+        resp = 200
 
+    df_final = []
+    for prod in final_pred:
+        df_one = df.loc[df['product_name'] == prod].to_dict(orient='records')
+        df_final.append(df_one[0])
+        
+    final_dict['status'] = resp
+    final_dict['data'] = df_final
+    return final_dict
     
