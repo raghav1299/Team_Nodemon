@@ -16,7 +16,8 @@ def get_data_db(cnx):
     db_cursor = cnx.cursor()
     # db_cursor.execute('SELECT * FROM products')
     df = pd.read_sql('SELECT * FROM products', con=cnx)
-    df.set_index('inc_id', inplace=True)
+    df['id'] = df['inc_id']
+    df.set_index('id', inplace=True)
     return df
 
 def table_processing(df):
