@@ -4,7 +4,7 @@ import styles from "./Home.module.scss";
 import Button from "../shared/Button";
 import Modal from "../shared/Modal";
 import Stepper from "../shared/Stepper";
-import { Player, Controls } from "@lottiefiles/react-lottie-player";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 import lottie from "../assets/lottie.json";
 

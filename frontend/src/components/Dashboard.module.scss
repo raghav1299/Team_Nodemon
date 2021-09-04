@@ -1,0 +1,12 @@
+@import "../shared/colors.scss";
+.wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    margin-top: 50px !important;
+    .header {
+        p {
+            font-size: 32px;
+            color: $text-black;
+        }
+    }
+}
