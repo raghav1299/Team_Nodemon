@@ -22,6 +22,9 @@ app.listen(PORT, () => {
   console.log(`server started at port ${PORT}`);
 });
 
+
+
+
 //sequelize-auto -h shadowfax1.cedjgswziywb.ap-south-1.rds.amazonaws.com -d shadowfax -u admin -x "qazwsx&*%^" --dialect mysql -o ./models
 //https://github.com/raghav1299/Team_Nodemon.git
 //kill $(lsof -ti:3000)
