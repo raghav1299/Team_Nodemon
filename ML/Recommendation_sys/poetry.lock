@@ -15,6 +15,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "apyori"
+version = "1.1.2"
+description = "Simple Apriori algorithm Implementation."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "async-exit-stack"
 version = "1.0.1"
 description = "AsyncExitStack backport for Python 3.5+"
@@ -620,7 +628,7 @@ python-versions = ">=3.6.1"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "1c49e221a2b63857d6a30e40f0883ccd325e7c447a73a036c6f944719514b08d"
+content-hash = "1748ecb9688d32c64c63efafbab0c9828914567ffc39f8c0fab27a6747d4d3df"
 
 [metadata.files]
 aiofiles = [
@@ -630,6 +638,9 @@ aiofiles = [
 aniso8601 = [
     {file = "aniso8601-7.0.0-py2.py3-none-any.whl", hash = "sha256:d10a4bf949f619f719b227ef5386e31f49a2b6d453004b21f02661ccc8670c7b"},
     {file = "aniso8601-7.0.0.tar.gz", hash = "sha256:513d2b6637b7853806ae79ffaca6f3e8754bdd547048f5ccc1420aec4b714f1e"},
+]
+apyori = [
+    {file = "apyori-1.1.2.tar.gz", hash = "sha256:e2e6ffcf14732b1b1432608cf83b81ac538243387b0458eb7d9296e770d462ec"},
 ]
 async-exit-stack = [
     {file = "async_exit_stack-1.0.1-py3-none-any.whl", hash = "sha256:9b43b17683b3438f428ef3bbec20689f5abbb052aa4b564c643397330adfaa99"},
