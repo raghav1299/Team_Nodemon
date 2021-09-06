@@ -4,6 +4,10 @@ import { API_CALL } from '../../Functions/ApiFuntions';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { COLORS } from '../../Constants/GlobalStyles';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import Ionicons from "react-native-vector-icons/Ionicons"
+
+
+
 import { Loader, LoaderV1 } from '../../Components/Components';
 export default function HomeScreen({ navigation }) {
 
@@ -93,49 +97,107 @@ export default function HomeScreen({ navigation }) {
 
         }
         return (
-            <Pressable style={{
-                width: wp(96), backgroundColor: COLORS.WHITE,
-                paddingVertical: hp(2), elevation: 10, alignSelf: "center",
-                marginVertical: hp(1), borderRadius: 5
-            }}
-                onPress={() => {
-                    navigation.navigate("ProductInfoScreen", item)
-                }}
+            <View style={{ flex: 1, marginTop: 0, paddingBottom: 10 }}>
+                <Pressable style={styles.productCard}
+                    onPress={() => {
+                        navigation.navigate("ProductInfoScreen", item)
+                    }}
 
-            >
-                <View style={{ flexDirection: "row" }}>
-                    <Image
-                        source={{ uri: item.image_address }}
-                        style={{
-                            width: wp(30), height: wp(40),
-                            marginLeft: wp(5),
-                            resizeMode: "contain",
-                            borderColor: COLORS.GREY,
-                            borderWidth: 0.5,
-                            padding: 10
-                        }}
-                    />
-                    <View style={{ justifyContent: "center" }} >
-                        <CardInfo
-                            title={"Name"}
-                            desc={item.product_name}
-                        />
-                        <CardInfo
-                            title={"Cost"}
-                            desc={item.mrp}
-                        />
-                        <CardInfo
-                            title={"Quantity"}
-                            desc={item.quantity}
-                        />
-                        <CardInfo
-                            title={"Ratings"}
-                            desc={item.ratings}
-                        />
+                >
 
+                    <View>
+                        <Image
+                            source={{ uri: item.image_address }}
+                            style={{
+                                width: wp(30), height: wp(40),
+                                alignSelf: "center",
+                                resizeMode: "contain",
+                                borderColor: COLORS.GREY,
+                                borderWidth: 0.5,
+                                padding: 10
+                            }}
+                        />
                     </View>
-                </View>
-            </Pressable>
+                    <View>
+                        <Text
+                            style={{ fontSize: hp(2.4) }}
+                        >
+                            {item.product_name}
+                        </Text>
+
+
+
+                        <View style={{ flexDirection: "row", alignItems: "center", marginTop: "5%" }}>
+                            <Text style={{ fontSize: hp(3.2) }}>
+                                ₹ {item.mrp}
+                            </Text>
+
+                            <View style={{
+                                flexDirection: "row", backgroundColor: COLORS.CART_ORANGE,
+                                width: wp(21.5), height: "90%", alignItems: "center", marginLeft: "5%", marginTop: "1.5%"
+                            }}>
+                                <TouchableOpacity>
+                                    <Ionicons
+                                        name={"remove"}
+                                        size={30}
+                                        color={COLORS.WHITE}
+                                        style={{ alignSelf: "center", backgroundColor: COLORS.CART_ORANGE }}
+                                    />
+                                </TouchableOpacity>
+                                <View style={{
+                                    backgroundColor: COLORS.WHITE, alignSelf: "center",
+                                    borderColor: COLORS.CART_ORANGE, width: wp(7), height: "90%",
+                                }}>
+                                    <Text style={{ fontSize: 20, textAlign: "center" }}>
+                                        0
+                                    </Text>
+                                </View>
+                                <TouchableOpacity>
+                                    <Ionicons
+                                        name={"add"}
+                                        color={COLORS.WHITE}
+
+                                        size={30}
+                                        style={{ alignSelf: "center", backgroundColor: COLORS.CART_ORANGE }}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                            {/* <View style={{
+                                flexDirection: "row", alignItems: "center", width: wp(21.5),
+                                height: "90%", marginLeft: "10%"
+                            }}>
+                                <TouchableOpacity style={{
+                                    backgroundColor: COLORS.CART_ORANGE, borderWidth: 1.2,
+                                    borderColor: COLORS.CART_ORANGE, width: wp(7), height: "90%",
+                                }}>
+                                    <Ionicons
+                                        name={"add"}
+                                        size={30}
+                                        style={{ alignSelf: "center", backgroundColor: "red" }}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    backgroundColor: COLORS.WHITE, borderWidth: 1.2,
+                                    borderColor: COLORS.CART_ORANGE, width: wp(7), height: "90%",
+                                }}>
+                                    <Text>
+                                        0
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{
+                                    backgroundColor: COLORS.CART_ORANGE, borderWidth: 1.2,
+                                    borderColor: COLORS.CART_ORANGE, width: wp(7), height: "90%",
+                                }}>
+                                    <Text>
+                                        +
+                                    </Text>
+                                </TouchableOpacity>
+                            </View> */}
+                        </View>
+                    </View>
+
+                </Pressable>
+            </View>
         )
     }
     function renderCategoriesFunc({ item }) {
@@ -178,13 +240,13 @@ export default function HomeScreen({ navigation }) {
             <View style={{ height: hp(9), width: wp(100), backgroundColor: COLORS.GREY, justifyContent: "center" }}>
                 <View
                     style={{
-                        height: hp(5.4), backgroundColor: COLORS.WHITE, alignSelf: "center", alignItems: "center",
-                        borderRadius: 10, flexDirection: "row", width: wp(90)
+                        height: hp(5.4), backgroundColor: COLORS.WHITE, alignSelf: "flex-start", alignItems: "center",
+                        borderRadius: 10, flexDirection: "row", width: wp(80), marginLeft: "5%"
                     }}
                 >
                     <TextInput
                         style={{
-                            width: wp(80),
+                            width: wp(70),
                             paddingLeft: "5%",
                             fontSize: hp(2)
                         }}
@@ -196,10 +258,16 @@ export default function HomeScreen({ navigation }) {
                         size={30}
                     // style={{ marginRight: "5%" }}
                     />
+                    <Ionicons
+                        name={"md-cart-outline"}
+                        size={30}
+                        style={{ marginLeft: "8%", color: COLORS.WHITE }}
+                    />
                 </View>
             </View>
         )
     }
+
 
     return (
         isLoading ?
@@ -224,11 +292,21 @@ export default function HomeScreen({ navigation }) {
                     </View>
                     {isLoadingList ?
                         <Loader /> :
-                        <FlatList
-                            data={productsData}
-                            renderItem={renderProductsFunc}
-                            keyExtractor={(item) => item.inc_id}
-                        />
+                        <View style={{ marginTop: "2%" }}>
+                            <FlatList
+                                data={productsData}
+                                numColumns={2}
+                                columnWrapperStyle={{ flexWrap: 'wrap', flex: 1 }}
+
+                                renderItem={renderProductsFunc}
+                                keyExtractor={(item) => item.inc_id}
+                            />
+                            {/* <FlatList
+                                data={productsData}
+                                renderItem={renderProductsFunc}
+                                keyExtractor={(item) => item.inc_id}
+                            /> */}
+                        </View>
                     }
 
                 </View >
@@ -241,6 +319,17 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: hp(1),
 
-    }
+    },
+    productCard: {
+        backgroundColor: "#ffffff",
+        width: wp(47.5),
+        height: "auto",
+        elevation: 4,
+        borderRadius: 8,
+        padding: 20,
+        paddingTop: 0,
+        alignSelf: "center",
+        marginVertical: "2%"
+    },
 
 })

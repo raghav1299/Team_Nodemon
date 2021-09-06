@@ -2,6 +2,22 @@
   "name": "team_nodemon_app",
   "version": "0.0.1",
   "private": true,
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
+    ]
+  },
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -10,9 +26,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@babel/plugin-proposal-decorators": "^7.15.4",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
     "axios": "^0.21.1",
+    "mobx": "^6.3.2",
+    "mobx-react": "^7.2.0",
     "react": "17.0.1",
     "react-native": "0.64.2",
     "react-native-responsive-screen": "^1.4.2",
