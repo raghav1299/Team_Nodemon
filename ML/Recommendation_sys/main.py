@@ -2,7 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 import ml_api
 
-app = FastAPI(title="ShadowFx | Team Nodemon",
+app = FastAPI(title="ShadowFax | Team Nodemon",
                 description="API endpoints for Leap Hackathon",
                 version="1.0")
 
