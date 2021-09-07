@@ -52,6 +52,10 @@ module.exports = function(sequelize, DataTypes) {
     fcm_token: {
       type: DataTypes.STRING(1024),
       allowNull: true
+    },
+    shop_name: {
+      type: DataTypes.STRING(45),
+      allowNull: true
     }
   }, {
     sequelize,

@@ -12,23 +12,24 @@ app.route("/login_shop");
 app.route("/login_rider");
 
 //shop APIs
-app.route("/list_products").post(shop.list_products);
-app.route("/get_products_by_shop_id").get(shop.get_products_by_shop_id);
-app.route("/stock_update");
-app.route('/change_shop_token')
+app.route('/shop/list_shop').post(shop.list_shop)
+app.route("/shop/list_products").post(shop.list_products);
+app.route("/shop/get_products_by_shop_id").get(shop.get_products_by_shop_id);
+app.route("/shop/stock_update");
+app.route('/shop/set_shop_token').patch(shop.set_fcm_token)
 
 //user APIs
-app.route("/get_all_products").get(shop.get_all_products);
-app.route("/get_all_tags").get(shop.get_all_tags)
-app.route("/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id)
+app.route("/user/get_all_products").get(shop.get_all_products);
+app.route("/user/get_all_tags").get(shop.get_all_tags)
+app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id)
 app.route("/add_to_cart");
-app.route("/place_order");
+app.route("/user/place_order");
 
 
 //post_rider
-app.route('/post_rider_details').post(rider.post_details)
-app.route('/set_fcm_token').patch(rider.set_fcm_token)
-app.route('/set_current_coordinates').patch(rider.set_current_coordinates)
+app.route('/rider/post_rider_details').post(rider.post_details)
+app.route('/rider/set_fcm_token').patch(rider.set_fcm_token)
+app.route('/rider/set_current_coordinates').patch(rider.set_current_coordinates)
 
 
 

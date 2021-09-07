@@ -15,6 +15,58 @@ exports.get_all_products = async (req, res) => {
   }
 };
 
+exports.list_shop = async(req,res)=>{
+try {
+        const username = req.query.username
+        const email = req.query.email
+        const phone = req.query.phone
+        const fname = req.query.fname
+        const lname = req.query.lname 
+        const shop_name = req.query.shop_name
+        const curr_lat = req.query.latitude
+        const curr_long = req.query.longitude
+        const data = await db.shop.create({
+          username: username,
+          email: email,
+          phone: phone,
+          fname: fname,
+          lname: lname,
+          shop_name: shop_name,
+          lat: curr_lat,
+          long: curr_long
+      })
+      res.status(200).json({
+        status: "success",
+        message: "shop registered",
+      });
+} catch (error) {
+  res.send(error)
+}        
+}
+
+exports.set_fcm_token = async(req,res)=>{
+  try {
+      const token = req.query.token
+      const inc_id = req.query.inc_id
+      const data = await db.shop.update(
+         {
+            fcm_token: token,
+         },
+         {
+            where:{inc_id:inc_id}
+         }
+  )
+     res.status(200).json({
+      status: "success",
+      message: "shopkeeper token updated",
+    });
+  } catch (error) {
+      res.send(error)
+  }
+  
+}
+
+
 
 exports.get_all_tags = async(req,res)=>{
   try {

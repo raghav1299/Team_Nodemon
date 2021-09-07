@@ -3,15 +3,6 @@ const app = express();
 const db = require('./../database/database')
 const axios = require('axios')
 
-
-    function calculateDistanceBetweenUserAndShop(user_lat,user_long,shop_lat,shop_long){
-        return shortest_assigned_shop
-    }
-    function calculateDistanceBetweenShopAndRider(shop_lat, shop_long, rider_shop, rider_long){
-        return assigneRider
-    }
-
-
     
 
 exports.post_details = async(req,res)=>{
@@ -91,21 +82,26 @@ exports.set_current_coordinates = async(req,res)=>{
     }
 }
 
+function calculateDistanceBetweenUserAndShop(user_lat,user_long,shop_lat,shop_long){
+    return shortest_assigned_shop
+}
+function calculateDistanceBetweenShopAndRider(shop_lat, shop_long, rider_shop, rider_long){
+    return assigneRider
+}
 
-
-//  exports.place_order = async(req,res)=>{
+ exports.place_order = async(req,res)=>{
    
 
     
 
-//     //send_notification_to_shop
+    //send_notification_to_shop
 
 
 
 
-//     //send_notification_to_rider
+    //send_notification_to_rider
     
-//  } 
+ } 
     
 
 
