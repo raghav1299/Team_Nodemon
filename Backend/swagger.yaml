@@ -6,8 +6,6 @@ info:
 servers:
 - url: https://api.chetanpareek.tech
   variables: {}
-- url: https://api.chetanpareek.tech/
-  variables: {}
 paths:
   /:
     get:
@@ -21,9 +19,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/get_all_products:
     get:
       tags:
@@ -36,9 +31,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/get_all_tags:
     get:
       tags:
@@ -51,10 +43,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
-  /get_product_using_inc_id:
+  /api/get_product_using_inc_id:
     get:
       tags:
       - Misc
@@ -70,15 +59,234 @@ paths:
         schema:
           type: integer
           format: int32
-          example: 21
+          example: 4
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech/api
-        variables: {}
+  /api/list_products:
+    post:
+      tags:
+      - Misc
+      summary: list_products
+      operationId: list_products
+      parameters:
+      - name: product_name
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Otrivin
+      - name: mrp
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 80
+      - name: image_address
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: https://cdn01.pharmeasy.in/dam/products_otc/348028/otrivin-oxy-fast-adult-relief-nasalspray-1.jpg
+      - name: shop_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      - name: tags_string
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: drinks,protein
+      - name: quantity
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 50
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/get_products_by_shop_id:
+    get:
+      tags:
+      - Misc
+      summary: get_products_by_shop_id
+      operationId: get_products_by_shop_id
+      parameters:
+      - name: id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/post_rider_details:
+    post:
+      tags:
+      - Misc
+      summary: post rider details
+      operationId: postriderdetails
+      parameters:
+      - name: username
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: raghav1499
+      - name: email
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ra58@srmist.edu.in
+      - name: phone
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          example: 7891497865
+      - name: fname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: raghav
+      - name: lname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: aggarwal
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/set_fcm_token:
+    patch:
+      tags:
+      - Misc
+      summary: get current coordinates and fcm token
+      operationId: getcurrentcoordinatesandfcmtoken
+      parameters:
+      - name: token
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: fvpubE_xT_K-LJVU4l3hU-:APA91bHOA1jE-XkHGBONL2VEVLLOp_uFNcDzVAR5xLKJtYb9Qty3XGrRIL5gMq-zSdAOEuvYlEiKMfQPTn0O4RFGX1vH_319p0i25Q4EzuGDlztEvvWC7VP0LcnZEGuFKqoys3IeH1of
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/set_current_coordinates:
+    patch:
+      tags:
+      - Misc
+      summary: patch latitudes and longitudes
+      operationId: patchlatitudesandlongitudes
+      parameters:
+      - name: latitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 28.737707
+      - name: longitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 77.007395
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
 tags:
 - name: Misc
   description: ''

@@ -41,7 +41,7 @@ exports.post_details = async(req,res)=>{
 
 }
 
-exports.get_fcm_token = async(req,res)=>{
+exports.set_fcm_token = async(req,res)=>{
     try {
         const token = req.query.token
         // const curr_lat = req.query.latitude
@@ -67,7 +67,7 @@ exports.get_fcm_token = async(req,res)=>{
     
 }
 
-exports.get_current_coordinates = async(req,res)=>{
+exports.set_current_coordinates = async(req,res)=>{
     try {
         
         const curr_lat = req.query.latitude

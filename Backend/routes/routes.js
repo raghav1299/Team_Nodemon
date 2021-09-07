@@ -27,8 +27,8 @@ app.route("/place_order");
 
 //post_rider
 app.route('/post_rider_details').post(rider.post_details)
-app.route('/get_fcm_token').patch(rider.get_fcm_token)
-app.route('/get_current_coordinates').patch(rider.get_current_coordinates)
+app.route('/set_fcm_token').patch(rider.set_fcm_token)
+app.route('/set_current_coordinates').patch(rider.set_current_coordinates)
 
 
 
