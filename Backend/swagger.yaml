@@ -130,6 +130,130 @@ paths:
           description: ''
           headers: {}
       deprecated: false
+  /api/user/create_user:
+    post:
+      tags:
+      - Misc
+      summary: register new user
+      operationId: registernewuser
+      parameters:
+      - name: username
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: cp99says
+      - name: email
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: cp99says@gmail.com
+      - name: phone
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          example: 7417417894
+      - name: fname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: 'chetan '
+      - name: lname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: pareek
+      - name: latitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 28.72977
+      - name: longitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 77.042815
+      - name: location
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Begum Pur, North west Delhi
+      - name: city
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: delhi
+      - name: state
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: delhi
+      - name: country
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: india
+      - name: pincode
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 110001
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
   /api/user/get_product_using_inc_id:
     get:
       tags:
@@ -374,7 +498,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/shop/set_shop_token:
+  /api/set_shop_token:
     patch:
       tags:
       - Misc
