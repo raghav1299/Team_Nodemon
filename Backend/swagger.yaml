@@ -19,7 +19,94 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/get_all_products:
+  /api/shop/list_shop:
+    post:
+      tags:
+      - Misc
+      summary: list_shop
+      operationId: list_shop
+      parameters:
+      - name: username
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: swarnabha1499
+      - name: email
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: sd2001@gmail.com
+      - name: phone
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int64
+          example: 7891497867
+      - name: fname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: swarnabha
+      - name: lname
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: dalla
+      - name: shop_name
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: Swarnabha Kiranna Store
+      - name: latitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 28.731576
+      - name: longitude
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+          format: double
+          example: 77.03189
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/user/get_all_products:
     get:
       tags:
       - Misc
@@ -31,7 +118,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/get_all_tags:
+  /api/user/get_all_tags:
     get:
       tags:
       - Misc
@@ -43,7 +130,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/get_product_using_inc_id:
+  /api/user/get_product_using_inc_id:
     get:
       tags:
       - Misc
@@ -65,7 +152,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/list_products:
+  /api/shop/list_products:
     post:
       tags:
       - Misc
@@ -134,7 +221,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/get_products_by_shop_id:
+  /api/shop/get_products_by_shop_id:
     get:
       tags:
       - Misc
@@ -156,7 +243,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/post_rider_details:
+  /api/rider/post_rider_details:
     post:
       tags:
       - Misc
@@ -214,7 +301,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/set_fcm_token:
+  /api/rider/set_fcm_token:
     patch:
       tags:
       - Misc
@@ -245,7 +332,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/set_current_coordinates:
+  /api/rider/set_current_coordinates:
     patch:
       tags:
       - Misc
@@ -272,6 +359,37 @@ paths:
           type: number
           format: double
           example: 77.007395
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/shop/set_shop_token:
+    patch:
+      tags:
+      - Misc
+      summary: set shop token
+      operationId: setshoptoken
+      parameters:
+      - name: token
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: random token hai bhai
       - name: inc_id
         in: query
         description: ''
