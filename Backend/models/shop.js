@@ -48,6 +48,10 @@ module.exports = function(sequelize, DataTypes) {
     active_orders: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    fcm_token: {
+      type: DataTypes.STRING(1024),
+      allowNull: true
     }
   }, {
     sequelize,

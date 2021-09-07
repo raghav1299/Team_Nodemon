@@ -32,6 +32,8 @@ let models = [
   require("./../models/shop.js"),
   require("./../models/tags.js"),
   require("./../models/user.js"),
+  require('./../models/delivery_boy'),
+  require('./../models/order_history')
 ];
 
 models.forEach((model) => {
