@@ -4,8 +4,8 @@ const shop = require("./../controllers/shop");
 const rider = require('./../controllers/rider')
 //reg and login APIs
 app.route("/register_user");
-app.route("/register_shop");
-app.route("/register_rider");
+// app.route("/register_shop");
+// app.route("/register_rider");
 
 app.route("/login_user");
 app.route("/login_shop");
@@ -27,7 +27,8 @@ app.route("/place_order");
 
 //post_rider
 app.route('/post_rider_details').post(rider.post_details)
-app.route('/change_rider_token')
+app.route('/get_fcm_token').patch(rider.get_fcm_token)
+app.route('/get_current_coordinates').patch(rider.get_current_coordinates)
 
 
 

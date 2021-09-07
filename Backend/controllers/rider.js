@@ -37,10 +37,60 @@ exports.post_details = async(req,res)=>{
 
     } catch (error) {
         res.send(error)
-    }
-    
+    }   
 
 }
+
+exports.get_fcm_token = async(req,res)=>{
+    try {
+        const token = req.query.token
+        // const curr_lat = req.query.latitude
+        // const curr_long = req.query.longitude
+        const inc_id = req.query.inc_id
+        const data = await db.delivery_boy.update(
+           {
+              fcm_token: token,
+            //   curr_lat: curr_lat,
+            //   curr_long: curr_long
+           },
+           {
+              where:{inc_id:inc_id}
+           }
+    )
+       res.status(200).json({
+        status: "success",
+        message: "rider token updated",
+      });
+    } catch (error) {
+        res.send(error)
+    }
+    
+}
+
+exports.get_current_coordinates = async(req,res)=>{
+    try {
+        
+        const curr_lat = req.query.latitude
+        const curr_long = req.query.longitude
+        const inc_id = req.query.inc_id
+        const data = await db.delivery_boy.update(
+           {              
+              curr_lat: curr_lat,
+              curr_long: curr_long
+           },
+           {
+              where:{inc_id:inc_id}
+           }
+    )
+       res.status(200).json({
+        status: "success",
+        message: "rider coordinates updated",
+      });
+    } catch (error) {
+        res.send(error)
+    }
+}
+
 
 
 //  exports.place_order = async(req,res)=>{
