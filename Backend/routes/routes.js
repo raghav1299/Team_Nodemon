@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const shop = require("./../controllers/shop");
 const rider = require('./../controllers/rider')
+const user = require("./../controllers/user")
 //reg and login APIs
 app.route("/register_user");
 // app.route("/register_shop");
@@ -19,6 +20,7 @@ app.route("/shop/stock_update");
 app.route('/shop/set_shop_token').patch(shop.set_fcm_token)
 
 //user APIs
+app.route("/user/create_user").post(user.create_user)
 app.route("/user/get_all_products").get(shop.get_all_products);
 app.route("/user/get_all_tags").get(shop.get_all_tags)
 app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id)

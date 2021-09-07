@@ -67,7 +67,6 @@ exports.set_fcm_token = async(req,res)=>{
 }
 
 
-
 exports.get_all_tags = async(req,res)=>{
   try {
     const data = await db.tags.findAll();
