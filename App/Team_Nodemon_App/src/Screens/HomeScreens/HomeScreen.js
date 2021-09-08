@@ -19,7 +19,8 @@ import {
 import {COLORS} from "../../Constants/GlobalStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+import {runInAction} from "mobx";
+import {Observer} from "mobx-react";
 import {Loader, LoaderV1} from "../../Components/Components";
 import Store from "../../Store/Store";
 import {showNotification} from "../../Functions/AppFuntions";
@@ -101,21 +102,24 @@ export default function HomeScreen({navigation}) {
     }
     function addItemtoCart(item) {
         setCartData(oldArray => [...oldArray, item]);
-        Store.setCart([...Store.cart, item]);
+        runInAction(() => {
+            Store.setCart([...Store.cart, item]);
+        });
     }
     function removeItemfromCart(item) {
-        const array = cartData;
-        const index = array.findIndex(element => element.inc_id == item);
+        runInAction(() => {
+            const array = Store.cart;
+            const index = array.findIndex(element => element.inc_id == item);
 
-        array.splice(index, 1);
-
-        setCartData([...array]);
-        Store.setCart([...array]);
+            array.splice(index, 1);
+            setCartData([...array]);
+            Store.setCart([...array]);
+        });
     }
     function addToCartButtonColor(item_id) {
         let status = false;
 
-        cartData.map(item => {
+        Store.cart.map(item => {
             if (item.inc_id == item_id) {
                 status = true;
             }
@@ -125,8 +129,8 @@ export default function HomeScreen({navigation}) {
     function productStatusCheck(id) {
         let status = false;
 
-        for (var i = 0; i < cartData.length; i++) {
-            if (cartData[i].inc_id == id) {
+        for (var i = 0; i < Store.cart.length; i++) {
+            if (Store.cart[i].inc_id == id) {
                 status = true;
                 break;
             }
@@ -136,77 +140,80 @@ export default function HomeScreen({navigation}) {
     }
     function renderProductsFunc({item}) {
         return (
-            <View style={{flex: 1, marginTop: 0, paddingBottom: 10}}>
-                <Pressable
-                    style={styles.productCard}
-                    onPress={() => {
-                        navigation.navigate("ProductInfoScreen", {
-                            item,
-                            removeItemfromCart,
-                            addToCartButtonColor,
-                            productStatusCheck,
-                            addItemtoCart,
-                        });
-                    }}
-                >
-                    <View style={{marginTop: "5%"}}>
-                        <Image
-                            source={{uri: item.image_address}}
-                            style={{
-                                width: wp(30),
-                                height: wp(40),
-                                alignSelf: "center",
-                                resizeMode: "contain",
-                                borderColor: COLORS.GREY,
-
-                                padding: 10,
-                            }}
-                        />
-                    </View>
-                    <View>
-                        <Text style={{fontSize: hp(2.4)}} numberOfLines={1}>
-                            {item.product_name}
-                        </Text>
-
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                alignItems: "center",
-                                marginTop: "2%",
-                                marginBottom: "2%",
-                            }}
-                        >
-                            <Text style={{fontSize: hp(3.2)}}>₹ {item.mrp}</Text>
-                        </View>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: addToCartButtonColor(item.inc_id)
-                                    ? COLORS.CART_ORANGE
-                                    : COLORS.CART_GREEN,
-                                marginLeft: "10%",
-                                marginTop: "4%",
-                                padding: 10,
-                                justifyContent: "center",
-                                borderRadius: 5,
-                            }}
-                            activeOpacity={0.74}
+            <Observer>
+                {() => (
+                    <View style={{flex: 1, marginTop: 0, paddingBottom: 10}}>
+                        <Pressable
+                            style={styles.productCard}
                             onPress={() => {
-                                const data = productStatusCheck(item.inc_id);
-
-                                if (!data) {
-                                    addItemtoCart(item);
-                                } else {
-                                    removeItemfromCart(item.inc_id);
-                                }
+                                navigation.navigate("ProductInfoScreen", {
+                                    item,
+                                });
                             }}
                         >
-                            <Text style={{textAlign: "center", color: COLORS.WHITE}}>
-                                {addToCartButtonColor(item.inc_id) ? "Remove" : "Add to Cart"}
-                            </Text>
-                        </TouchableOpacity>
+                            <View style={{marginTop: "5%"}}>
+                                <Image
+                                    source={{uri: item.image_address}}
+                                    style={{
+                                        width: wp(30),
+                                        height: wp(40),
+                                        alignSelf: "center",
+                                        resizeMode: "contain",
+                                        borderColor: COLORS.GREY,
+
+                                        padding: 10,
+                                    }}
+                                />
+                            </View>
+                            <View>
+                                <Text style={{fontSize: hp(2.4)}} numberOfLines={1}>
+                                    {item.product_name}
+                                </Text>
+
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                        marginTop: "2%",
+                                        marginBottom: "2%",
+                                    }}
+                                >
+                                    <Text style={{fontSize: hp(3.2)}}>₹ {item.mrp}</Text>
+                                </View>
+                                <TouchableOpacity
+                                    style={{
+                                        backgroundColor: addToCartButtonColor(item.inc_id)
+                                            ? COLORS.CART_ORANGE
+                                            : COLORS.CART_GREEN,
+                                        marginLeft: "10%",
+                                        marginRight: "10%",
+                                        marginTop: "4%",
+                                        padding: 10,
+                                        justifyContent: "center",
+                                        borderRadius: 5,
+                                    }}
+                                    activeOpacity={0.74}
+                                    onPress={() => {
+                                        const data = productStatusCheck(item.inc_id);
+
+                                        if (!data) {
+                                            addItemtoCart(item);
+                                        } else {
+                                            removeItemfromCart(item.inc_id);
+                                        }
+                                    }}
+                                >
+                                    <Text style={{textAlign: "center", color: COLORS.WHITE}}>
+                                        {addToCartButtonColor(item.inc_id)
+                                            ? "Remove"
+                                            : "Add to Cart"}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </Pressable>
                     </View>
-                </Pressable>
-            </View>
+                )}
+            </Observer>
         );
     }
     function renderCategoriesFunc({item}) {
@@ -316,7 +323,7 @@ export default function HomeScreen({navigation}) {
                         <Button
                             title="press"
                             onPress={() => {
-                                console.log(cartData);
+                                console.log(Store.cart);
                             }}
                         />
                         <FlatList

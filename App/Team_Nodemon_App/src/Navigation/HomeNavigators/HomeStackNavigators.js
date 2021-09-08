@@ -2,6 +2,7 @@ import * as React from "react";
 import {View, Text} from "react-native";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+
 import HomeScreen from "../../Screens/HomeScreens/HomeScreen";
 import ProductInfoScreen from "../../Screens/HomeScreens/ProductInfoScreen";
 import CartScreen from "../../Screens/HomeScreens/CartScreen";
@@ -17,6 +18,7 @@ export function HomeStackNavigators() {
                 name="ProductInfoScreen"
                 options={{
                     headerTitle: "Product Info",
+                    headerTintColor: COLORS.WHITE,
                     headerStyle: {
                         backgroundColor: COLORS.GREY,
                     },
@@ -29,7 +31,17 @@ export function HomeStackNavigators() {
 export function CartStackScreens() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Cart" component={CartScreen} />
+            <Stack.Screen
+                name="Cart"
+                options={{
+                    headerTitle: "My Cart",
+                    headerTintColor: COLORS.WHITE,
+                    headerStyle: {
+                        backgroundColor: COLORS.GREY,
+                    },
+                }}
+                component={CartScreen}
+            />
         </Stack.Navigator>
     );
 }

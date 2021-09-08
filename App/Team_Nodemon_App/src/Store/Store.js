@@ -1,4 +1,5 @@
 import {makeAutoObservable, observable} from "mobx";
+
 class Store {
     cart = [];
     cartButtonColorStatus = false;
