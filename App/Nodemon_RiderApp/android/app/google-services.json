@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "120436997477",
+    "project_id": "team-nodemon",
+    "storage_bucket": "team-nodemon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120436997477:android:92f65dcac0a17e7e4e358c",
+        "android_client_info": {
+          "package_name": "com.nodemon_riderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "120436997477-hktf2ebpt7nr4vl7t46urudqk0vaosff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUwVGgzfPyfgQe_Tqbt7EgtEdfz9_xheI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "120436997477-hktf2ebpt7nr4vl7t46urudqk0vaosff.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
