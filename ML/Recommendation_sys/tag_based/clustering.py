@@ -43,8 +43,9 @@ def sort_recommendations(df_rec, final_pred, n):
     max_res = []
     max_prod = []
     max_idx = []
-    for i in range(len(df_rec['product_name'])):
-        df_rec1 = df_rec.loc[df_rec.index == i+1]
+    id_list = df_rec.index.tolist()
+    for i in id_list:
+        df_rec1 = df_rec.loc[df_rec.index == i]
         a = list(df_rec1['tags_string'])
         p = list(df_rec1['product_name'])
         a1 = a[0].split(',')
@@ -66,9 +67,5 @@ def sort_recommendations(df_rec, final_pred, n):
 
 def predict_recommendations(df_rec, products, model, vectorizer, order_centroids, terms):
     final_pred = []
-    # try:
-    # print(products)
     final_pred = show_recommendations(df_rec, vectorizer, model, products,  order_centroids, terms)
     return sort_recommendations(df_rec, final_pred, len(products))
-    # except Exception:
-    #     print("Check product Name")
