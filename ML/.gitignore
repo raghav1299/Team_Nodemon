@@ -5,7 +5,8 @@ __pycache__/
 .env
 *.sav
 *.csv
-
+*.ipynb
+notebooks
 # C extensions
 *.so
 *.ipynb
