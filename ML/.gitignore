@@ -9,7 +9,7 @@ __pycache__/
 notebooks
 # C extensions
 *.so
-
+*.ipynb
 # Distribution / packaging
 .Python
 build/
