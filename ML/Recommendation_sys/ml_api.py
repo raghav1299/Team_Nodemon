@@ -5,6 +5,7 @@ from tag_based_search import main
 from tag_based import main as main2
 from apriori import main as main3
 from pydantic import BaseModel
+from recurring_orders import main as main4
 
 
 app = APIRouter()
@@ -41,6 +42,25 @@ async def users_also_bought(products: Product_List):
     product_list = products.product_names
     final_products = main3.other_user_orders_apriori(product_list)
     return final_products
-    
+
+@app.get('/triggers/weekly/{user_id}')
+async def trigger_weekly_products(user_id: str):
+    '''
+    Products which are recurrent for user weekly:
+    Pass user_id in the url and get back the products which are weekly recurrent to that user 
+    '''
+    response = main4.check_weekly_triggers(user_id)
+    return response
+
+@app.get('/triggers/monthly/{user_id}')
+async def trigger_monthly_products(user_id: str):
+    '''
+    Products which are recurrent for user monthly:
+    Pass user_id in the url and get back the products which are monthly recurrent to that user 
+    '''
+    response = main4.check_monthly_triggers(user_id)
+    return response
+
+
 
     
