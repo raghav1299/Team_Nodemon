@@ -83,29 +83,43 @@ exports.set_current_coordinates = async(req,res)=>{
 }
 
 function calculateDistanceBetweenUserAndShop(user_lat,user_long,shop_lat,shop_long){
+    var axios = require("axios").default;
+
+var options = {
+  method: 'GET',
+  url: 'https://distance-calculator1.p.rapidapi.com/v1/getdistance',
+  params: {
+    start_lat: '13.198989944266078',
+    start_lng: '77.70908188996312',
+    end_lat: '13.113908410795627',
+    end_lng: '77.5745906650984',
+    unit: 'kilometers'
+  },
+  headers: {
+    'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+    'x-rapidapi-key': '1446952fcdmsh4d730342fde0d6dp1f1453jsn49f9f83affe6'
+  }
+};
+
+axios.request(options).then(function (response) {
+	console.log(response.data);
+}).catch(function (error) {
+	console.error(error);
+});
     return shortest_assigned_shop
 }
 function calculateDistanceBetweenShopAndRider(shop_lat, shop_long, rider_shop, rider_long){
     return assigneRider
 }
 
- exports.place_order = async(req,res)=>{
-   
-
-    
+ exports.place_order = async(req,res)=>{   
 
     //send_notification_to_shop
 
 
 
 
+
     //send_notification_to_rider
     
- } 
-    
-
-
-
-
-
-
+ }

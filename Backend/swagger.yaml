@@ -498,7 +498,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-  /api/set_shop_token:
+  /api/shop/set_shop_token:
     patch:
       tags:
       - Misc

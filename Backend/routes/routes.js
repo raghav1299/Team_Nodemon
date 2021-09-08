@@ -16,7 +16,7 @@ app.route("/login_rider");
 app.route('/shop/list_shop').post(shop.list_shop)
 app.route("/shop/list_products").post(shop.list_products);
 app.route("/shop/get_products_by_shop_id").get(shop.get_products_by_shop_id);
-app.route("/shop/stock_update");
+// app.route("/shop/stock_update");
 app.route('/shop/set_shop_token').patch(shop.set_fcm_token)
 
 //user APIs
