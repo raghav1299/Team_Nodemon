@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
     StyleSheet,
@@ -14,15 +14,30 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import {COLORS} from "../../Constants/GlobalStyles";
+import { COLORS } from "../../Constants/GlobalStyles";
 import Store from "../../Store/Store";
-import {runInAction} from "mobx";
-import {Observer} from "mobx-react";
+import { runInAction } from "mobx";
+import { Observer } from "mobx-react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-function CartScreen({navigation}) {
+function CartScreen({ navigation }) {
     const [cartData, setCartData] = useState([]);
+
+
+
+    function removeItemfromCart(item) {
+        console.log("remove called")
+        runInAction(() => {
+            const array = Store.cart;
+            const index = array.findIndex(element => element.inc_id == item);
+
+            array.splice(index, 1);
+            setCartData([...array]);
+            Store.setCart([...array]);
+        });
+        console.log("removed cart", Store.cart)
+    }
 
     useEffect(() => {
         const unsubscribe = navigation.addListener(
@@ -37,6 +52,8 @@ function CartScreen({navigation}) {
         return unsubscribe;
     }, [navigation]);
     function UpdateValueComponent(params) {
+        const { data, index } = params
+        //  console.log("data", data, index)
         return (
             <View
                 style={{
@@ -47,7 +64,22 @@ function CartScreen({navigation}) {
                     marginLeft: "5%",
                 }}
             >
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        const newItems = [...Store.cart]
+                        let currentQty = newItems[index]['quantity'];
+                        newItems[index]['quantity'] = currentQty - 1;
+                        if (newItems[index]['quantity'] <= 0) {
+                            console.log("if", newItems[index]['quantity'])
+                            removeItemfromCart(data.inc_id)
+                        } else {
+                            console.log("quantity", currentQty)
+                            console.log("newwww", newItems)
+                            runInAction(() => {
+                                Store.setCart([...newItems])
+                            })
+                        }
+                    }}>
                     <Ionicons
                         name={"remove"}
                         size={30}
@@ -67,9 +99,19 @@ function CartScreen({navigation}) {
                         height: "90%",
                     }}
                 >
-                    <Text style={{fontSize: 20, textAlign: "center"}}>0</Text>
+                    <Text style={{ fontSize: 20, textAlign: "center" }}>{data.quantity}</Text>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        const newItems = [...Store.cart]
+                        let currentQty = newItems[index]['quantity'];
+                        newItems[index]['quantity'] = currentQty + 1;
+                        console.log("quantity", currentQty)
+                        console.log("newwww", newItems)
+                        runInAction(() => {
+                            Store.setCart([...newItems])
+                        })
+                    }}>
                     <Ionicons
                         name={"add"}
                         color={COLORS.WHITE}
@@ -84,12 +126,14 @@ function CartScreen({navigation}) {
         );
     }
     function CartCard(params) {
-        const {data} = params;
+        // console.log("cartcard", params)
+        const { data, index } = params;
+        //console.log(index)
         return (
             <View style={styles.card}>
-                <View style={{flexDirection: "row", flex: 1}}>
+                <View style={{ flexDirection: "row", flex: 1 }}>
                     <Image
-                        source={{uri: data.image_address}}
+                        source={{ uri: data.image_address }}
                         style={{
                             width: wp(30),
                             height: wp(40),
@@ -107,7 +151,7 @@ function CartScreen({navigation}) {
                             marginLeft: 10,
                         }}
                     >
-                        <Text style={{fontSize: hp(2.8), marginTop: wp(4)}} numberOfLines={1}>
+                        <Text style={{ fontSize: hp(2.8), marginTop: wp(4) }} numberOfLines={1}>
                             {data.product_name}
                         </Text>
                         <View
@@ -127,8 +171,10 @@ function CartScreen({navigation}) {
                             >
                                 ₹ {data.mrp}
                             </Text>
-                            <View style={{marginBottom: "6.5%", marginRight: wp(5)}}>
-                                <UpdateValueComponent />
+                            <View style={{ marginBottom: "6.5%", marginRight: wp(5) }}>
+                                <UpdateValueComponent
+                                    data={data}
+                                    index={index} />
                             </View>
                         </View>
                     </View>
@@ -136,13 +182,14 @@ function CartScreen({navigation}) {
             </View>
         );
     }
-    function renderItem({item}) {
-        return <CartCard data={item} />;
+    function renderItem({ item, index }) {
+        return <CartCard data={item}
+            index={index} />;
     }
     return (
         <Observer>
             {() => (
-                <View style={{flex: 1}}>
+                <View style={{ flex: 1 }}>
                     {/* <Button
                         title="press"
                         onPress={() => {
