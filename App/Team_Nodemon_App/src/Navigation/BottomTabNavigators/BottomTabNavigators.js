@@ -3,6 +3,8 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
 import {HomeStackNavigators, CartStackScreens} from "../HomeNavigators/HomeStackNavigators";
+import {AccountStackNavigators} from "../AccountNavigators/AccountStackNavigators";
+
 import {COLORS} from "../../Constants/GlobalStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -54,6 +56,22 @@ export default function BottomTabNavigator() {
                         ),
                 }}
                 component={CartStackScreens}
+            />
+            <Tab.Screen
+                name="AccountTab"
+                options={{
+                    headerTitle: "Account",
+                    headerStyle: {
+                        backgroundColor: COLORS.GREY,
+                    },
+                    tabBarIcon: ({focused, tintColor}) =>
+                        focused ? (
+                            <MaterialIcons name="account-circle" color={COLORS.WHITE} size={28} />
+                        ) : (
+                            <MaterialIcons name="account-circle" color="#a6a6a6" size={28} />
+                        ),
+                }}
+                component={AccountStackNavigators}
             />
         </Tab.Navigator>
     );
