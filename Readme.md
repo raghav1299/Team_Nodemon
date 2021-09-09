@@ -120,14 +120,12 @@
   #### Admin | Frontend
   
   ```
-  Javascript
   - React JS
   ```
   
   #### Server | Backend
   
   ```
-  Javscript
   - Node JS
   - Express
   - RabbitMQ
@@ -136,7 +134,6 @@
   #### Native | Android
   
   ```
-  Javascript
   - React Native
   ```
   <br>
