@@ -54,13 +54,14 @@
   the customer via device location and then scans all the nearest shops and delivery agents in a 5km radius.
   
   Then we will assign the order to the nearest shop and the delivery agent based upon a distance matrix as
-  shown above. The shop is selected based on the availability of the product and the number of pending orders 
-  in the shop. 
+  shown above. The shop is selected based on the availability of the product and the number of pending 
+  orders in the shop. 
   
-  A job is pushed using RabbitMQ and the shopkeeper gets an alert message and has a 2 minute window   to accept
-  the order failing which the order will be passed on to the next available shop. After the job is acknowledged 
-  it is popped from the queue. Next the delivery agent will receive a job through RabbitMQ. The delivery agent 
-  also has to accept the job within 2 minutes or else it will be passed on to the next agent.
+  A job is pushed using RabbitMQ and the shopkeeper gets an alert message and has a 2 minute window 
+  to accept the order failing which the order will be passed on to the next available shop. After the 
+  job is acknowledged it is popped from the queue. Next the delivery agent will receive a job through 
+  RabbitMQ. The delivery agent also has to accept the job within 2 minutes or else it will be passed 
+  on to the next agent.
   
   Accordingly a final decision is made and the product is delivered
 
@@ -69,13 +70,13 @@
 - [x] In Tier-1 cities, our societies are now digitised, courtesy the likes of Mygate. Can this prove to be a fundamental block in achieving higher speed of deliveries? (Relay deliveries)
     
     ```
-    We have also incorporated a feature which plays a fundamental role in relay deliveries.  We will ensure that 
-    products ordered at same time from nearby localities are ordered to the customers via the same delivery agent 
-    therefore keeping the max possible delivery agents available for further orders.
+    We have also incorporated a feature which plays a fundamental role in relay deliveries.  We will 
+    ensure that products ordered at same time from nearby localities are ordered to the customers via the 
+    same delivery agent therefore keeping the max possible delivery agents available for further orders.
     
-    Suppose customer 1 and customer 2 from nearby localities order products at the same time, their orders will be 
-    delivered via the nearest same delivery agent. This facilitates relay deliveries and ensures max possible 
-    delivery agents are available for further orders.
+    Suppose customer 1 and customer 2 from nearby localities order products at the same time, their 
+    orders will be delivered via the nearest same delivery agent. This facilitates relay deliveries and 
+    ensures max possible delivery agents are available for further orders.
     ```
 
  <div align="center"> 
