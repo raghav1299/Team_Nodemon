@@ -23,7 +23,7 @@ function calculateDistanceBetweenUserAndShop(
     },
     headers: {
       'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
-      'x-rapidapi-key': '6c5ea82118msh3191aa4435b0726p1cad73jsn75936f5a9c5f'
+      'x-rapidapi-key': '7fedd8ef06msh8f98fe56bdc5403p1d21bdjsn0d979d79b0e6'
     },
   };
 
@@ -45,14 +45,75 @@ function calculateDistanceBetweenShopAndRider(
   rider_shop,
   rider_long
 ) {
-  return assigneRider;
+  var options = {
+    method: "GET",
+    url: "https://distance-calculator1.p.rapidapi.com/v1/getdistance",
+    params: {
+      start_lat: shop_lat,
+      start_lng: shop_long,
+      end_lat: rider_shop,
+      end_lng: rider_long,      
+      unit: "kilometers",
+    },
+    headers: {
+      'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+      'x-rapidapi-key': '7fedd8ef06msh8f98fe56bdc5403p1d21bdjsn0d979d79b0e6'
+    },
+  };
+
+  return axios
+    .request(options)
+    .then(function (response) {
+      const a = response.data.Distance
+      return a
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  
+}
+
+function calculateDistanceBetweenUserAndRider(
+  shop_lat,
+  shop_long,
+  rider_shop,
+  rider_long
+) {
+  var options = {
+    method: "GET",
+    url: "https://distance-calculator1.p.rapidapi.com/v1/getdistance",
+    params: {
+      start_lat: shop_lat,
+      start_lng: shop_long,
+      end_lat: rider_shop,
+      end_lng: rider_long,      
+      unit: "kilometers",
+    },
+    headers: {
+      'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+      'x-rapidapi-key': '39386cee5bmsh2d2f54a29313b6cp1d996ejsn87a6f7c25f4f'
+    },
+  };
+
+  return axios
+    .request(options)
+    .then(function (response) {
+      const a = response.data.Distance
+      return a
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+  
 }
 
 exports.place_order = async (req, res) => {
   
   try {
     let coord = [];  
+    let rider_coord = []
     const shop_details = []
+    var c = 0;
     const user_coord = await db.user.findOne({
       where: { inc_id: "5" },
       attributes: ["lat", "long"],
@@ -79,17 +140,56 @@ exports.place_order = async (req, res) => {
       const sorted = sortArray(data,{
         by:'distance',
       })    
+      c = sorted[0].inc_id
       db.shop.findOne({
           attributes:['shop_name','fcm_token'],
           where:{inc_id:sorted[0].inc_id},
           raw:true
         }).then((data)=>{
-          console.log(data);
+          // console.log(data);
           res.send(data)
         })
       
     })
     
+    const shop_coordinates = await db.shop.findOne({
+      attributes:['lat','long'],
+      where:{inc_id:c},
+      raw:true
+    })
+
+    //console.log(shop_coordinates);
+
+    const riderCoord = await db.delivery_boy.findAll({
+      attributes: ["inc_id","curr_lat", "curr_long"],
+      raw: true,
+    })
+    // console.log(riderCoord);
+    rider_coord.push(riderCoord)
+    var rider_coordinates = rider_coord[0]
+    // console.log(rider_coordinates);
+    var promise1 = riderCoord.map((data1)=>{
+      // console.log(data1.curr_lat,data1.curr_long);
+      return calculateDistanceBetweenUserAndRider(shop_coordinates.lat,shop_coordinates.long,data1.curr_lat,data1.curr_long).then((data)=>{
+        // console.log(data);
+        var rider_details = {}
+        rider_details.inc_id = data1.inc_id
+        rider_details.distance = data
+        return rider_details;
+      })
+
+    })
+   
+    await Promise.all(promise1).then((data)=>{
+      var sorted_rider = sortArray(data,{
+        by: 'distance'
+      })
+      d = sorted_rider[0].inc_id
+    })
+
+
+
+
   } catch (error) {
     res.send(error);
   }
