@@ -22,6 +22,22 @@ module.exports = function(sequelize, DataTypes) {
     active_order: {
       type: DataTypes.INTEGER,
       allowNull: true
+    },
+    pickup_lat: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    pickup_long: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    dest_lat: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
+    },
+    dest_long: {
+      type: DataTypes.DOUBLE,
+      allowNull: true
     }
   }, {
     sequelize,

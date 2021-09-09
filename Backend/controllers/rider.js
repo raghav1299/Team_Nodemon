@@ -110,6 +110,7 @@ exports.place_order = async (req, res) => {
     let rider_coord = []
     const shop_details = []
     var c = 0;
+    
     const user_coord = await db.user.findOne({
       where: { inc_id: "5" },
       attributes: ["lat", "long","location","city","state","pincode","country"],
@@ -197,6 +198,10 @@ exports.place_order = async (req, res) => {
             username: data.username,
             pickup_address: shoplocation,
             drop_address:droplocation,
+            pickup_lat:shop_coordinates.lat,
+            pickup_long:shop_coordinates.long,
+            dest_lat: user_coord.lat,
+            dest_long: user_coord.long,
             active_order:1
         }).then((data)=>{
           // console.log(data);

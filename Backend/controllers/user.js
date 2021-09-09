@@ -53,3 +53,16 @@ exports.get_user_details_by_username = async(req,res)=>{
     data: data,
   });
 }
+
+exports.get_order_history_of_user = async(req,res)=>{
+  const inc_id = req.query.inc_id
+  const data = await db.order_history.findAll({
+    where:{user_id:inc_id}
+  })
+  res.status(200).json({
+    status: "success",
+    message: "order history",
+    past_orders: data.length,
+    data: data,
+  });
+}
