@@ -12,7 +12,7 @@ def tfidf_processing(df_rec):
     return vectorizer, X1
 
 def kmeans_model(X1, vectorizer):
-    true_k = 5
+    true_k = 7
     kmeans = KMeans(n_clusters = true_k, init = 'k-means++')
     y_kmeans = kmeans.fit_predict(X1)
     model = KMeans(n_clusters=true_k, init='k-means++', max_iter=10, n_init=1)
