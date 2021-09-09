@@ -9,6 +9,11 @@ import { getMessaging, getToken, onMessage } from "firebase/messaging";
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 
+import { patchRequest } from "./utils/api";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   const firebaseConfig = {
     apiKey: "AIzaSyCvQgrWymtHJRCWxnQN7GSeYhwsk4vCAu8",
@@ -24,13 +29,26 @@ function App() {
   const messaging = getMessaging();
 
   useEffect(() => {
-    console.log(messaging);
+    // toast.success("🦄 Wow so easy!", {
+    //   position: "top-center",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    // });
     getToken(messaging, {
       vapidKey:
         "BHPse1ZJGNtKrAUf9b9ezL-UOicINmtjGAd_-gZ65ClhSd_tZH-b1-yT-iy4XCrZD8fV-eZpqgcA4yhS7K656vk",
     })
       .then((currentToken) => {
-        console.log("DEOMOOO", currentToken);
+        console.log("FCM Token : ", currentToken);
+        patchRequest(`/api/shop/set_shop_token?token=${currentToken}&inc_id=1`)
+          .then((resp) => {
+            console.log(resp);
+          })
+          .catch((err) => console.log(err));
         if (currentToken) {
         } else {
           console.log("No registration token available. Request permission to generate one.");
@@ -41,11 +59,31 @@ function App() {
       });
     onMessage(messaging, (payload) => {
       console.log("Message received. ", payload);
+      toast.success(payload.notification.body, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     });
   }, []);
 
   return (
     <div className="App">
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Router>
         <Navbar />
         <Switch>

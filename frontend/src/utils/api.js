@@ -10,8 +10,8 @@ export const postRequest = (path, data) => {
   });
 };
 
-export const putRequest = (path, data) => {
-  return axios.put(`${config.baseUrl}${path}`, data, {
+export const patchRequest = (path, data) => {
+  return axios.patch(`${config.baseUrl}${path}`, data, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("authToken")}`,

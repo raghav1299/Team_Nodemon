@@ -2,7 +2,45 @@
 .wrapper {
     margin-top: 50px !important;
     max-width: 1300px;
+    height: calc(100vh - 70px);
     margin: 0 auto;
+    position: relative;
+    .anim {
+        position: absolute;
+        transform-origin: top right;
+        position: absolute;
+        right: -65%;
+        transform: rotate( 20deg);
+        // margin-top: -30%;
+        top: 0;
+        width: 800px;
+        height: 2000px;
+        background-image: url("../assets/background.png");
+        background-size: 800px;
+        // background-repeat: repeat-y;
+        animation: anim 24s linear 0s infinite;
+        z-index: -1;
+        // margin-top: 0;
+        transition-property: margin-top;
+        transition-timing-function: linear;
+        opacity: 0.6;
+    }
+    backr .blob1,
+    .blob2 {
+        position: absolute;
+    }
+    .blob1 {
+        width: 800px;
+        right: -550px;
+        top: -250px;
+        z-index: -1;
+    }
+    .blob2 {
+        width: 800px;
+        top: 200px;
+        left: -500px;
+        z-index: -1;
+    }
     .hero {
         display: flex;
         align-items: center;
@@ -64,3 +102,60 @@
         margin-top: 50px;
     }
 }
+
+@media (max-width: 1350px) {
+    .wrapper {
+        width: 90%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .wrapper {
+        .hero {
+            flex-direction: column;
+            .lottie {
+                margin-bottom: 40px;
+            }
+            .heroText {
+                text-align: center;
+                button {
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .wrapper {
+        .hero {
+            .lottie {
+                width: 345px;
+            }
+            .heroText {
+                width: 100%;
+                p {
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes anim {
+    0% {
+        margin-top: 0;
+    }
+    100% {
+        margin-top: calc(-1 * 1000px);
+    }
+}
+
+// @keyframes anim {
+//     0% {
+//         transform: translate3d(0, 0, 0);
+//     }
+//     100% {
+//         transform: translate3d(-1692px, 0, 0);
+//     }
+// }

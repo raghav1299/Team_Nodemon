@@ -9,6 +9,9 @@ import { Player } from "@lottiefiles/react-lottie-player";
 
 import lottie from "../assets/lottie.json";
 
+import blob1 from "../assets/blob1.svg";
+import blob2 from "../assets/blob2.svg";
+
 export default function Home() {
   const [activeStep, setActiveStep] = useState(1);
   const [location, setLocation] = useState(null);
@@ -48,6 +51,9 @@ export default function Home() {
 
   return (
     <div className={styles.wrapper}>
+      {/* <img className={styles.blob1} src={blob1} alt="" /> */}
+      {/* <img className={styles.blob2} src={blob2} alt="" /> */}
+      <div className={styles.anim}></div>
       <div className={styles.hero}>
         <div className={styles.lottie}>
           <Player autoplay loop src={lottie} style={{ height: "100%", width: "100%" }}></Player>

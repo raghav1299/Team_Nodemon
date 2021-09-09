@@ -111,3 +111,36 @@
         }
     }
 }
+
+@media (max-width: 1350px) {
+    .wrapper {
+        width: 90%;
+    }
+}
+
+@media (max-width: 900px) {
+    .wrapper {
+        .header {
+            flex-direction: column;
+            text-align: center;
+            .text {
+                p {
+                    &:last-child {
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+        .products {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .product {
+                margin-bottom: 40px;
+            }
+        }
+    }
+    .productForm {
+        width: 100%;
+    }
+}

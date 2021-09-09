@@ -16,3 +16,8 @@ input,
 textarea {
     outline: none;
 }
+
+.App {
+    min-height: 100vh;
+    overflow: hidden;
+}
