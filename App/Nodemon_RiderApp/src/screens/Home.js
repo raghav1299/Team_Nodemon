@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, Image, Linking, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { BASE_URL_WEB } from '../const/const';
+import { BASE_URL_WEB, COLORS } from '../const/const';
 import axios from "axios";
 import store from '../store/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeData } from '../store/asyncStore';
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
 
 
 
@@ -19,11 +21,14 @@ export default Home = () => {
                 "username": username
             }
         }).then((res) => {
-            console.log(res.data.data.inc_id)
-            console.log(store.fcmToken)
+            console.log("get user data username", res.data.data)
+            let value = res.data.data
+            storeData("userDetail", value)
+            //console.log(store.fcmToken)
             axios.patch(`${BASE_URL_WEB}/api/rider/set_fcm_token?token=${store.fcmToken}&inc_id=${res.data.data.inc_id}`
             ).then((res) => {
-                console.log(res.data)
+                navigation.navigate('orderScreen')
+                //console.log(res.data)
             }).catch((err) => {
                 console.log(err)
             })
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignSelf: "center",
         marginVertical: "6%",
-        backgroundColor: '#09bc8a'
+        backgroundColor: COLORS.CART_ORANGE
     },
     TouchableText: {
         alignSelf: "center",
