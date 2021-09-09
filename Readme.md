@@ -7,6 +7,8 @@
     <br>
    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?logo=Microsoft%20Word&style=for-the-badge" /><br>
   </p>
+  <img src="media/logo.jpg" />
+  <br><br>
   <p>
   <img src="https://img.shields.io/badge/Product%20%7C%20Functionality%20Tag-lavenderblush?logo=Product%20Hunt&style=for-the-badge" />
   </p>
