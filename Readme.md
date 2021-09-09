@@ -30,10 +30,63 @@
 
 <div align="center"> 
   <img src="https://img.shields.io/badge/Prerequisites-teal?logo=Pinboard&style=for-the-badge" /><br>
-
-  -  
 </div>
 <br>
+
+
+ ```
+ 
+ - Python(3.9.6): Poetry for python dependency management
+ - Node.js
+ - React js
+ - React Native
+  
+ ```
+ <br>
+ 
+ <div align="center"> 
+  <img src="https://img.shields.io/badge/Setting%20up%20locally-purple?logo=visual-studio-code&style=for-the-badge" /> 
+</div><br>
+
+ ```
+ Fork The Repository ✅
+ 
+ $ git clone https://github.com/sd2001/repo-name.git   
+```
+
+  ```
+ $ cd repo-name
+ ```
+
+#### Start the Python ML backend 🚀 :
+
+   ```
+   pip install poetry
+   cd ML
+   bash install.sh
+   bash run.sh
+   ```
+   
+  **OR**
+   
+   ```
+   pip install poetry
+   cd ML/Recommendation_sys
+   poetry install
+   poetry run uvicorn main:app --reload
+   ```
+   
+#### Start the Admin Frontend 🖥️ :
+
+#### Start the Server Backend 🗃 :
+
+#### Start the Native App 📱 :
+
+<div align="center"> 
+  <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" /> 
+</div>
+  <br>
+
 
  <!-- END -->
 
