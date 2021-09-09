@@ -40,6 +40,8 @@ app
   .get(rider.get_details_using_username);
 
 app.route("/rider/get_all_riders").get(rider.get_all_riders);
+app.route('/rider/get_active_orders').get(rider.get_active_orders)
+app.route('/rider/set_order_delivered').patch(rider.set_order_delivered)
 app.route("/payments");
 
 module.exports = app;
