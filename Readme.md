@@ -59,11 +59,11 @@
  ```
  Fork The Repository ✅
  
- $ git clone https://github.com/sd2001/repo-name.git   
+ $ git clone https://github.com/<username>/Team_Nodemon.git   
 ```
 
   ```
- $ cd repo-name
+ $ cd Team_Nodemon
  ```
 
 #### Start the Python ML backend 🚀 :
