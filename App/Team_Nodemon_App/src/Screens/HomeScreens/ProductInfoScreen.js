@@ -54,6 +54,11 @@ function ProductInfoScreen({route, navigation}) {
             );
 
             if (data.data) {
+                let quant = data.data;
+
+                quant.forEach(item => {
+                    item.quantity = 1;
+                });
                 setRecommendedProductsData(data.data);
             }
         } catch (error) {
@@ -74,6 +79,11 @@ function ProductInfoScreen({route, navigation}) {
                 {type: "ML"}
             );
             if (data.data) {
+                let quant = data.data;
+
+                quant.forEach(item => {
+                    item.quantity = 1;
+                });
                 setAlsoBoughtProductsData(data.data);
             }
         } catch (error) {
