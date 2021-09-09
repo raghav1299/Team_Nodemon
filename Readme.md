@@ -16,14 +16,24 @@
   <br><br>
  </div>
  
- ```
- - Can AI play a role here by predictively analysing the customer order patterns? Can a grocery order be auto-triggered?
+
+- [x] Can AI play a role here by predictively analysing the customer order patterns? Can a grocery order be auto-triggered?
+
+  <div align="center"> 
+  <img src="media/Reco_sys.png" />
+  <div>
  
- - Can Kiranas play a role in quicker deliveries? If yes, how can it work at scale?
+- [x] Can Kiranas play a role in quicker deliveries? If yes, how can it work at scale?
+    
+  <div align="center"> 
+  <img src="media/Delivery_Optimized.png" />
+  <div>
  
- - In Tier-1 cities, our societies are now digitised, courtesy the likes of Mygate. 
-   Can this prove to be a fundamental block in achieving higher speed of deliveries? (Relay deliveries)
- ```
+- [x] In Tier-1 cities, our societies are now digitised, courtesy the likes of Mygate. Can this prove to be a fundamental block in achieving higher speed of deliveries? (Relay deliveries)
+    
+    ```
+    We have also incorporated a feature which plays a fundamental role in relay deliveries. We will ensure that products ordered at same time from nearby localities are ordered to     the customers via the same delivery agent therefore keeping the max possible delivery agents available for further orders.
+    ```
 
  <div align="center"> 
     <p>
