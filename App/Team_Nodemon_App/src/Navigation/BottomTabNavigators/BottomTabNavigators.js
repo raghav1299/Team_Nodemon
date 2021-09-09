@@ -57,7 +57,7 @@ export default function BottomTabNavigator() {
                 }}
                 component={CartStackScreens}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="AccountTab"
                 options={{
                     headerTitle: "Account",
@@ -66,13 +66,13 @@ export default function BottomTabNavigator() {
                     },
                     tabBarIcon: ({focused, tintColor}) =>
                         focused ? (
-                            <MaterialIcons name="account-circle" color={COLORS.WHITE} size={28} />
+                            <MaterialIcons name="account-circle" color={COLORS.WHITE} size={30} />
                         ) : (
-                            <MaterialIcons name="account-circle" color="#a6a6a6" size={28} />
+                            <MaterialIcons name="account-circle" color="#a6a6a6" size={30} />
                         ),
                 }}
                 component={AccountStackNavigators}
-            />
+            /> */}
         </Tab.Navigator>
     );
 }

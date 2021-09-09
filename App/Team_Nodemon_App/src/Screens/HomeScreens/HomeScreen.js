@@ -24,6 +24,7 @@ import {Observer} from "mobx-react";
 import {Loader, LoaderV1} from "../../Components/Components";
 import Store from "../../Store/Store";
 import {showNotification} from "../../Functions/AppFuntions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function HomeScreen({navigation}) {
     const [isLoading, setLoading] = useState(true);
     const [isLoadingList, setLoadingList] = useState(false);
@@ -65,9 +66,6 @@ export default function HomeScreen({navigation}) {
             quant.forEach(item => {
                 item.quantity = 1;
             });
-
-            console.log("Quant Array", quant[1]);
-            console.log("data , data array", data.data[1]);
 
             setProductsData(data.data);
             status = true;
@@ -276,36 +274,43 @@ export default function HomeScreen({navigation}) {
                     justifyContent: "center",
                 }}
             >
-                <View
-                    style={{
-                        height: hp(5.4),
-                        backgroundColor: COLORS.WHITE,
-                        alignSelf: "flex-start",
-                        alignItems: "center",
-                        borderRadius: 10,
-                        flexDirection: "row",
-                        width: wp(90),
-                        marginLeft: "5%",
-                    }}
-                >
-                    <TextInput
+                <View style={{flexDirection: "row", alignItems: "center"}}>
+                    <View
                         style={{
-                            width: wp(78),
-                            paddingLeft: "5%",
-                            fontSize: hp(2),
+                            height: hp(5.4),
+                            backgroundColor: COLORS.WHITE,
+                            alignSelf: "flex-start",
+                            alignItems: "center",
+                            borderRadius: 10,
+                            flexDirection: "row",
+                            width: wp(80),
+                            marginLeft: "5%",
                         }}
-                        placeholder={"Search...."}
-                    />
+                    >
+                        <TextInput
+                            style={{
+                                width: wp(70),
+                                paddingLeft: "5%",
+                                fontSize: hp(2),
+                            }}
+                            placeholder={"Search...."}
+                        />
+                        <MaterialIcons
+                            name={"search"}
+                            size={30}
+                            // style={{ marginRight: "5%" }}
+                        />
+                    </View>
                     <MaterialIcons
-                        name={"search"}
-                        size={30}
-                        // style={{ marginRight: "5%" }}
+                        name={"logout"}
+                        size={32}
+                        style={{marginLeft: "4%", color: COLORS.WHITE}}
+                        onPress={() => {
+                            AsyncStorage.clear();
+                            showNotification("Logged Out Successfully");
+                            Store.setAuthTokenVal(0);
+                        }}
                     />
-                    {/* <Ionicons
-                        name={"md-cart-outline"}
-                        size={30}
-                        style={{marginLeft: "8%", color: COLORS.WHITE}}
-                    /> */}
                 </View>
             </View>
         );

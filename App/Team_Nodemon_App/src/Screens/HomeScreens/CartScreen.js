@@ -294,7 +294,10 @@ function CartScreen({navigation}) {
                                         borderRadius: 5,
                                     }}
                                     activeOpacity={0.74}
-                                    onPress={() => {}}
+                                    onPress={() => {
+                                        console.log("TOTAL COST", Store.totalCartBill);
+                                        console.log("TOTAL CART", Store.cart);
+                                    }}
                                 >
                                     <Text
                                         style={{
