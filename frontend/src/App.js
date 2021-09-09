@@ -6,12 +6,7 @@ import Home from "./components/Home";
 import firebase from "firebase/compat/app";
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 
 function App() {
@@ -32,15 +27,13 @@ function App() {
     console.log(messaging);
     getToken(messaging, {
       vapidKey:
-        "BC5gGDAxkOSBIjmzlX98E1_IOt2K-qhA-E_xOpnKplcPZRPtC97XI1dVOuetHtI1IQ8StuhATzrHoaNP0rw8Ndo",
+        "BHPse1ZJGNtKrAUf9b9ezL-UOicINmtjGAd_-gZ65ClhSd_tZH-b1-yT-iy4XCrZD8fV-eZpqgcA4yhS7K656vk",
     })
       .then((currentToken) => {
         console.log("DEOMOOO", currentToken);
         if (currentToken) {
         } else {
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
+          console.log("No registration token available. Request permission to generate one.");
         }
       })
       .catch((err) => {
