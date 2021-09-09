@@ -83,10 +83,11 @@
    poetry install
    poetry run uvicorn main:app --reload
    ```
-   
-#### Start the Admin Frontend 🖥️ :
+
 
 #### Start the Server Backend 🗃 :
+
+#### Start the Admin Frontend 🖥️ :
 
 #### Start the Native App 📱 :
 
@@ -111,6 +112,9 @@
   
   Database
   - MySQL
+  
+  Deployment
+  - AWS
   ```
   
   #### Admin | Frontend
@@ -126,6 +130,7 @@
   Javscript
   - Node JS
   - Express
+  - RabbitMQ
   ```
   
   #### Native | Android
@@ -158,8 +163,8 @@ Atimabh Barunaha
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
+ <strong>Frontend | UI-UX<strong>
 </td>
-
 <td>
   
 Chetan Pareek
@@ -173,6 +178,7 @@ Chetan Pareek
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
+  <strong>Backend Developer<strong>
 </td>
 
   <td>
@@ -188,6 +194,7 @@ Raghav Sharma
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
+    <strong>Senior Developer<strong>
 </td>
 
   <td>
@@ -203,6 +210,7 @@ Ram Prakash Reddy
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
+    <strong>App Developer<strong>
 </td>
 
 <td>
@@ -218,14 +226,9 @@ Swarnabha Das
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
+  <strong>ML | Backend<strong>
 </td>
   
-  
-  
-
-
-
-
   </table>
 </tr>
 </div>
