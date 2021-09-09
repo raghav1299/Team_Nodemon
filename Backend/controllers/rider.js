@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const db = require("./../database/database");
 const axios = require("axios");
+const shop = require("../models/shop");
+const sortArray = require('sort-array')
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -13,31 +15,28 @@ function calculateDistanceBetweenUserAndShop(
     method: "GET",
     url: "https://distance-calculator1.p.rapidapi.com/v1/getdistance",
     params: {
-      //   start_lat: user_lat,
-      //   start_lng: user_long,
-      //   end_lat: shop_lat,
-      //   end_lng: shop_long,
-      start_lat: "13.198989944266078",
-      start_lng: "77.70908188996312",
-      end_lat: "13.113908410795627",
-      end_lng: "77.5745906650984",
+      start_lat: user_lat,
+      start_lng: user_long,
+      end_lat: shop_lat,
+      end_lng: shop_long,      
       unit: "kilometers",
     },
     headers: {
-      "x-rapidapi-host": "distance-calculator1.p.rapidapi.com",
-      "x-rapidapi-key": "1446952fcdmsh4d730342fde0d6dp1f1453jsn49f9f83affe6",
+      'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+      'x-rapidapi-key': '6c5ea82118msh3191aa4435b0726p1cad73jsn75936f5a9c5f'
     },
   };
 
-  axios
+  return axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
+      const a = response.data.Distance
+      return a
     })
     .catch(function (error) {
       console.error(error);
     });
-  return shortest_assigned_shop;
+  //return shortest_assigned_shop;
 }
 
 function calculateDistanceBetweenShopAndRider(
@@ -49,28 +48,53 @@ function calculateDistanceBetweenShopAndRider(
   return assigneRider;
 }
 
-// exports.place_order = async (req, res) => {
-//   //send_notification_to_rider
-//   try {
-//     const coord = [];
-//     const user_coord = await db.user.findOne({
-//       where: { inc_id: "5" },
-//       attributes: ["lat", "long"],
-//       raw: true,
-//     });
-//     //console.log(user_coordinates);
-//     //res.send(user_coordinates);
-//     //shop_coordinates_start
-//     const shop_coord = await db.shop.findAll({
-//       attributes: ["inc_id", "shop_name", "lat", "long"],
-//     });
+exports.place_order = async (req, res) => {
+  
+  try {
+    let coord = [];  
+    const shop_details = []
+    const user_coord = await db.user.findOne({
+      where: { inc_id: "5" },
+      attributes: ["lat", "long"],
+      raw: true,
+    });
+    
+    const shop_coord = await db.shop.findAll({
+      attributes: ["inc_id", "shop_name", "lat", "long"],
+      raw: true,
+    });
 
-//     //console.log(data);
-//     //res.send(data);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// };
+    coord.push(shop_coord);
+    var coordinates = coord[0];
+    var promise = coordinates.map((data1) => {
+      return calculateDistanceBetweenUserAndShop(user_coord.lat,user_coord.long,data1.lat,data1.long).then((data) => {
+        let shops = {}         
+        shops.inc_id = data1.inc_id
+        shops.distance = data
+        return shops
+      });
+    });
+    
+    await Promise.all(promise).then((data)=>{     
+      const sorted = sortArray(data,{
+        by:'distance',
+      })    
+      db.shop.findOne({
+          attributes:['shop_name','fcm_token'],
+          where:{inc_id:sorted[0].inc_id},
+          raw:true
+        }).then((data)=>{
+          console.log(data);
+          res.send(data)
+        })
+      
+    })
+    
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 
 exports.post_details = async (req, res) => {
   try {
