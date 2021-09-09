@@ -26,7 +26,7 @@ app.route("/user/get_all_tags").get(shop.get_all_tags);
 app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id);
 app.route("/add_to_cart");
 
-// app.route("/user/place_order").get(rider.place_order);
+app.route("/user/place_order").get(rider.place_order);
 
 //post_rider
 app.route("/rider/post_rider_details").post(rider.post_details);

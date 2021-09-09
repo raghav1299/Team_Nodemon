@@ -87,6 +87,7 @@
 
 .productForm {
     padding: 0 15px 15px 15px;
+    width: 500px;
     form {
         display: flex;
         flex-direction: column;
@@ -95,13 +96,15 @@
             color: $text-black;
             margin-bottom: 5px;
         }
-        input {
-            width: 100%;
-            height: 35px;
-            padding: 0 10px;
-            border: 1px solid $grey;
-            border-radius: 5px;
-            margin-bottom: 20px;
+        .native {
+            input {
+                width: 100%;
+                height: 35px;
+                padding: 0 10px;
+                border: 1px solid $grey;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
         }
         button {
             margin-top: 20px;
