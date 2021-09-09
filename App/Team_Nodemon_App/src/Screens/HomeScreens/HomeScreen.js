@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
     View,
     Text,
@@ -11,20 +11,20 @@ import {
     Pressable,
     Button,
 } from "react-native";
-import { API_CALL } from "../../Functions/ApiFuntions";
+import {API_CALL} from "../../Functions/ApiFuntions";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import { COLORS } from "../../Constants/GlobalStyles";
+import {COLORS} from "../../Constants/GlobalStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { runInAction } from "mobx";
-import { Observer } from "mobx-react";
-import { Loader, LoaderV1 } from "../../Components/Components";
+import {runInAction} from "mobx";
+import {Observer} from "mobx-react";
+import {Loader, LoaderV1} from "../../Components/Components";
 import Store from "../../Store/Store";
-import { showNotification } from "../../Functions/AppFuntions";
-export default function HomeScreen({ navigation }) {
+import {showNotification} from "../../Functions/AppFuntions";
+export default function HomeScreen({navigation}) {
     const [isLoading, setLoading] = useState(true);
     const [isLoadingList, setLoadingList] = useState(false);
 
@@ -55,14 +55,14 @@ export default function HomeScreen({ navigation }) {
                     url: "/api/user/get_all_products",
                     method: "get",
                 },
-                { type: "WEB" }
+                {type: "WEB"}
             );
             // console.log("data.data", data.data)
             let quant = data.data;
-            quant.forEach((item) => {
-                item.quantity = 1
-            })
-            console.log("quanttt", quant)
+            quant.forEach(item => {
+                item.quantity = 1;
+            });
+
             setProductsData(data.data);
             status = true;
         } catch (error) {
@@ -78,11 +78,11 @@ export default function HomeScreen({ navigation }) {
                     url: "/api/user/get_all_tags",
                     method: "get",
                 },
-                { type: "WEB" }
+                {type: "WEB"}
             );
 
             status = true;
-            setCategoriesData([{ inc_id: "intial", tag: "All" }, ...data.data]);
+            setCategoriesData([{inc_id: "intial", tag: "All"}, ...data.data]);
         } catch (error) {
             console.log(error);
         }
@@ -96,7 +96,7 @@ export default function HomeScreen({ navigation }) {
                     url: `/api/products/tags/${tag}`,
                     method: "get",
                 },
-                { type: "ML" }
+                {type: "ML"}
             );
             console.log(data.data);
             setProductsData(data.data);
@@ -143,23 +143,23 @@ export default function HomeScreen({ navigation }) {
 
         return status;
     }
-    function renderProductsFunc({ item }) {
+    function renderProductsFunc({item}) {
         return (
             <Observer>
                 {() => (
-                    <View style={{ flex: 1, marginTop: 0, paddingBottom: 10 }}>
+                    <View style={{flex: 1, marginTop: 0, paddingBottom: 10}}>
                         <Pressable
                             style={styles.productCard}
                             onPress={() => {
-                                console.log("item", item)
+                                console.log("item", item);
                                 navigation.navigate("ProductInfoScreen", {
                                     item,
                                 });
                             }}
                         >
-                            <View style={{ marginTop: "5%" }}>
+                            <View style={{marginTop: "5%"}}>
                                 <Image
-                                    source={{ uri: item.image_address }}
+                                    source={{uri: item.image_address}}
                                     style={{
                                         width: wp(30),
                                         height: wp(40),
@@ -172,7 +172,7 @@ export default function HomeScreen({ navigation }) {
                                 />
                             </View>
                             <View>
-                                <Text style={{ fontSize: hp(2.4) }} numberOfLines={1}>
+                                <Text style={{fontSize: hp(2.4)}} numberOfLines={1}>
                                     {item.product_name}
                                 </Text>
 
@@ -184,7 +184,7 @@ export default function HomeScreen({ navigation }) {
                                         marginBottom: "2%",
                                     }}
                                 >
-                                    <Text style={{ fontSize: hp(3.2) }}>₹ {item.mrp}</Text>
+                                    <Text style={{fontSize: hp(3.2)}}>₹ {item.mrp}</Text>
                                 </View>
                                 <TouchableOpacity
                                     style={{
@@ -209,7 +209,7 @@ export default function HomeScreen({ navigation }) {
                                         }
                                     }}
                                 >
-                                    <Text style={{ textAlign: "center", color: COLORS.WHITE }}>
+                                    <Text style={{textAlign: "center", color: COLORS.WHITE}}>
                                         {addToCartButtonColor(item.inc_id)
                                             ? "Remove"
                                             : "Add to Cart"}
@@ -222,7 +222,7 @@ export default function HomeScreen({ navigation }) {
             </Observer>
         );
     }
-    function renderCategoriesFunc({ item }) {
+    function renderCategoriesFunc({item}) {
         return (
             <TouchableOpacity
                 style={{
@@ -278,13 +278,13 @@ export default function HomeScreen({ navigation }) {
                         alignItems: "center",
                         borderRadius: 10,
                         flexDirection: "row",
-                        width: wp(80),
+                        width: wp(90),
                         marginLeft: "5%",
                     }}
                 >
                     <TextInput
                         style={{
-                            width: wp(70),
+                            width: wp(78),
                             paddingLeft: "5%",
                             fontSize: hp(2),
                         }}
@@ -293,13 +293,13 @@ export default function HomeScreen({ navigation }) {
                     <MaterialIcons
                         name={"search"}
                         size={30}
-                    // style={{ marginRight: "5%" }}
+                        // style={{ marginRight: "5%" }}
                     />
-                    <Ionicons
+                    {/* <Ionicons
                         name={"md-cart-outline"}
                         size={30}
-                        style={{ marginLeft: "8%", color: COLORS.WHITE }}
-                    />
+                        style={{marginLeft: "8%", color: COLORS.WHITE}}
+                    /> */}
                 </View>
             </View>
         );
@@ -312,7 +312,7 @@ export default function HomeScreen({ navigation }) {
             <SearchBar />
             <View style={styles.mainContainerStyle}>
                 <View>
-                    <View style={{ flexDirection: "row", marginVertical: "2%" }}>
+                    <View style={{flexDirection: "row", marginVertical: "2%"}}>
                         <FlatList
                             data={categoriesData}
                             horizontal={true}
@@ -325,18 +325,18 @@ export default function HomeScreen({ navigation }) {
                 {isLoadingList ? (
                     <Loader />
                 ) : (
-                    <View style={{ marginTop: "2%" }}>
-                        <Button
+                    <View style={{marginTop: "2%"}}>
+                        {/* <Button
                             title="press"
                             onPress={() => {
                                 console.log(Store.cart);
                             }}
-                        />
+                        /> */}
                         <FlatList
                             data={productsData}
                             numColumns={2}
-                            contentContainerStyle={{ paddingBottom: "20%" }}
-                            columnWrapperStyle={{ flexWrap: "wrap", flex: 1 }}
+                            contentContainerStyle={{paddingBottom: "20%"}}
+                            columnWrapperStyle={{flexWrap: "wrap", flex: 1}}
                             renderItem={renderProductsFunc}
                             keyExtractor={item => item.inc_id}
                         />
