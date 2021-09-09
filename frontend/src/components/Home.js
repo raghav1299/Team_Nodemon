@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Home.module.scss";
+import { useHistory } from "react-router-dom";
 
 import Button from "../shared/Button";
 import Modal from "../shared/Modal";
@@ -13,9 +14,11 @@ export default function Home() {
   const [location, setLocation] = useState(null);
   const [formdata, setFormdata] = useState({});
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
+  const history = useHistory();
 
   function toggleSignupModal() {
-    setIsSignupModalOpen((prev) => !prev);
+    // setIsSignupModalOpen((prev) => !prev);
+    history.push("/dashboard");
   }
 
   function getGeoLocation() {
@@ -54,7 +57,7 @@ export default function Home() {
             Here to bring your <br /> customers closer!
           </p>
           <Button
-            name="Get Started"
+            name="Open Shop"
             backgroundColor="#F45C2C"
             color="#ffffff"
             width="120px"

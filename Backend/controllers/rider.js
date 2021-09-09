@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const db = require("./../database/database");
 const axios = require("axios");
+const shop = require("../models/shop");
+const sortArray = require('sort-array')
+var token = 'd952bd3bbdmshac7be6b599f17d8p16014fjsn913e623d7afe'
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -13,64 +16,211 @@ function calculateDistanceBetweenUserAndShop(
     method: "GET",
     url: "https://distance-calculator1.p.rapidapi.com/v1/getdistance",
     params: {
-      //   start_lat: user_lat,
-      //   start_lng: user_long,
-      //   end_lat: shop_lat,
-      //   end_lng: shop_long,
-      start_lat: "13.198989944266078",
-      start_lng: "77.70908188996312",
-      end_lat: "13.113908410795627",
-      end_lng: "77.5745906650984",
+      start_lat: user_lat,
+      start_lng: user_long,
+      end_lat: shop_lat,
+      end_lng: shop_long,      
       unit: "kilometers",
     },
     headers: {
-      "x-rapidapi-host": "distance-calculator1.p.rapidapi.com",
-      "x-rapidapi-key": "1446952fcdmsh4d730342fde0d6dp1f1453jsn49f9f83affe6",
+      'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+      'x-rapidapi-key': token
     },
   };
 
-  axios
+  return axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
+      const a = response.data.Distance
+      return a
     })
     .catch(function (error) {
       console.error(error);
     });
-  return shortest_assigned_shop;
+  //return shortest_assigned_shop;
 }
 
-function calculateDistanceBetweenShopAndRider(
+function calculateDistanceBetweenUserAndRider(
   shop_lat,
   shop_long,
   rider_shop,
   rider_long
 ) {
-  return assigneRider;
+  var options = {
+    method: "GET",
+    url: "https://distance-calculator1.p.rapidapi.com/v1/getdistance",
+    params: {
+      start_lat: shop_lat,
+      start_lng: shop_long,
+      end_lat: rider_shop,
+      end_lng: rider_long,      
+      unit: "kilometers",
+    },
+    headers: {
+      'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
+      'x-rapidapi-key': token
+    },
+  };
+
+  return axios
+    .request(options)
+    .then(function (response) {
+      const a = response.data.Distance
+      return a
+    })
+    .catch(function (error) {
+      console.error(error);
+    });  
 }
 
-// exports.place_order = async (req, res) => {
-//   //send_notification_to_rider
-//   try {
-//     const coord = [];
-//     const user_coord = await db.user.findOne({
-//       where: { inc_id: "5" },
-//       attributes: ["lat", "long"],
-//       raw: true,
-//     });
-//     //console.log(user_coordinates);
-//     //res.send(user_coordinates);
-//     //shop_coordinates_start
-//     const shop_coord = await db.shop.findAll({
-//       attributes: ["inc_id", "shop_name", "lat", "long"],
-//     });
+function sendNotification(token,body){
+  var data = JSON.stringify({
+    "to": token,
+    "collapse_key": "type_a",
+    "priority": "high",
+    "notification": {
+      "body": body,
+      "title": "pickup and delivery"
+    }
+  });
+  
+  var config = {
+    method: 'post',
+    url: 'https://fcm.googleapis.com/fcm/send',
+    headers: { 
+      'Authorization': 'Bearer AAAAHAqavWU:APA91bE_-nY4MGn8Vx0YVDBQ6jKIwwlKri0IpXSgZFrwrXfRMJu-H_nHwDbsuB_aThRL7AwOY9WskNfFwGcf7-aoUWHcw5KDbMXIuanyWZL4SdlJgE2tF9pnKo-jbNwigDg_yK2GcXiN', 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    // console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
 
-//     //console.log(data);
-//     //res.send(data);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// };
+exports.place_order = async (req, res) => {
+  
+  try {
+    let coord = [];  
+    let rider_coord = []
+    const shop_details = []
+    var c = 0;
+    
+    const user_coord = await db.user.findOne({
+      where: { inc_id: "5" },
+      attributes: ["lat", "long","location","city","state","pincode","country"],
+      raw: true,
+    });
+    // console.log(user_coord);
+    const shop_coord = await db.shop.findAll({
+      attributes: ["inc_id", "shop_name", "lat", "long"],
+      raw: true,
+    });
+
+    coord.push(shop_coord);
+    var coordinates = coord[0];
+    var promise = coordinates.map((data1) => {
+      return calculateDistanceBetweenUserAndShop(user_coord.lat,user_coord.long,data1.lat,data1.long).then((data) => {
+        let shops = {}         
+        shops.inc_id = data1.inc_id
+        shops.distance = data
+        return shops
+      });
+    });
+    
+    await Promise.all(promise).then((data)=>{     
+      const sorted = sortArray(data,{
+        by:'distance',
+      })    
+      c = sorted[0].inc_id
+      db.shop.findOne({
+          attributes:['shop_name','fcm_token'],
+          where:{inc_id:sorted[0].inc_id},
+          raw:true
+        }).then((data)=>{
+          // console.log(data);
+          // res.send(data)
+        })
+      
+    })
+    
+    const shop_coordinates = await db.shop.findOne({
+      attributes:['lat','long','shop_address','shop_name'],
+      where:{inc_id:c},
+      raw:true
+    })
+   
+    const riderCoord = await db.delivery_boy.findAll({
+      attributes: ["inc_id","curr_lat", "curr_long","username"],
+      raw: true,
+    })
+    // console.log(riderCoord);
+    rider_coord.push(riderCoord)
+    var rider_coordinates = rider_coord[0]
+    // console.log(rider_coordinates);
+    var promise1 = riderCoord.map((data1)=>{
+      // console.log(data1.curr_lat,data1.curr_long);
+      return calculateDistanceBetweenUserAndRider(shop_coordinates.lat,shop_coordinates.long,data1.curr_lat,data1.curr_long).then((data)=>{
+        // console.log(data);
+        var rider_details = {}
+        rider_details.inc_id = data1.inc_id
+        rider_details.distance = data
+        return rider_details;
+      })
+
+    })
+    // console.log(shop_coordinates);
+    await Promise.all(promise1).then((data)=>{
+
+      var sorted_rider = sortArray(data,{
+        by: 'distance'
+      })
+      d = sorted_rider[0].inc_id
+      db.delivery_boy.findOne({
+        attributes:["fcm_token",'username'],
+        where:{inc_id:d},
+        raw:true
+      }).then((data)=>{
+         var  token = data.fcm_token
+        //  console.log(token);
+        //  res.send(token)
+        var body = `Pickup Location:- \n Latitude:- ${shop_coordinates.lat} Longitude:- ${shop_coordinates.long} \n Shop:-${shop_coordinates.shop_address} \n \n
+                    Drop Location:- \n Latitude:- ${user_coord.lat} Longitude:- ${user_coord.long} \n Home Address:- Location - ${user_coord.location}, City - ${user_coord.city}, Pincode:- ${user_coord.pincode}, State - ${user_coord.state}, Country - ${user_coord.country}
+        `
+        var shoplocation = shop_coordinates.shop_name + " "+shop_coordinates.shop_address
+        var droplocation = user_coord.location + " "+ user_coord.city + " "+user_coord.state+" "+user_coord.pincode+" "+user_coord.country        
+        db.delivery_boy_history.create({
+            username: data.username,
+            pickup_address: shoplocation,
+            drop_address:droplocation,
+            pickup_lat:shop_coordinates.lat,
+            pickup_long:shop_coordinates.long,
+            dest_lat: user_coord.lat,
+            dest_long: user_coord.long,
+            active_order:1
+        }).then((data)=>{
+          // console.log(data);
+          console.log('check db');
+        })
+        sendNotification(token,body)
+        // console.log(body);
+      })
+    })
+    // console.log(token);
+    // // var title = 'pickup and delivery',
+    res.send('token sent')
+
+
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 
 exports.post_details = async (req, res) => {
   try {
@@ -175,3 +325,52 @@ exports.get_all_riders = async (req, res) => {
     res.send(error);
   }
 };
+
+exports.get_active_orders = async(req,res)=>{
+  try {
+    const username = req.query.username
+  const active_orders = req.query.active_orders
+  const data = await db.delivery_boy_history.findAll({
+    where:{
+      username: username,
+      active_order: active_orders
+    }
+  })
+  res.status(200).json({
+    status: "success",
+    message: "active orders",
+    total_riders: data.length,
+    data: data,
+  });
+  } catch (error) {
+    res.send(error)
+  }
+  
+}
+
+exports.set_order_delivered = async(req,res)=>{
+  try {
+    const username = req.query.username
+    const inc_id = req.query.inc_id
+   const data = await db.delivery_boy_history.update(
+     
+       {active_order: 0},
+     {
+       where:{
+         username:username,
+         inc_id:inc_id
+       }}
+     
+   )
+  //  console.log(data);
+  res.status(200).json({
+    status: "success",
+    message: "order delivered",
+    //total_riders: data.length,
+    data: data,
+  });
+  } catch (error) {
+    res.send(error)
+  }
+  
+}

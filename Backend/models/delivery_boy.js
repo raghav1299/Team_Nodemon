@@ -81,6 +81,10 @@ module.exports = function(sequelize, DataTypes) {
     fcm_token: {
       type: DataTypes.STRING(1024),
       allowNull: true
+    },
+    active_orders: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,

@@ -52,7 +52,15 @@ function ProductInfoScreen({route, navigation}) {
                 },
                 {type: "ML"}
             );
-            setRecommendedProductsData(data.data);
+
+            if (data.data) {
+                let quant = data.data;
+
+                quant.forEach(item => {
+                    item.quantity = 1;
+                });
+                setRecommendedProductsData(data.data);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -70,7 +78,14 @@ function ProductInfoScreen({route, navigation}) {
                 },
                 {type: "ML"}
             );
-            setAlsoBoughtProductsData(data.data);
+            if (data.data) {
+                let quant = data.data;
+
+                quant.forEach(item => {
+                    item.quantity = 1;
+                });
+                setAlsoBoughtProductsData(data.data);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -233,47 +248,53 @@ function ProductInfoScreen({route, navigation}) {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                    <View>
-                        <Text
-                            style={{
-                                marginLeft: wp(5),
-                                fontSize: hp(4),
-                                color: COLORS.ORANGE,
-                                marginTop: "-2%",
-                            }}
-                        >
-                            Similar Products
-                        </Text>
-                        <FlatList
-                            horizontal={true}
-                            pagingEnabled
-                            showsHorizontalScrollIndicator={false}
-                            // contentContainerStyle={{backgroundColor: "red"}}
-                            data={recommendedProductsData}
-                            renderItem={renderItemFunc}
-                            keyExtractor={item => item.inc_id}
-                        />
-                    </View>
-                    <View>
-                        <Text
-                            style={{
-                                marginLeft: wp(5),
-                                fontSize: hp(4),
-                                color: COLORS.ORANGE,
-                                marginTop: "-2%",
-                            }}
-                        >
-                            Users also bought
-                        </Text>
-                        <FlatList
-                            horizontal={true}
-                            pagingEnabled
-                            contentContainerStyle={{paddingBottom: "5%"}}
-                            data={alsoBoughtProductsData}
-                            renderItem={renderItemFunc}
-                            keyExtractor={item => item.inc_id}
-                        />
-                    </View>
+
+                    {recommendedProductsData.length > 0 ? (
+                        <View>
+                            <Text
+                                style={{
+                                    marginLeft: wp(5),
+                                    fontSize: hp(4),
+                                    color: COLORS.ORANGE,
+                                    marginTop: "-2%",
+                                }}
+                            >
+                                Similar Products
+                            </Text>
+                            <FlatList
+                                horizontal={true}
+                                pagingEnabled
+                                showsHorizontalScrollIndicator={false}
+                                // contentContainerStyle={{backgroundColor: "red"}}
+                                data={recommendedProductsData}
+                                renderItem={renderItemFunc}
+                                keyExtractor={item => item.inc_id}
+                            />
+                        </View>
+                    ) : null}
+                    {alsoBoughtProductsData.length > 0 ? (
+                        <View>
+                            <Text
+                                style={{
+                                    marginLeft: wp(5),
+                                    fontSize: hp(4),
+                                    color: COLORS.ORANGE,
+                                    marginTop: "-2%",
+                                }}
+                            >
+                                Users also bought
+                            </Text>
+                            <FlatList
+                                horizontal={true}
+                                pagingEnabled
+                                showsHorizontalScrollIndicator={false}
+                                contentContainerStyle={{paddingBottom: "5%"}}
+                                data={alsoBoughtProductsData}
+                                renderItem={renderItemFunc}
+                                keyExtractor={item => item.inc_id}
+                            />
+                        </View>
+                    ) : null}
                 </ScrollView>
             )}
         </Observer>

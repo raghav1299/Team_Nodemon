@@ -1,47 +1,47 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('products', {
+  return sequelize.define('delivery_boy_history', {
     inc_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    product_name: {
+    username: {
       type: DataTypes.STRING(45),
       allowNull: true
     },
-    tags: {
-      type: DataTypes.STRING(45),
+    pickup_address: {
+      type: DataTypes.STRING(512),
       allowNull: true
     },
-    mrp: {
+    drop_address: {
+      type: DataTypes.STRING(512),
+      allowNull: true
+    },
+    active_order: {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    image_address: {
-      type: DataTypes.STRING(2048),
+    pickup_lat: {
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
-    shop_id: {
-      type: DataTypes.INTEGER,
+    pickup_long: {
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
-    ratings: {
-      type: DataTypes.FLOAT,
+    dest_lat: {
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
-    tags_string: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
+    dest_long: {
+      type: DataTypes.DOUBLE,
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'products',
+    tableName: 'delivery_boy_history',
     timestamps: false,
     indexes: [
       {
@@ -50,20 +50,6 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "inc_id" },
-        ]
-      },
-      {
-        name: "tags_idx",
-        using: "BTREE",
-        fields: [
-          { name: "tags" },
-        ]
-      },
-      {
-        name: "tag_idx",
-        using: "BTREE",
-        fields: [
-          { name: "tags_string" },
         ]
       },
     ]

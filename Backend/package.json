@@ -19,6 +19,7 @@
     "moment": "^2.29.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.5",
+    "sort-array": "^4.1.4",
     "swagger-ui-express": "^4.1.6",
     "uuid": "^8.3.2",
     "xss-clean": "^0.1.1",

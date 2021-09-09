@@ -33,7 +33,8 @@ let models = [
   require("./../models/tags.js"),
   require("./../models/user.js"),
   require('./../models/delivery_boy'),
-  require('./../models/order_history')
+  require('./../models/order_history'),
+  require('./../models/delivery_boy_history')
 ];
 
 models.forEach((model) => {
