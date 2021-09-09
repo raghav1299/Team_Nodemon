@@ -21,18 +21,56 @@
 
   <div align="center"> 
   <img src="media/Reco_sys.png" />
-  <div>
+  </div>
+    
+    ```
+    We have a 3 way powered recommendation engine that uses content filtering, collaborative
+    and past order history based recommendations to suggest the most effective and nearest 
+    matching products to the users.
+    
+    Content based filtering suggests, how products with similar tags are selected and suggested 
+    to the user. Care is taken to ensure that tags for multiple products are properly analysed 
+    before recommending anything. Collaborative and past order based recommendations are quite 
+    similar apart from a few points. Users with a similar order history or similar likes or dislikes
+    are suggested near alike products.
+    
+    Using the apriori algorithm, we can determine patterns and trends in an user’s past orders based
+    on pruning frequency and candidate items to improve joining efficiency. This algorithm can also 
+    be used to determine recurring orders and send push  notifications to the user for the same.
+
+    ```
+    
  
 - [x] Can Kiranas play a role in quicker deliveries? If yes, how can it work at scale?
     
   <div align="center"> 
   <img src="media/Delivery_Optimized.png" />
-  <div>
+  </div>
+  
+  ```
+  As per the basic flow of the system, first the customer places an order and we get the coordinates of 
+  the customer via device location and then scans all the nearest shops and delivery agents in a 5km radius.
+  Then we will assign the order to the nearest shop and the delivery agent based upon a distance matrix as
+  shown above. The shop is selected based on the availability of the product and the number of pending orders 
+  in the shop. A job is pushed using RabbitMQ and the shopkeeper gets an alert message and has a 2 minute window 
+  to accept the order failing which the order will be passed on to the next available shop. After the job is 
+  acknowledged it is popped from the queue. Next the delivery agent will receive a job through RabbitMQ. The 
+  delivery agent also has to accept the job within 2 minutes or else it will be passed on to the next agent.
+  Accordingly a final decision is made and the product is delivered
+
+  ```
  
 - [x] In Tier-1 cities, our societies are now digitised, courtesy the likes of Mygate. Can this prove to be a fundamental block in achieving higher speed of deliveries? (Relay deliveries)
     
     ```
-    We have also incorporated a feature which plays a fundamental role in relay deliveries. We will ensure that products ordered at same time from nearby localities are ordered to     the customers via the same delivery agent therefore keeping the max possible delivery agents available for further orders.
+    We have also incorporated a feature which plays a fundamental role in relay deliveries. 
+    We will ensure that products ordered at same time from nearby localities are ordered to     
+    the customers via the same delivery agent therefore keeping the max possible delivery agents 
+    available for further orders.
+    
+    Suppose customer 1 and customer 2 from nearby localities order products at the same time, 
+    their orders will be delivered via the nearest same delivery agent. This facilitates relay 
+    deliveries and ensures max possible delivery agents are available for further orders.
     ```
 
  <div align="center"> 
@@ -148,6 +186,13 @@
   - Node JS
   - Express
   - RabbitMQ
+    
+    Deployment
+    - Azure
+    
+    Open Source APIs
+    - https://rapidapi.com/digitallyamar/api/distance-calculator1(Distance Calculating API)
+
   ```
   
   #### Native | Android
@@ -257,7 +302,7 @@ Swarnabha Das
  <p>
  <br>
    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?logo=Microsoft%20Word&style=for-the-badge" /><br>
-   <br><strong><Repo-Name></strong> is available under MIT License, read the LICENSE file for more info
+   <br><strong><Repo-Name></strong>This Repository is available under MIT License, read the LICENSE file for more info
   <p>
  </div>
    
