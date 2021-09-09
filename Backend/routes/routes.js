@@ -24,6 +24,7 @@ app.route("/user/create_user").post(user.create_user);
 app.route("/user/get_all_products").get(shop.get_all_products);
 app.route("/user/get_all_tags").get(shop.get_all_tags);
 app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id);
+app.route('/user/get_user_details_by_username').get(user.get_user_details_by_username)
 app.route("/add_to_cart");
 
 app.route("/user/place_order").get(rider.place_order);

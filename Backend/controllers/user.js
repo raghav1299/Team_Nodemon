@@ -39,3 +39,17 @@ exports.create_user = async(req,res)=>{
   res.send(error)
 }        
 }
+
+
+exports.get_user_details_by_username = async(req,res)=>{
+  const username = req.query.username
+  const data = await db.user.findOne({
+    where:{username:username},
+    raw:true
+  })
+  res.status(200).json({
+    status: "success",
+    message: "rider_data",
+    data: data,
+  });
+}
