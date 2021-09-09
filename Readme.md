@@ -15,6 +15,15 @@
   <img src="media/p_statement.png" />
   <br><br>
  </div>
+ 
+ ```
+ - Can AI play a role here by predictively analysing the customer order patterns? Can a grocery order be auto-triggered?
+ 
+ - Can Kiranas play a role in quicker deliveries? If yes, how can it work at scale?
+ 
+ - In Tier-1 cities, our societies are now digitised, courtesy the likes of Mygate. 
+   Can this prove to be a fundamental block in achieving higher speed of deliveries? (Relay deliveries)
+ ```
 
  <div align="center"> 
     <p>
