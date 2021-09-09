@@ -17,6 +17,7 @@ def get_data_db(cnx):
     # db_cursor.execute('SELECT * FROM products')
     df = pd.read_sql('SELECT * FROM products', con=cnx)
     df['id'] = df['inc_id']
+    df = df[df['ratings'].notna()]
     df.set_index('id', inplace=True)
     return df
 
@@ -30,13 +31,14 @@ def get_final_products(df, final_pred):
         resp = 404
     else:
         resp = 200
-
+    # print(final_pred)
     df_final = []
     for prod in final_pred:
         df_one = df.loc[df['product_name'] == prod].to_dict(orient='records')
         df_final.append(df_one[0])
-        
+    # print(df_final) 
     final_dict['status'] = resp
     final_dict['data'] = df_final
+    # print(final_dict)
     return final_dict
     
