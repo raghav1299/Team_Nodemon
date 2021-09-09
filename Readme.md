@@ -148,6 +148,9 @@
   - Node JS
   - Express
   - RabbitMQ
+    
+    Deployment
+    - Azure
   ```
   
   #### Native | Android
@@ -257,7 +260,7 @@ Swarnabha Das
  <p>
  <br>
    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?logo=Microsoft%20Word&style=for-the-badge" /><br>
-   <br><strong><Repo-Name></strong> is available under MIT License, read the LICENSE file for more info
+   <br><strong><Repo-Name></strong>This Repository is available under MIT License, read the LICENSE file for more info
   <p>
  </div>
    
