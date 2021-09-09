@@ -32,7 +32,7 @@ function CartScreen({navigation}) {
         const unsubscribe = navigation.addListener(
             "focus",
             () => {
-                // console.log("cart", Store.cart);
+                console.log("cart", Store.cart);
 
                 calculateOrderTotal();
             },
