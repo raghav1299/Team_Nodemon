@@ -44,13 +44,11 @@ function CartScreen({navigation}) {
     }, [navigation]);
 
     function calculateOrderTotal() {
-        console.log("COST FUNC");
         let cost = 0;
         Store.cart.forEach(data => {
             cost = cost + data.quantity * data.mrp;
         });
-        // console.log(cost);
-        Store.setTotalCartBill(cost); // setTotalCost(cost);
+        Store.setTotalCartBill(cost);
         setLoading(false);
     }
 
@@ -174,7 +172,7 @@ function CartScreen({navigation}) {
                                 alignItems: "center",
                                 justifyContent: "space-between",
 
-                                marginTop: wp(6.8),
+                                marginTop: wp(5.4),
                             }}
                         >
                             <Text style={{fontSize: hp(2.8)}} numberOfLines={1}>

@@ -19,6 +19,7 @@ export default function BottomTabNavigator() {
                 tabBarInactiveTintColor: COLORS.BLACK,
                 headerShown: false,
                 tabBarShowLabel: false,
+                tabBarHideOnKeyboard: true,
             }}
             backBehavior={"initialRoute"}
         >
