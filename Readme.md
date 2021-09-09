@@ -24,6 +24,14 @@
  </div>
 
 <div align="center"> 
+    <p>
+    <img src="https://img.shields.io/badge/system%20architecture-moccasin?logo=Databricks&style=for-the-badge" /></p>
+    <img src="media/arch.png" />
+  <br><br>
+ </div>
+
+
+<div align="center"> 
   <img src="https://img.shields.io/badge/Product%20Images-mediumseagreen?logo=Pinterest&style=for-the-badge" /> 
 </div>
 <br>
