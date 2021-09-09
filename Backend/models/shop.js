@@ -34,11 +34,11 @@ module.exports = function(sequelize, DataTypes) {
       unique: "phone_UNIQUE"
     },
     lat: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     long: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     shop_status: {
@@ -55,6 +55,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     shop_name: {
       type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    shop_address: {
+      type: DataTypes.STRING(512),
       allowNull: true
     }
   }, {

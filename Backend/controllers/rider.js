@@ -4,6 +4,7 @@ const db = require("./../database/database");
 const axios = require("axios");
 const shop = require("../models/shop");
 const sortArray = require('sort-array')
+var token = 'e8d99ed79cmsh98ad5c218cc153cp101ee1jsn407bd37a3cb3'
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -23,7 +24,7 @@ function calculateDistanceBetweenUserAndShop(
     },
     headers: {
       'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
-      'x-rapidapi-key': '7fedd8ef06msh8f98fe56bdc5403p1d21bdjsn0d979d79b0e6'
+      'x-rapidapi-key': token
     },
   };
 
@@ -57,7 +58,7 @@ function calculateDistanceBetweenShopAndRider(
     },
     headers: {
       'x-rapidapi-host': 'distance-calculator1.p.rapidapi.com',
-      'x-rapidapi-key': '7fedd8ef06msh8f98fe56bdc5403p1d21bdjsn0d979d79b0e6'
+      'x-rapidapi-key': token
     },
   };
 
@@ -103,8 +104,36 @@ function calculateDistanceBetweenUserAndRider(
     })
     .catch(function (error) {
       console.error(error);
-    });
+    });  
+}
+
+function sendNotification(token,body){
+  var data = JSON.stringify({
+    "to": token,
+    "collapse_key": "type_a",
+    "notification": {
+      "body": body,
+      "title": "pickup and delivery"
+    }
+  });
   
+  var config = {
+    method: 'post',
+    url: 'https://fcm.googleapis.com/fcm/send',
+    headers: { 
+      'Authorization': 'Bearer AAAAHAqavWU:APA91bE_-nY4MGn8Vx0YVDBQ6jKIwwlKri0IpXSgZFrwrXfRMJu-H_nHwDbsuB_aThRL7AwOY9WskNfFwGcf7-aoUWHcw5KDbMXIuanyWZL4SdlJgE2tF9pnKo-jbNwigDg_yK2GcXiN', 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    // console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 }
 
 exports.place_order = async (req, res) => {
@@ -116,10 +145,10 @@ exports.place_order = async (req, res) => {
     var c = 0;
     const user_coord = await db.user.findOne({
       where: { inc_id: "5" },
-      attributes: ["lat", "long"],
+      attributes: ["lat", "long","location","city","state","pincode","country"],
       raw: true,
     });
-    
+    // console.log(user_coord);
     const shop_coord = await db.shop.findAll({
       attributes: ["inc_id", "shop_name", "lat", "long"],
       raw: true,
@@ -147,19 +176,17 @@ exports.place_order = async (req, res) => {
           raw:true
         }).then((data)=>{
           // console.log(data);
-          res.send(data)
+          // res.send(data)
         })
       
     })
     
     const shop_coordinates = await db.shop.findOne({
-      attributes:['lat','long'],
+      attributes:['lat','long','shop_address'],
       where:{inc_id:c},
       raw:true
     })
-
-    //console.log(shop_coordinates);
-
+   
     const riderCoord = await db.delivery_boy.findAll({
       attributes: ["inc_id","curr_lat", "curr_long"],
       raw: true,
@@ -179,15 +206,30 @@ exports.place_order = async (req, res) => {
       })
 
     })
-   
+    // console.log(shop_coordinates);
     await Promise.all(promise1).then((data)=>{
       var sorted_rider = sortArray(data,{
         by: 'distance'
       })
       d = sorted_rider[0].inc_id
+      db.delivery_boy.findOne({
+        attributes:["fcm_token"],
+        where:{inc_id:d},
+        raw:true
+      }).then((data)=>{
+         var  token = data.fcm_token
+        //  console.log(token);
+        //  res.send(token)
+        var body = `Pickup Location:- \n Latitude:- ${shop_coordinates.lat} Longitude:- ${shop_coordinates.long} \n Shop:-${shop_coordinates.shop_address} \n \n
+                    Drop Location:- \n Latitude:- ${user_coord.lat} Longitude:- ${user_coord.long} \n Home Address:- Location - ${user_coord.location}, City - ${user_coord.city}, Pincode:- ${user_coord.pincode}, State - ${user_coord.state}, Country - ${user_coord.country}
+        `
+        sendNotification(token,body)
+        // console.log(body);
+      })
     })
-
-
+    // console.log(token);
+    // // var title = 'pickup and delivery',
+    res.send('token sent')
 
 
   } catch (error) {

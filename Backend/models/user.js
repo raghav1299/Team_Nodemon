@@ -34,11 +34,11 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     lat: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     long: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DOUBLE,
       allowNull: true
     },
     previous_orders: {
