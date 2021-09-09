@@ -82,9 +82,50 @@
 
 #### Start the Native App 📱 :
 
+
+<br><br>
+
 <div align="center"> 
   <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" /> 
 </div>
+  <br>
+  
+  #### Recommendation System | Backend :
+  
+  ```
+  Python
+  - Scikit Learn
+  - Pandas
+  - NLP
+  - Poetry
+  - FastAPI
+  - Uvicorn
+  
+  Database
+  - MySQL
+  ```
+  
+  #### Admin | Frontend
+  
+  ```
+  Javascript
+  - React JS
+  ```
+  
+  #### Server | Backend
+  
+  ```
+  Javscript
+  - Node JS
+  - Express
+  ```
+  
+  #### Native | Android
+  
+  ```
+  Javascript
+  - React Native
+  ```
   <br>
 
 <div align="center"> 
@@ -192,3 +233,8 @@ Swarnabha Das
    <br><strong><Repo-Name></strong> is available under MIT License, read the LICENSE file for more info
   <p>
  </div>
+   
+ <div align="center">
+  <img src="https://img.shields.io/badge/Please%20star%20if%20you%20like%20it-lightcoral?logo=Starship&style=for-the-badge" width="300" height="35"/>
+ </div>
+
