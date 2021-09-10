@@ -56,6 +56,7 @@ export default orderScreen = ({ navigation }) => {
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         console.log(username)
+
         getOrder(username)
 
     }, [])

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, Image, Linking, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { BASE_URL_WEB, COLORS } from '../const/const';
+import { BASE_URL_WEB, COLORS, showNotification } from '../const/const';
 import axios from "axios";
 import store from '../store/store';
 import LottieView from 'lottie-react-native';
@@ -30,27 +30,33 @@ export default Home = ({ navigation }) => {
                     "username": username
                 }
             }).then((res) => {
-                console.log("get user data username", res.data.data)
-                let value = res.data.data
-                storeData("userDetail", value)
-                //console.log(store.fcmToken)
-                axios.patch(`${BASE_URL_WEB}/api/rider/set_fcm_token?token=${store.fcmToken}&inc_id=${res.data.data.inc_id}`
-                ).then((res) => {
+                if (res.data.data) {
+                    console.log("get user data username", res.data.data)
+                    let value = res.data.data
+                    storeData("userDetail", value)
+                    //console.log(store.fcmToken)
+                    axios.patch(`${BASE_URL_WEB}/api/rider/set_fcm_token?token=${store.fcmToken}&inc_id=${res.data.data.inc_id}`
+                    ).then((res) => {
 
-                    navigation.navigate('orderScreen')
-                    setUsername('')
-                    setLoading(false)
-                    //console.log(res.data)
-                }).catch((err) => {
-                    console.log(err)
-                })
+                        navigation.navigate('orderScreen')
+                        setUsername('')
+                        setLoading(false)
+                        //console.log(res.data)
+                    }).catch((err) => {
+                        console.log(err)
+                    })
+                }
+                else {
+                    setLoading(false);
+                    showNotification("user not found")
+                }
             }).catch((err) => {
                 alert(err)
                 console.log(err)
             })
         }
         else {
-            alert("please enter username")
+            showNotification('Please enter Username')
         }
     }
 
