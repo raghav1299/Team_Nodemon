@@ -229,7 +229,6 @@
   <h3>API Documentation:</h3>
 
   <a href="https://api.chetanpareek.tech/api-docs/"> https://api.chetanpareek.tech/api-docs/ </a><br>
-  <a href="https://shadowfax.chetanpareek.tech/home"> https://shadowfax.chetanpareek.tech/home </a><br>
 
   </div>
 
