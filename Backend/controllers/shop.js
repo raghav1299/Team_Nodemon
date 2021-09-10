@@ -15,6 +15,30 @@ exports.get_all_products = async (req, res) => {
   }
 };
 
+exports.set_user_fcm_token = async(req,res)=>{
+  try {
+    const token = req.query.token
+    const inc_id = req.query.inc_id
+    console.log(token);
+    console.log(inc_id);
+    const data = await db.user.update(
+      {
+        fcm_token: token
+      },{
+       where:{inc_id:inc_id}
+      }
+    )
+    res.status(200).json({
+      status: "success",
+      message: "user token updated",
+    });
+} catch (error) {
+    res.send(error)
+}
+}
+
+
+
 exports.list_shop = async(req,res)=>{
 try {
         const username = req.query.username

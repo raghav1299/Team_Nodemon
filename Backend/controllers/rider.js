@@ -4,7 +4,7 @@ const db = require("./../database/database");
 const axios = require("axios");
 const shop = require("../models/shop");
 const sortArray = require('sort-array')
-var token = 'd952bd3bbdmshac7be6b599f17d8p16014fjsn913e623d7afe'
+var token = 'e428645c7fmshb34f6e492177bd0p1c13fejsn346db9321b6d'
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -103,6 +103,36 @@ function sendNotification(token,body){
   });
 }
 
+function sendNotificationtoAtimabh(token,body){
+  var data = JSON.stringify({
+    "to": token,
+    "collapse_key": "type_a",
+    "priority": "high",
+    "notification": {
+      "body": body,
+      "title": "New Order to be delivered"
+    }
+  });
+  
+  var config = {
+    method: 'post',
+    url: 'https://fcm.googleapis.com/fcm/send',
+    headers: { 
+      'Authorization': 'Bearer AAAAHAqavWU:APA91bE_-nY4MGn8Vx0YVDBQ6jKIwwlKri0IpXSgZFrwrXfRMJu-H_nHwDbsuB_aThRL7AwOY9WskNfFwGcf7-aoUWHcw5KDbMXIuanyWZL4SdlJgE2tF9pnKo-jbNwigDg_yK2GcXiN', 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    // console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 exports.place_order = async (req, res) => {
   
   try {
@@ -110,9 +140,33 @@ exports.place_order = async (req, res) => {
     let rider_coord = []
     const shop_details = []
     var c = 0;
-    
+    var over_all_products = []
+    var inc_id = req.body.inc_id
+    // console.log(inc_id);
+    const order_history = req.body.orders
+    // res.send(order_history)
+    const promise2 = order_history.map(async (data)=>{
+      //  console.log(data.inc_id+","+data.quantity)
+       const product_data = await db.products.findOne({
+         attributes:["mrp","product_name"],
+         where:{inc_id:data.inc_id},
+         raw:true
+       }) 
+       const product_details = {}
+       product_details.price = product_data.mrp*data.quantity
+       product_details.name = product_data.product_name
+       product_details.quantity = data.quantity
+      //  console.log(product_details);
+       return product_details
+    })
+    await Promise.all(promise2).then(data=>{      
+      over_all_products= data
+      // console.log(over_all_products);
+    })
+    var total_price = over_all_products.reduce((accumulator, current) => accumulator.price + current.price);
+    // console.log(total_price);
     const user_coord = await db.user.findOne({
-      where: { inc_id: "5" },
+      where: { inc_id: inc_id },
       attributes: ["lat", "long","location","city","state","pincode","country"],
       raw: true,
     });
@@ -121,14 +175,17 @@ exports.place_order = async (req, res) => {
       attributes: ["inc_id", "shop_name", "lat", "long"],
       raw: true,
     });
-
+  //  console.log(shop_coord);
     coord.push(shop_coord);
     var coordinates = coord[0];
     var promise = coordinates.map((data1) => {
+      // console.log(data1);
       return calculateDistanceBetweenUserAndShop(user_coord.lat,user_coord.long,data1.lat,data1.long).then((data) => {
+        // console.log(data)
         let shops = {}         
         shops.inc_id = data1.inc_id
         shops.distance = data
+        // console.log(shops);
         return shops
       });
     });
@@ -137,13 +194,21 @@ exports.place_order = async (req, res) => {
       const sorted = sortArray(data,{
         by:'distance',
       })    
+      // console.log(sorted);
       c = sorted[0].inc_id
+      // console.log('c.inc_id');
+      // console.log(c);
       db.shop.findOne({
           attributes:['shop_name','fcm_token'],
-          where:{inc_id:sorted[0].inc_id},
+          where:{inc_id:c},
           raw:true
         }).then((data)=>{
+
+          body = over_all_products;
+          // console.log(body);
           // console.log(data);
+          sendNotificationtoAtimabh(data.fcm_token,body)
+          // console.log(order_history);
           // res.send(data)
         })
       
@@ -205,7 +270,7 @@ exports.place_order = async (req, res) => {
             active_order:1
         }).then((data)=>{
           // console.log(data);
-          console.log('check db');
+          // console.log('check db');
         })
         sendNotification(token,body)
         // console.log(body);
@@ -213,7 +278,17 @@ exports.place_order = async (req, res) => {
     })
     // console.log(token);
     // // var title = 'pickup and delivery',
-    res.send('token sent')
+    const latest_rider = await db.delivery_boy_history.findOne({
+      order:[['inc_id','DESC']],
+      raw:true
+    })
+    var assigned_rider = latest_rider.username
+    res.status(201).json({
+      status: 'success',
+      message: 'order placed',
+      shop_assigned:`${shop_coordinates.shop_name}`,
+      delivered_by: assigned_rider,
+    })
 
 
   } catch (error) {

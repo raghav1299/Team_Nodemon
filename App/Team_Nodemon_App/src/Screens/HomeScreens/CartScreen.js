@@ -26,6 +26,8 @@ import RazorpayCheckout from "react-native-razorpay";
 import {API_KEY} from "../../Config/Config";
 import LottieView from "lottie-react-native";
 import {showNotification} from "../../Functions/AppFuntions";
+import {API_CALL} from "../../Functions/ApiFuntions";
+import PushNotification, {Importance} from "react-native-push-notification";
 
 function CartScreen({navigation}) {
     const LottieRef = useRef();
@@ -36,8 +38,6 @@ function CartScreen({navigation}) {
         const unsubscribe = navigation.addListener(
             "focus",
             () => {
-                console.log("cart", Store.cart);
-
                 calculateOrderTotal();
             },
             []
@@ -251,16 +251,16 @@ function CartScreen({navigation}) {
             .then(data => {
                 Store.setShowPaymentStatus(true);
 
-                console.log("THEN BLOCK", data);
-
                 Store.setPaymentStatus(true);
+
+                OrderCheckout();
 
                 setTimeout(() => {
                     Store.setShowPaymentStatus(false);
                     showNotification("Payment Successfull");
                     Store.setCart([]);
                     navigation.navigate("Home", {screen: "HomeScreen"});
-                }, 3100);
+                }, 2000);
                 // handle success
                 // alert(`Success: ${data.razorpay_payment_id}`);
             })
@@ -274,9 +274,50 @@ function CartScreen({navigation}) {
                 setTimeout(() => {
                     Store.setShowPaymentStatus(false);
                     showNotification("Payment Failed");
-                }, 3100);
+                }, 2000);
                 // alert(`Error: ${error.code} | ${error.description}`);
             });
+    }
+    async function OrderCheckout(params) {
+        let OrderArray = [];
+
+        Store.cart.forEach(data => {
+            let obj = {};
+            obj.inc_id = data.inc_id;
+            obj.quantity = data.quantity;
+            OrderArray.push(obj);
+        });
+        console.log(OrderArray);
+        try {
+            const data = await API_CALL(
+                {
+                    url: `/api/user/place_order`,
+                    data: {
+                        orders: OrderArray,
+                        inc_id: Store.userIdVal,
+                    },
+                    method: "post",
+                },
+                {type: "WEB"}
+            );
+            console.log("data.data", data);
+
+            ShowLocalNotification(data);
+        } catch (error) {
+            console.log(error);
+            setLoading(false);
+        }
+    }
+    function ShowLocalNotification(data) {
+        PushNotification.localNotification({
+            channelId: "channel-id",
+            title: `Order accepted by ${data.shop_assigned}`, // (optional)
+            message: `You order will be delivered by ${data.delivered_by}`,
+            largeIconUrl:
+                "https://cdn5.vectorstock.com/i/thumb-large/25/39/full-supermarket-shopping-cart-shop-trolley-vector-21682539.jpg",
+            vibrate: true, // (optional) default: true
+            vibration: 800,
+        });
     }
     return (
         <Observer>
@@ -378,14 +419,9 @@ function CartScreen({navigation}) {
                                     }}
                                     activeOpacity={0.74}
                                     onPress={() => {
-                                        Store.setLoadingCheckout(true);
                                         console.log("TOTAL COST", Store.totalCartBill);
                                         console.log("TOTAL CART", Store.cart);
-
-                                        setTimeout(() => {
-                                            Store.setLoadingCheckout(false);
-                                            Payment();
-                                        }, 2000);
+                                        Payment();
                                     }}
                                 >
                                     <Text

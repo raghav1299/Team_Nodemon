@@ -27,8 +27,8 @@ app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id);
 app.route('/user/get_user_details_by_username').get(user.get_user_details_by_username)
 app.route('/user/get_order_history_of_user').get(user.get_order_history_of_user)
 app.route("/add_to_cart");
-
-app.route("/user/place_order").get(rider.place_order);
+app.route('/user/set_user_fcm_token').patch(shop.set_user_fcm_token)
+app.route("/user/place_order").post(rider.place_order);
 
 //post_rider
 app.route("/rider/post_rider_details").post(rider.post_details);

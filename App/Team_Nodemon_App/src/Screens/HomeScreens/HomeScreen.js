@@ -22,7 +22,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {runInAction} from "mobx";
 import {Observer} from "mobx-react";
-import {Loader, LoaderV1} from "../../Components/Components";
+import {Loader, LoaderV1, SearchBar} from "../../Components/Components";
 import Store from "../../Store/Store";
 import {showNotification} from "../../Functions/AppFuntions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -31,6 +31,8 @@ export default function HomeScreen({navigation}) {
     const [isLoadingList, setLoadingList] = useState(false);
 
     const [productsData, setProductsData] = useState([]);
+    const [searchText, setSearchText] = useState("");
+
     const [categoriesData, setCategoriesData] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -61,8 +63,6 @@ export default function HomeScreen({navigation}) {
             );
             // console.log("data.data", data.data)
             let quant = data.data;
-
-            console.log("Intial", data.data[1]);
 
             quant.forEach(item => {
                 item.quantity = 1;
@@ -110,6 +110,26 @@ export default function HomeScreen({navigation}) {
         }
         setLoadingList(false);
     }
+
+    async function SearchProducts(name) {
+        console.log(name);
+        setLoadingList(true);
+        try {
+            const data = await API_CALL(
+                {
+                    url: `/api/products/name/${name}`,
+                    method: "get",
+                },
+                {type: "ML"}
+            );
+            console.log(data.data);
+            setProductsData(data.data);
+        } catch (error) {
+            console.log(error);
+        }
+        setLoadingList(false);
+    }
+
     function addItemtoCart(item) {
         setCartData(oldArray => [...oldArray, item]);
         runInAction(() => {
@@ -265,57 +285,6 @@ export default function HomeScreen({navigation}) {
             </TouchableOpacity>
         );
     }
-    function SearchBar(params) {
-        return (
-            <View
-                style={{
-                    height: hp(9),
-                    width: wp(100),
-                    backgroundColor: COLORS.GREY,
-                    justifyContent: "center",
-                }}
-            >
-                <View style={{flexDirection: "row", alignItems: "center"}}>
-                    <View
-                        style={{
-                            height: hp(5.4),
-                            backgroundColor: COLORS.WHITE,
-                            alignSelf: "flex-start",
-                            alignItems: "center",
-                            borderRadius: 10,
-                            flexDirection: "row",
-                            width: wp(80),
-                            marginLeft: "5%",
-                        }}
-                    >
-                        <TextInput
-                            style={{
-                                width: wp(70),
-                                paddingLeft: "5%",
-                                fontSize: hp(2),
-                            }}
-                            placeholder={"Search...."}
-                        />
-                        <MaterialIcons
-                            name={"search"}
-                            size={30}
-                            // style={{ marginRight: "5%" }}
-                        />
-                    </View>
-                    <MaterialIcons
-                        name={"logout"}
-                        size={32}
-                        style={{marginLeft: "4%", color: COLORS.WHITE}}
-                        onPress={() => {
-                            AsyncStorage.clear();
-                            showNotification("Logged Out Successfully");
-                            Store.setAuthTokenVal(0);
-                        }}
-                    />
-                </View>
-            </View>
-        );
-    }
 
     return isLoading ? (
         <Loader />
@@ -325,7 +294,21 @@ export default function HomeScreen({navigation}) {
                 //  backgroundColor={COLORS.GREY}
                 backgroundColor={"#485d69"}
             />
-            <SearchBar />
+            <SearchBar
+                placeholder="Search Products"
+                defaultValue={searchText}
+                onSubmitEditing={() => {
+                    if (searchText == "") {
+                        return;
+                    } else {
+                        setSelectedCategory("");
+                        SearchProducts(searchText);
+                    }
+                }}
+                onChangeText={txt => {
+                    setSearchText(txt);
+                }}
+            />
             <View style={styles.mainContainerStyle}>
                 <View>
                     <View style={{flexDirection: "row", marginVertical: "2%"}}>
