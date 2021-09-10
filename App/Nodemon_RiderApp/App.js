@@ -10,11 +10,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import orderScreen from './src/screens/orderScreen';
 import register from './src/screens/register';
 import { getOrder } from './src/screens/orderScreen'
+import SplashScreen from 'react-native-splash-screen'
 
 
 
 export default function App() {
   const Stack = createNativeStackNavigator();
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, [])
 
   messaging()
     .getToken()

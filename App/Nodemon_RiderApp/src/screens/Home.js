@@ -51,7 +51,8 @@ export default Home = ({ navigation }) => {
                     showNotification("user not found")
                 }
             }).catch((err) => {
-                alert(err)
+                setLoading(false)
+                showNotification("something went wrong")
                 console.log(err)
             })
         }

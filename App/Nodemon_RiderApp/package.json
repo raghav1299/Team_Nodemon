@@ -43,6 +43,7 @@
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.6.0",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-tts": "^4.1.0"
   },
   "devDependencies": {
