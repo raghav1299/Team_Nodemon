@@ -218,7 +218,7 @@ Deployment
   Deployment
   - Azure
   
-  Open Source APIs
+  Development API to calculate distance
   - https://rapidapi.com/digitallyamar/api/distance-calculator1(Distance Calculating API)
   
 ```
@@ -248,17 +248,3 @@ Deployment
   <table>
 <tr align="center">
  <td>
-
-<!-- END -->
-
-<div align="center">
- <p>
- <br>
-   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?logo=Microsoft%20Word&style=for-the-badge" /><br>
-   <br><strong><Repo-Name></strong>This Repository is available under MIT License, read the LICENSE file for more info
-  <p>
- </div>
-
-<div align="center">
-  <img src="https://img.shields.io/badge/Please%20star%20if%20you%20like%20it-lightcoral?logo=Starship&style=for-the-badge" width="300" height="35"/>
- </div>
