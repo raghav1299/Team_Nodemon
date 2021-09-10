@@ -6,6 +6,7 @@ from tag_based import main as main2
 from apriori import main as main3
 from pydantic import BaseModel
 from recurring_orders import main as main4
+from product_based_search import main as main5
 
 
 app = APIRouter()
@@ -20,6 +21,15 @@ async def get_tag_products(tag_input: str):
     Pass a tag in the url and get back the products only with that specific tag 
     '''
     response = main.get_products(tag_input)
+    return response
+
+@app.get('/name/{name_input}')
+async def get_name_products(name_input: str):
+    '''
+    Tag based search:
+    Pass a tag in the url and get back the products only with that specific tag 
+    '''
+    response = main5.get_products(name_input)
     return response
 
 @app.post('/recommend')
