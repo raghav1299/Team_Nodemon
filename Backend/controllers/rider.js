@@ -4,7 +4,7 @@ const db = require("./../database/database");
 const axios = require("axios");
 const shop = require("../models/shop");
 const sortArray = require('sort-array')
-var token = '9fa085b70cmshcf7b543caa9150bp19c971jsnc0b51eaaed03'
+var token = '3347f3e961msh3ac9913da471a45p190f9fjsne9594165cf97'
 const {nanoid} = require('nanoid')
 const amqp = require("amqplib");
 require('dotenv/config')
