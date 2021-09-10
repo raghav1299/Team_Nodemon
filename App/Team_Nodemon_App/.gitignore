@@ -59,3 +59,6 @@ buck-out/
 /ios/Pods/
 
 /android/app/google-services.json
+
+/src/Config/Config.js
+

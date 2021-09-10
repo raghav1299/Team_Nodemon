@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     View,
     StyleSheet,
@@ -22,11 +22,15 @@ import {Observer} from "mobx-react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {Loader} from "../../Components/Components";
+import RazorpayCheckout from "react-native-razorpay";
+import {API_KEY} from "../../Config/Config";
+import LottieView from "lottie-react-native";
+import {showNotification} from "../../Functions/AppFuntions";
 
 function CartScreen({navigation}) {
+    const LottieRef = useRef();
     const [cartData, setCartData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [totalCost, setTotalCost] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
     useEffect(() => {
         const unsubscribe = navigation.addListener(
@@ -225,11 +229,96 @@ function CartScreen({navigation}) {
     function renderItem({item, index}) {
         return <CartCard data={item} index={index} />;
     }
+    function Payment(params) {
+        let amount = Store.totalCartBill * 100;
+
+        console.log(amount);
+        let options = {
+            description: "Bill Payment",
+            image: "https://cdn5.vectorstock.com/i/thumb-large/25/39/full-supermarket-shopping-cart-shop-trolley-vector-21682539.jpg",
+            currency: "INR",
+            key: API_KEY,
+            amount: parseInt(amount),
+            name: "Order Invoice",
+            prefill: {
+                email: "user@gmail.com",
+                contact: "7418529631",
+                name: "Razorpay Software",
+            },
+            theme: {color: COLORS.ORANGE},
+        };
+        RazorpayCheckout.open(options)
+            .then(data => {
+                Store.setShowPaymentStatus(true);
+
+                console.log("THEN BLOCK", data);
+
+                Store.setPaymentStatus(true);
+
+                setTimeout(() => {
+                    Store.setShowPaymentStatus(false);
+                    showNotification("Payment Successfull");
+                    Store.setCart([]);
+                    navigation.navigate("Home", {screen: "HomeScreen"});
+                }, 3100);
+                // handle success
+                // alert(`Success: ${data.razorpay_payment_id}`);
+            })
+            .catch(error => {
+                Store.setShowPaymentStatus(true);
+
+                // handle failure
+                console.log("CATCH BLOCK", error);
+
+                Store.setPaymentStatus(false);
+                setTimeout(() => {
+                    Store.setShowPaymentStatus(false);
+                    showNotification("Payment Failed");
+                }, 3100);
+                // alert(`Error: ${error.code} | ${error.description}`);
+            });
+    }
     return (
         <Observer>
             {() =>
                 isLoading ? (
                     <Loader />
+                ) : Store.isLoadingCheckout ? (
+                    <Loader />
+                ) : Store.paymentShowStatus ? (
+                    <View style={{flex: 1}}>
+                        {Store.paymentStatus ? (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: COLORS.WHITE,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Image
+                                    source={require("../../Images/payment_success.gif")}
+                                    style={{height: wp(80), width: wp(80), resizeMode: "contain"}}
+                                />
+                            </View>
+                        ) : !Store.paymentStatus ? (
+                            <View
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: COLORS.WHITE,
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Image
+                                    source={require("../../Images/payment_failed.gif")}
+                                    style={{height: wp(80), width: wp(80), resizeMode: "contain"}}
+                                />
+                            </View>
+                        ) : (
+                            <View style={{flex: 1, backgroundColor: "pink"}}></View>
+                        )}
+                    </View>
                 ) : Store.totalCartBill == "" ? (
                     <View
                         style={{
@@ -254,12 +343,6 @@ function CartScreen({navigation}) {
                     </View>
                 ) : (
                     <View style={styles.mainContainerStyle}>
-                        {/* <Button
-             title="press"
-             onPress={() => {
-                 console.log("CART DATA", Store.cart);
-             }}
-         /> */}
                         <View style={{flex: 6}}>
                             <FlatList
                                 data={Store.cart}
@@ -295,8 +378,14 @@ function CartScreen({navigation}) {
                                     }}
                                     activeOpacity={0.74}
                                     onPress={() => {
+                                        Store.setLoadingCheckout(true);
                                         console.log("TOTAL COST", Store.totalCartBill);
                                         console.log("TOTAL CART", Store.cart);
+
+                                        setTimeout(() => {
+                                            Store.setLoadingCheckout(false);
+                                            Payment();
+                                        }, 2000);
                                     }}
                                 >
                                     <Text

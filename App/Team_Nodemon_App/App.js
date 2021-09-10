@@ -7,9 +7,9 @@ import Store from "./src/Store/Store";
 import messaging from "@react-native-firebase/messaging";
 import {getData} from "./src/Functions/AppFuntions";
 import {Loader} from "./src/Components/Components";
+import SplashScreen from "react-native-splash-screen";
 
 export default function App() {
-    const [isLoading, setLoading] = useState(true);
     useEffect(() => {
         messaging()
             .getToken()
@@ -27,13 +27,11 @@ export default function App() {
         if (authState && userName) {
             Store.setAuthTokenVal(1);
             Store.setUsernameVal(userName);
-            setLoading(false);
         }
-        setLoading(false);
+
+        SplashScreen.hide();
     });
-    return isLoading ? (
-        <Loader />
-    ) : (
+    return (
         <Observer>
             {() => (
                 <NavigationContainer>
