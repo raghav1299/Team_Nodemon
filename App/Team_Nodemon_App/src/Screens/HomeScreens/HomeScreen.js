@@ -103,7 +103,12 @@ export default function HomeScreen({navigation}) {
                 },
                 {type: "ML"}
             );
-            console.log(data.data);
+
+            let quant = data.data;
+
+            quant.forEach(item => {
+                item.quantity = 1;
+            });
             setProductsData(data.data);
         } catch (error) {
             console.log(error);
@@ -122,7 +127,12 @@ export default function HomeScreen({navigation}) {
                 },
                 {type: "ML"}
             );
-            console.log(data.data);
+
+            let quant = data.data;
+
+            quant.forEach(item => {
+                item.quantity = 1;
+            });
             setProductsData(data.data);
         } catch (error) {
             console.log(error);
