@@ -37,6 +37,11 @@ export default function Login(params) {
 
                     storeData("authState", authState);
                     storeData("username", data.data.username);
+
+                    let inc_id = data.data.inc_id.toString();
+                    storeData("userId", inc_id);
+
+                    Store.setUserIdVal(inc_id);
                     Store.setUsernameVal(data.data.username);
                     Store.setAuthTokenVal(1);
                 } else {

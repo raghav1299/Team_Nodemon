@@ -5,6 +5,8 @@ class Store {
     cartButtonColorStatus = false;
     totalCartBill = "";
     usernameVal = "";
+    userIdVal = "";
+
     authTokenVal = 0;
     fcmToken = "";
     isLoadingCheckout = false;
@@ -39,6 +41,9 @@ class Store {
     }
     setUsernameVal(val) {
         this.usernameVal = val;
+    }
+    setUserIdVal(val) {
+        this.userIdVal = val;
     }
     setFcmToken(val) {
         this.fcmToken = val;
