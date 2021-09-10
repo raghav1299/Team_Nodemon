@@ -6,8 +6,6 @@ info:
 servers:
 - url: https://api.chetanpareek.tech
   variables: {}
-- url: http://localhost:3000/api
-  variables: {}
 paths:
   /:
     get:
@@ -21,9 +19,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/shop/list_shop:
     post:
       tags:
@@ -111,9 +106,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/user/get_all_products:
     get:
       tags:
@@ -126,9 +118,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/user/get_all_tags:
     get:
       tags:
@@ -141,9 +130,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/user/create_user:
     post:
       tags:
@@ -268,9 +254,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/user/get_product_using_inc_id:
     get:
       tags:
@@ -293,9 +276,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/shop/list_products:
     post:
       tags:
@@ -365,9 +345,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/shop/get_products_by_shop_id:
     get:
       tags:
@@ -390,9 +367,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/post_rider_details:
     post:
       tags:
@@ -451,9 +425,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/set_fcm_token:
     patch:
       tags:
@@ -485,9 +456,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/set_current_coordinates:
     patch:
       tags:
@@ -530,10 +498,7 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
-  /api/set_shop_token:
+  /api/shop/set_shop_token:
     patch:
       tags:
       - Misc
@@ -564,24 +529,32 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
-  /user/place_order:
-    get:
+  /api/user/place_order:
+    post:
       tags:
       - Misc
       summary: place order
       operationId: placeorder
       parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/placeorderrequest'
+            example:
+              orders:
+              - inc_id: 4
+                quantity: 5
+              - inc_id: 7
+                quantity: 10
+              inc_id: 6
+        required: true
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech/api
-        variables: {}
   /api/rider/get_details_using_username:
     get:
       tags:
@@ -597,15 +570,12 @@ paths:
         explode: true
         schema:
           type: string
-          example: raghav1299
+          example: raghav1399
       responses:
         '200':
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/get_all_riders:
     get:
       tags:
@@ -618,9 +588,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/get_active_orders:
     get:
       tags:
@@ -636,7 +603,7 @@ paths:
         explode: true
         schema:
           type: string
-          example: raghav1399
+          example: raghav1299
       - name: active_orders
         in: query
         description: ''
@@ -652,9 +619,6 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
   /api/rider/set_order_delivered:
     patch:
       tags:
@@ -686,9 +650,153 @@ paths:
           description: ''
           headers: {}
       deprecated: false
-      servers:
-      - url: https://api.chetanpareek.tech
-        variables: {}
+  /api/user/get_user_details_by_username:
+    get:
+      tags:
+      - Misc
+      summary: get user details by username
+      operationId: getuserdetailsbyusername
+      parameters:
+      - name: username
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: cp99says
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/user/get_order_history_of_user:
+    get:
+      tags:
+      - Misc
+      summary: get order  history of user
+      operationId: getorderhistoryofuser
+      parameters:
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 1
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/user/set_user_fcm_token:
+    patch:
+      tags:
+      - Misc
+      summary: set user fcm token
+      operationId: setuserfcmtoken
+      parameters:
+      - name: token
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: ram ka test token
+      - name: inc_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          format: int32
+          example: 6
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/shop/show_active_orders:
+    get:
+      tags:
+      - Misc
+      summary: shop active orders
+      operationId: shopactiveorders
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /api/shop/set_order_delivered:
+    patch:
+      tags:
+      - Misc
+      summary: set order delivered
+      operationId: Patchsetorderdelivered
+      parameters:
+      - name: order_id
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: GwNwYdX8r48iVQvv1B_HF
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    placeorderrequest:
+      title: placeorderrequest
+      required:
+      - orders
+      - inc_id
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/Order'
+          description: ''
+        inc_id:
+          type: integer
+          format: int32
+      example:
+        orders:
+        - inc_id: 4
+          quantity: 5
+        - inc_id: 7
+          quantity: 10
+        inc_id: 6
+    Order:
+      title: Order
+      required:
+      - inc_id
+      - quantity
+      type: object
+      properties:
+        inc_id:
+          type: integer
+          format: int32
+        quantity:
+          type: integer
+          format: int32
+      example:
+        inc_id: 4
+        quantity: 5
 tags:
 - name: Misc
   description: ''
