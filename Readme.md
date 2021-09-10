@@ -132,6 +132,8 @@
 #### Start the Python ML backend 🚀 :
 
    ```
+   !! APIs might not work upon run as it requires a .env file to be added with the credentials.
+   
    pip install poetry
    cd ML
    bash install.sh
@@ -146,14 +148,30 @@
    poetry install
    poetry run uvicorn main:app --reload
    ```
+  
 
+#### Start the Backend Server 🗃 :
 
-#### Start the Server Backend 🗃 :
+  ```
+  npm install 
+  npm install -g nodemon
+  nodemon app
+  ```
 
 #### Start the Admin Frontend 🖥️ :
+  
+  ```
+  npm install
+  npm start
+  ```
 
 #### Start the Native App 📱 :
 
+  ```
+  npm install
+  npx react-ntive run-android
+  npx react-native run-android
+  ```
 
 <br><br>
 
@@ -178,10 +196,13 @@
   
   Deployment
   - AWS
-  
-  API Documentation
-  - https://leap.swarnabha.tech/docs
   ```
+  
+  <div>
+   <h3>API Documentation:</h3>
+
+  <a href="https://leap.swarnabha.tech/docs"> https://leap.swarnabha.tech/docs </a><br>
+  </div>
   
   #### Admin | Frontend
   
@@ -202,10 +223,17 @@
     Open Source APIs
     - https://rapidapi.com/digitallyamar/api/distance-calculator1(Distance Calculating API)
     
-    API Documentation: 
-    - https://api.chetanpareek.tech/api-docs/
+   ```
+  <div>
 
-  ```
+  <h3>API Documentation:</h3>
+
+  <a href="https://api.chetanpareek.tech/api-docs/"> https://api.chetanpareek.tech/api-docs/ </a><br>
+  <a href="https://shadowfax.chetanpareek.tech/home"> https://shadowfax.chetanpareek.tech/home </a><br>
+
+  </div>
+
+
   
   #### Native | Android
   
