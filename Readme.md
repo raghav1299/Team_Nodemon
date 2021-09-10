@@ -10,7 +10,7 @@
   <img src="media/logo.jpg" />
   <br><br>
   <p>
-  <img src="https://img.shields.io/badge/Problem%20statement-lavenderblush?logo=Product%20Hunt&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Problem%20statement-lavenderblush?logo=Product%20Hunt&style=for-the-badge" height="55"/>
   </p>
   <img src="media/p_statement.png" />
   <br><br>
@@ -81,26 +81,26 @@
 
  <div align="center"> 
     <p>
-    <img src="https://img.shields.io/badge/Why%20%7C%20What%20it%20does-darkslategrey?logo=Windows%20Terminal&style=for-the-badge" /></p>
+    <img src="https://img.shields.io/badge/Why%20%7C%20What%20it%20does-darkslategrey?logo=Windows%20Terminal&style=for-the-badge" height="55"/></p>
     <img src="media/approach.png" />
   <br><br>
  </div>
 
 <div align="center"> 
     <p>
-    <img src="https://img.shields.io/badge/system%20architecture-moccasin?logo=Databricks&style=for-the-badge" /></p>
+    <img src="https://img.shields.io/badge/system%20architecture-moccasin?logo=Databricks&style=for-the-badge" height="55"/></p>
     <img src="media/Sys_Arch.png" />
   <br><br>
  </div>
 
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Product%20Images-mediumseagreen?logo=Pinterest&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Product%20Images-mediumseagreen?logo=Pinterest&style=for-the-badge" height="55" /> 
 </div>
 <br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Prerequisites-teal?logo=Pinboard&style=for-the-badge" /><br>
+  <img src="https://img.shields.io/badge/Prerequisites-teal?logo=Pinboard&style=for-the-badge" height="55"/><br>
 </div>
 <br>
 
@@ -116,7 +116,7 @@
  <br>
  
  <div align="center"> 
-  <img src="https://img.shields.io/badge/Setting%20up%20locally-purple?logo=visual-studio-code&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Setting%20up%20locally-purple?logo=visual-studio-code&style=for-the-badge" height="55"/> 
 </div><br>
 
  ```
@@ -176,7 +176,7 @@
 <br><br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" height="55"/> 
 </div>
   <br>
   
@@ -243,7 +243,7 @@
   <br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Contributors-black?logo=Github&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Contributors-black?logo=Github&style=for-the-badge" height="55"/> 
 </div>
   <br>
 
