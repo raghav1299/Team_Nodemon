@@ -1,6 +1,6 @@
 <div align="center"> 
   <p align='center'> 
-   <img src="https://img.shields.io/badge/Name%20-%20Repository-darkgreen?style=for-the-badge" />
+   <img src="https://img.shields.io/badge/Name%20-%20Nodemarket🔥 -darkgreen?style=for-the-badge" />
    <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
    <img src="https://img.shields.io/badge/By-Team%20Nodemon-blue?style=for-the-badge" /><br>
    <img src="https://img.shields.io/badge/shadowfax-leap%20hackathon-red?style=for-the-badge" />
@@ -229,7 +229,6 @@
   <h3>API Documentation:</h3>
 
   <a href="https://api.chetanpareek.tech/api-docs/"> https://api.chetanpareek.tech/api-docs/ </a><br>
-  <a href="https://shadowfax.chetanpareek.tech/home"> https://shadowfax.chetanpareek.tech/home </a><br>
 
   </div>
 

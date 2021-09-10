@@ -17,3 +17,12 @@ export const COLORS = {
 }
 export const BASE_URL_WEB = "https://api.chetanpareek.tech"
 export const BASE_URL_ML = "https://leap.swarnabha.tech"
+
+export const showNotification = str => {
+    if (Platform.OS == "android") {
+        ToastAndroid.show(str, ToastAndroid.LONG);
+    }
+    if (Platform.OS == "ios") {
+        Alert.alert(str);
+    }
+};
