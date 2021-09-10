@@ -7,6 +7,10 @@ class Store {
     usernameVal = "";
     authTokenVal = 0;
     fcmToken = "";
+    isLoadingCheckout = false;
+    paymentStatus = false;
+
+    paymentShowStatus = "";
 
     constructor() {
         makeAutoObservable(this);
@@ -17,6 +21,15 @@ class Store {
     }
     setAuthTokenVal(val) {
         this.authTokenVal = val;
+    }
+    setLoadingCheckout(val) {
+        this.isLoadingCheckout = val;
+    }
+    setPaymentStatus(val) {
+        this.paymentStatus = val;
+    }
+    setShowPaymentStatus(val) {
+        this.paymentShowStatus = val;
     }
     setCartButtonColorStatus(val) {
         this.cartButtonColorStatus = val;
