@@ -4,6 +4,7 @@ var _delivery_boy_history = require("./delivery_boy_history");
 var _order_history = require("./order_history");
 var _products = require("./products");
 var _shop = require("./shop");
+var _shop_active_orders = require("./shop_active_orders");
 var _tags = require("./tags");
 var _user = require("./user");
 
@@ -13,6 +14,7 @@ function initModels(sequelize) {
   var order_history = _order_history(sequelize, DataTypes);
   var products = _products(sequelize, DataTypes);
   var shop = _shop(sequelize, DataTypes);
+  var shop_active_orders = _shop_active_orders(sequelize, DataTypes);
   var tags = _tags(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
@@ -23,6 +25,7 @@ function initModels(sequelize) {
     order_history,
     products,
     shop,
+    shop_active_orders,
     tags,
     user,
   };

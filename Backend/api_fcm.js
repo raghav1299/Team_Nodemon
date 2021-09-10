@@ -46,12 +46,15 @@
 //   data: data,
 // };
 
-var x = 10
+// var x = 10
 
-function initial(){
-   console.log(x);
-   var x = 20;
-   console.log(x);
-}
+// function initial(){
+//    console.log(x);
+//    var x = 20;
+//    console.log(x);
+// }
 
-initial()
+// initial()
+
+// const {nanoid} = require('nanoid')
+// console.log(nanoid());

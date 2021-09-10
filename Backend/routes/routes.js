@@ -18,6 +18,8 @@ app.route("/shop/list_products").post(shop.list_products);
 app.route("/shop/get_products_by_shop_id").get(shop.get_products_by_shop_id);
 // app.route("/shop/stock_update");
 app.route("/shop/set_shop_token").patch(shop.set_fcm_token);
+app.route('/shop/show_active_orders').get(shop.show_active_orders)
+app.route('/shop/set_order_delivered').patch(shop.set_shop_order_delivered)
 
 //user APIs
 app.route("/user/create_user").post(user.create_user);

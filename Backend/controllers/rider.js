@@ -4,7 +4,8 @@ const db = require("./../database/database");
 const axios = require("axios");
 const shop = require("../models/shop");
 const sortArray = require('sort-array')
-var token = 'e428645c7fmshb34f6e492177bd0p1c13fejsn346db9321b6d'
+var token = '9fa085b70cmshcf7b543caa9150bp19c971jsnc0b51eaaed03'
+const {nanoid} = require('nanoid')
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -142,16 +143,26 @@ exports.place_order = async (req, res) => {
     var c = 0;
     var over_all_products = []
     var inc_id = req.body.inc_id
+    var orderid = nanoid()
     // console.log(inc_id);
     const order_history = req.body.orders
     // res.send(order_history)
     const promise2 = order_history.map(async (data)=>{
       //  console.log(data.inc_id+","+data.quantity)
        const product_data = await db.products.findOne({
-         attributes:["mrp","product_name"],
+         attributes:["mrp","product_name","image_address"],
          where:{inc_id:data.inc_id},
          raw:true
-       }) 
+       })
+       console.log(product_data);
+       console.log(data);
+      const placed_order = await db.shop_active_orders.create({
+          order_id:orderid,
+          product_name: product_data.product_name,
+          image_address: product_data.image_address,
+          quantity:data.quantity,
+          active_order: 1
+      })
        const product_details = {}
        product_details.price = product_data.mrp*data.quantity
        product_details.name = product_data.product_name
@@ -159,6 +170,7 @@ exports.place_order = async (req, res) => {
       //  console.log(product_details);
        return product_details
     })
+        
     await Promise.all(promise2).then(data=>{      
       over_all_products= data
       // console.log(over_all_products);
@@ -213,6 +225,8 @@ exports.place_order = async (req, res) => {
         })
       
     })
+
+
     
     const shop_coordinates = await db.shop.findOne({
       attributes:['lat','long','shop_address','shop_name'],

@@ -34,7 +34,8 @@ let models = [
   require("./../models/user.js"),
   require('./../models/delivery_boy'),
   require('./../models/order_history'),
-  require('./../models/delivery_boy_history')
+  require('./../models/delivery_boy_history'),
+  require('./../models/shop_active_orders')
 ];
 
 models.forEach((model) => {

@@ -181,3 +181,33 @@ exports.get_products_by_shop_id = async(req,res)=>{
     res.send(error);
   }
 }
+
+
+exports.show_active_orders = async(req,res)=>{
+  const data = await db.shop_active_orders.findAll({
+    where:{active_order:1},
+    raw:true
+  })
+  res.status(200).json({
+    status: "success",
+    message: "active orders",
+    number_of_active_orders:data.length,
+    data
+  });
+}
+exports.set_shop_order_delivered = async(req,res)=>{
+  const order_id = req.query.order_id
+  const data = db.shop_active_orders.update(
+    {
+      active_order:0
+    },{
+      where:{order_id:order_id}
+    }
+  )
+  res.json({
+    status: "success",
+    message: "order_delivered",
+    // number_of_active_orders:data.length,
+    // data
+  })
+}
