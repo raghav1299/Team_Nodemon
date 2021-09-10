@@ -6,6 +6,8 @@ const shop = require("../models/shop");
 const sortArray = require('sort-array')
 var token = '9fa085b70cmshcf7b543caa9150bp19c971jsnc0b51eaaed03'
 const {nanoid} = require('nanoid')
+const amqp = require("amqplib");
+require('dotenv/config')
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,
@@ -137,6 +139,7 @@ function sendNotificationtoAtimabh(token,body){
 exports.place_order = async (req, res) => {
   
   try {
+    
     let coord = [];  
     let rider_coord = []
     const shop_details = []
@@ -170,7 +173,19 @@ exports.place_order = async (req, res) => {
       //  console.log(product_details);
        return product_details
     })
-        
+     /*
+    const amqpServer = process.env.rabbitServer
+        // const amqpServer = "amqp://admin:password@rabbitmq.chetanpareek.tech"
+        const connection = await amqp.connect(amqpServer)
+        const channel = await connection.createChannel();
+        await channel.assertQueue("tm queue");
+        // await channel.sendToQueue("tm queue", Buffer.from(JSON.stringify(msg)))        
+        await channel.sendToQueue("tm queue", Buffer.from(JSON.stringify(msg)))
+        console.log(`Job sent successfully ${msg.number}`);
+        await channel.close();
+        await connection.close();
+ */
+
     await Promise.all(promise2).then(data=>{      
       over_all_products= data
       // console.log(over_all_products);
