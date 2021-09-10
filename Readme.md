@@ -219,7 +219,7 @@ Deployment
   - Azure
   
   Development API to calculate distance
-  - https://rapidapi.com/digitallyamar/api/distance-calculator1(Distance Calculating API)
+  - https://rapidapi.com/digitallyamar/api/distance-calculator1
   
 ```
 
