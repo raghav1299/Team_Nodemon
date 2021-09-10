@@ -10,6 +10,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.razorpay.rn.RazorpayPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

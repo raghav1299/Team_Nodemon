@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Pressable,
+    StatusBar,
     Button,
 } from "react-native";
 import {API_CALL} from "../../Functions/ApiFuntions";
@@ -320,6 +321,10 @@ export default function HomeScreen({navigation}) {
         <Loader />
     ) : (
         <>
+            <StatusBar
+                //  backgroundColor={COLORS.GREY}
+                backgroundColor={"#485d69"}
+            />
             <SearchBar />
             <View style={styles.mainContainerStyle}>
                 <View>
