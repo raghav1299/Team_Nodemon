@@ -64,8 +64,6 @@ export default function HomeScreen({navigation}) {
             // console.log("data.data", data.data)
             let quant = data.data;
 
-            console.log("Intial", data.data[1]);
-
             quant.forEach(item => {
                 item.quantity = 1;
             });
@@ -105,7 +103,12 @@ export default function HomeScreen({navigation}) {
                 },
                 {type: "ML"}
             );
-            console.log(data.data);
+
+            let quant = data.data;
+
+            quant.forEach(item => {
+                item.quantity = 1;
+            });
             setProductsData(data.data);
         } catch (error) {
             console.log(error);
@@ -124,7 +127,12 @@ export default function HomeScreen({navigation}) {
                 },
                 {type: "ML"}
             );
-            console.log(data.data);
+
+            let quant = data.data;
+
+            quant.forEach(item => {
+                item.quantity = 1;
+            });
             setProductsData(data.data);
         } catch (error) {
             console.log(error);

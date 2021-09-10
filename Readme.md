@@ -1,6 +1,6 @@
 <div align="center"> 
   <p align='center'> 
-   <img src="https://img.shields.io/badge/Name%20-%20Repository-darkgreen?style=for-the-badge" />
+   <img src="https://img.shields.io/badge/Name%20-%20Nodemarket🔥 -darkgreen?style=for-the-badge" />
    <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
    <img src="https://img.shields.io/badge/By-Team%20Nodemon-blue?style=for-the-badge" /><br>
    <img src="https://img.shields.io/badge/shadowfax-leap%20hackathon-red?style=for-the-badge" />
@@ -10,7 +10,7 @@
   <img src="media/logo.jpg" />
   <br><br>
   <p>
-  <img src="https://img.shields.io/badge/Problem%20statement-lavenderblush?logo=Product%20Hunt&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Problem%20statement-lavenderblush?logo=Product%20Hunt&style=for-the-badge" height="55"/>
   </p>
   <img src="media/p_statement.png" />
   <br><br>
@@ -81,26 +81,26 @@
 
  <div align="center"> 
     <p>
-    <img src="https://img.shields.io/badge/Why%20%7C%20What%20it%20does-darkslategrey?logo=Windows%20Terminal&style=for-the-badge" /></p>
+    <img src="https://img.shields.io/badge/Why%20%7C%20What%20it%20does-darkslategrey?logo=Windows%20Terminal&style=for-the-badge" height="55"/></p>
     <img src="media/approach.png" />
   <br><br>
  </div>
 
 <div align="center"> 
     <p>
-    <img src="https://img.shields.io/badge/system%20architecture-moccasin?logo=Databricks&style=for-the-badge" /></p>
+    <img src="https://img.shields.io/badge/system%20architecture-moccasin?logo=Databricks&style=for-the-badge" height="55"/></p>
     <img src="media/Sys_Arch.png" />
   <br><br>
  </div>
 
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Product%20Images-mediumseagreen?logo=Pinterest&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Product%20Images-mediumseagreen?logo=Pinterest&style=for-the-badge" height="55" /> 
 </div>
 <br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Prerequisites-teal?logo=Pinboard&style=for-the-badge" /><br>
+  <img src="https://img.shields.io/badge/Prerequisites-teal?logo=Pinboard&style=for-the-badge" height="55"/><br>
 </div>
 <br>
 
@@ -116,7 +116,7 @@
  <br>
  
  <div align="center"> 
-  <img src="https://img.shields.io/badge/Setting%20up%20locally-purple?logo=visual-studio-code&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Setting%20up%20locally-purple?logo=visual-studio-code&style=for-the-badge" height="55"/> 
 </div><br>
 
  ```
@@ -132,6 +132,8 @@
 #### Start the Python ML backend 🚀 :
 
    ```
+   !! APIs might not work upon run as it requires a .env file to be added with the credentials.
+   
    pip install poetry
    cd ML
    bash install.sh
@@ -146,19 +148,35 @@
    poetry install
    poetry run uvicorn main:app --reload
    ```
+  
 
+#### Start the Backend Server 🗃 :
 
-#### Start the Server Backend 🗃 :
+  ```
+  npm install 
+  npm install -g nodemon
+  nodemon app
+  ```
 
 #### Start the Admin Frontend 🖥️ :
+  
+  ```
+  npm install
+  npm start
+  ```
 
 #### Start the Native App 📱 :
 
+  ```
+  npm install
+  npx react-ntive run-android
+  npx react-native run-android
+  ```
 
 <br><br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Tech%20Stack%20Used-chocolate?logo=Tesla&style=for-the-badge" height="55"/> 
 </div>
   <br>
   
@@ -178,10 +196,13 @@
   
   Deployment
   - AWS
-  
-  API Documentation
-  - https://leap.swarnabha.tech/docs
   ```
+  
+  <div>
+   <h3>API Documentation:</h3>
+
+  <a href="https://leap.swarnabha.tech/docs"> https://leap.swarnabha.tech/docs </a><br>
+  </div>
   
   #### Admin | Frontend
   
@@ -202,10 +223,16 @@
     Open Source APIs
     - https://rapidapi.com/digitallyamar/api/distance-calculator1(Distance Calculating API)
     
-    API Documentation: 
-    - https://api.chetanpareek.tech/api-docs/
+   ```
+  <div>
 
-  ```
+  <h3>API Documentation:</h3>
+
+  <a href="https://api.chetanpareek.tech/api-docs/"> https://api.chetanpareek.tech/api-docs/ </a><br>
+
+  </div>
+
+
   
   #### Native | Android
   
@@ -215,7 +242,7 @@
   <br>
 
 <div align="center"> 
-  <img src="https://img.shields.io/badge/Contributors-black?logo=Github&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Contributors-black?logo=Github&style=for-the-badge" height="55"/> 
 </div>
   <br>
 

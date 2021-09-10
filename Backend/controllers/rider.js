@@ -4,7 +4,7 @@ const db = require("./../database/database");
 const axios = require("axios");
 const shop = require("../models/shop");
 const sortArray = require('sort-array')
-var token = '2b76059f22msh9bdc4893dd299b1p12f2a6jsneee75b811974'
+var token = 'e428645c7fmshb34f6e492177bd0p1c13fejsn346db9321b6d'
 
 function calculateDistanceBetweenUserAndShop(
   user_lat,

@@ -31,7 +31,7 @@ function ProductInfoScreen({route, navigation}) {
     const [alsoBoughtProductsData, setAlsoBoughtProductsData] = useState([]);
 
     useEffect(() => {
-        LogBox.ignoreLogs(["Non-serializable values were found in the navigation state"]);
+        console.log("HELLO", item);
         setProductsData(item);
         initPageLoadEvents();
     }, []);
