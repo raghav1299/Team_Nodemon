@@ -4,10 +4,12 @@ import datetime
 def get_data_db(user, cnx):
     db_cursor = cnx.cursor()
     df = pd.read_sql('SELECT * FROM shadowfax.order_history INNER JOIN shadowfax.products ON shadowfax.products.inc_id=shadowfax.order_history.item_id;', con=cnx)
+    db_cursor.execute('SELECT fcm_token from shadowfax.user WHERE username="ram"')
+    fcm_token = [item[0] for item in db_cursor.fetchall()]
     df_products = pd.read_sql('SELECT * FROM shadowfax.products', cnx)
     df = df.loc[df['user_id'] == user]
     df = df[['order_date','product_name','user_id']]
-    return df, df_products
+    return fcm_token[0], df, df_products
 
 def change2month(timestamp):
     ts = datetime.datetime.fromtimestamp(int(timestamp))
