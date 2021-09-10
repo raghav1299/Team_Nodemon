@@ -65,6 +65,10 @@ module.exports = function(sequelize, DataTypes) {
     country: {
       type: DataTypes.STRING(45),
       allowNull: true
+    },
+    fcm_token: {
+      type: DataTypes.STRING(1024),
+      allowNull: true
     }
   }, {
     sequelize,
