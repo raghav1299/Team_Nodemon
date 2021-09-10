@@ -3,6 +3,11 @@ import { Text, View, SafeAreaView, Image, Linking, TextInput, TouchableOpacity, 
 import { BASE_URL_WEB, COLORS } from '../const/const';
 import axios from "axios";
 import store from '../store/store';
+import LottieView from 'lottie-react-native';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { storeData } from '../store/asyncStore';
 
@@ -40,6 +45,21 @@ export default Home = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'white' }}>
+            <View style={{ flex: 1.5 }}>
+                <LottieView source={require('../assets/lottie.json')} autoPlay loop />
+            </View>
+            <Text
+                style={{
+                    marginLeft: "10%",
+                    fontSize: hp(2.8),
+                    marginBottom: 10,
+                    color: COLORS.ORANGE,
+                    fontWeight: "bold",
+                    marginTop: 50,
+                }}
+            >
+                Enter You Username
+            </Text>
             <TextInput
                 style={styles.input}
                 placeholder={'Username'}
