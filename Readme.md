@@ -135,7 +135,7 @@
 #### Start the Python ML backend 🚀 :
 
    ```
-   !! APIs might not work upon run as it requires a .env file to be added with the credentials.
+   !! APIs will not work upon run as it requires a .env file to be added with the credentials.
    
    pip install poetry
    cd ML
@@ -172,7 +172,6 @@
 
   ```
   npm install
-  npx react-ntive run-android
   npx react-native run-android
   ```
 
@@ -297,7 +296,7 @@ Raghav Sharma
 <img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36"/>
 </a>
 </p>
-    <strong>Senior Developer<strong>
+    <strong>App Developer<strong>
 </td>
 
   <td>
