@@ -21,22 +21,7 @@ export default function App() {
     SplashScreen.hide();
   }, [])
 
-  messaging()
-    .getToken()
-    .then(token => {
-      store.setFcmToken(token)
-      console.log(token);
-    });
-  messaging().setBackgroundMessageHandler(async remoteMessage => {
-    Tts.speak('You have received a new delivery task');
-    console.log('Message handled in the background!', remoteMessage);
-  });
 
-  messaging().onMessage(async remoteMessage => {
-    console.log(remoteMessage)
-    alert("you have received a new order")
-    Tts.speak('You have received a new delivery task');
-  });
 
   return (
     <NavigationContainer>

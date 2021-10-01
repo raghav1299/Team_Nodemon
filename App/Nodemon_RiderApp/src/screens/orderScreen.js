@@ -28,6 +28,9 @@ export default orderScreen = ({ navigation }) => {
                 setRefreshing(false)
             }).catch((err) => {
                 console.log("err active", err)
+            }).finally(() => {
+                setLoading(false)
+                setRefreshing(false)
             })
     }
     async function getDetails() {
