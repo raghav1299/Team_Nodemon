@@ -1,13 +1,11 @@
 import React from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
-const Tab = createBottomTabNavigator();
 import {HomeStackNavigators, CartStackScreens} from "../HomeNavigators/HomeStackNavigators";
-import {AccountStackNavigators} from "../AccountNavigators/AccountStackNavigators";
 
 import {COLORS} from "../../Constants/GlobalStyles";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Ionicons from "react-native-vector-icons/Ionicons";
+const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
     return (
