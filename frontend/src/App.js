@@ -29,15 +29,6 @@ function App() {
   const messaging = getMessaging();
 
   useEffect(() => {
-    // toast.success("🦄 Wow so easy!", {
-    //   position: "top-center",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    // });
     getToken(messaging, {
       vapidKey:
         "BHPse1ZJGNtKrAUf9b9ezL-UOicINmtjGAd_-gZ65ClhSd_tZH-b1-yT-iy4XCrZD8fV-eZpqgcA4yhS7K656vk",
