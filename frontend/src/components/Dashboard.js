@@ -118,14 +118,7 @@ export default function Dashboard() {
         </div>
         <div className={styles.controller}>
           <p>Shop Status:</p>
-          <ToggleButton
-            value={true}
-            // onToggle={(value) => {
-            //   self.setState({
-            //     value: !value,
-            //   });
-            // }}
-          />
+          <ToggleButton value={true} />
         </div>
       </div>
       <div className={styles.products}>
