@@ -18,18 +18,22 @@ app.route("/shop/list_products").post(shop.list_products);
 app.route("/shop/get_products_by_shop_id").get(shop.get_products_by_shop_id);
 // app.route("/shop/stock_update");
 app.route("/shop/set_shop_token").patch(shop.set_fcm_token);
-app.route('/shop/show_active_orders').get(shop.show_active_orders)
-app.route('/shop/set_order_delivered').patch(shop.set_shop_order_delivered)
+app.route("/shop/show_active_orders").get(shop.show_active_orders);
+app.route("/shop/set_order_delivered").patch(shop.set_shop_order_delivered);
 
 //user APIs
 app.route("/user/create_user").post(user.create_user);
 app.route("/user/get_all_products").get(shop.get_all_products);
 app.route("/user/get_all_tags").get(shop.get_all_tags);
 app.route("/user/get_product_using_inc_id").get(shop.get_prodcut_using_inc_id);
-app.route('/user/get_user_details_by_username').get(user.get_user_details_by_username)
-app.route('/user/get_order_history_of_user').get(user.get_order_history_of_user)
+app
+  .route("/user/get_user_details_by_username")
+  .get(user.get_user_details_by_username);
+app
+  .route("/user/get_order_history_of_user")
+  .get(user.get_order_history_of_user);
 app.route("/add_to_cart");
-app.route('/user/set_user_fcm_token').patch(shop.set_user_fcm_token)
+app.route("/user/set_user_fcm_token").patch(shop.set_user_fcm_token);
 app.route("/user/place_order").post(rider.place_order);
 
 //post_rider
@@ -44,8 +48,8 @@ app
   .get(rider.get_details_using_username);
 
 app.route("/rider/get_all_riders").get(rider.get_all_riders);
-app.route('/rider/get_active_orders').get(rider.get_active_orders)
-app.route('/rider/set_order_delivered').patch(rider.set_order_delivered)
+app.route("/rider/get_active_orders").get(rider.get_active_orders);
+app.route("/rider/set_order_delivered").patch(rider.set_order_delivered);
 app.route("/payments");
 
 module.exports = app;

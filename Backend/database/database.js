@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const tags = require("./../models/tags.js");
 var db = {};
 
-const sequelize = new Sequelize("shadowfax", "admin", "qazwsx&*%^", {
+const sequelize = new Sequelize("shadowfax", "admin", "qwertop098", {
   host: "shadowfax1.cedjgswziywb.ap-south-1.rds.amazonaws.com",
   port: 3306,
   dialect: "mysql",
@@ -32,10 +32,10 @@ let models = [
   require("./../models/shop.js"),
   require("./../models/tags.js"),
   require("./../models/user.js"),
-  require('./../models/delivery_boy'),
-  require('./../models/order_history'),
-  require('./../models/delivery_boy_history'),
-  require('./../models/shop_active_orders')
+  require("./../models/delivery_boy"),
+  require("./../models/order_history"),
+  require("./../models/delivery_boy_history"),
+  require("./../models/shop_active_orders"),
 ];
 
 models.forEach((model) => {
@@ -54,6 +54,5 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 //Relations
-
 
 module.exports = db;
