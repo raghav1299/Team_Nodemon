@@ -24,7 +24,7 @@ export default function Dashboard() {
   const [productDetails, setProductDetails] = useState({
     shop_id: 1,
   });
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleDropdownChange(items) {
     let data = [];
@@ -96,13 +96,13 @@ export default function Dashboard() {
   }
 
   useEffect(() => {
-    getProducts();
-    getAllTags();
+    // getProducts();
+    // getAllTags();
   }, []);
 
   return (
     <div className={styles.wrapper}>
-      {isLoading || !tags ? <Preloader /> : null}
+      {isLoading ? <Preloader /> : null}
       <Button
         className={styles.addProduct}
         name="Add Product"
@@ -153,6 +153,67 @@ export default function Dashboard() {
               </div>
             </div>
           ))}
+
+        <div className={styles.product}>
+          <div className={styles.image}>
+            <img
+              src="https://i1.wp.com/lanecdr.org/wp-content/uploads/2019/08/placeholder.png?w=1200&ssl=1"
+              alt=""
+            />
+          </div>
+          <div className={styles.details}>
+            <p>
+              Name: <span>Product Name</span>
+            </p>
+            <p>
+              MRP: <span>500</span>
+            </p>
+            <p>
+              Rating: <span>4.8</span>
+            </p>
+            <p>
+              Quantity: <span>150</span>
+            </p>
+          </div>
+          <div className={styles.controllers}>
+            <button>
+              <Edit2 />
+            </button>
+            <button>
+              <Trash2 />
+            </button>
+          </div>
+        </div>
+        <div className={styles.product}>
+          <div className={styles.image}>
+            <img
+              src="https://i1.wp.com/lanecdr.org/wp-content/uploads/2019/08/placeholder.png?w=1200&ssl=1"
+              alt=""
+            />
+          </div>
+          <div className={styles.details}>
+            <p>
+              Name: <span>Product Name</span>
+            </p>
+            <p>
+              MRP: <span>500</span>
+            </p>
+            <p>
+              Rating: <span>4.8</span>
+            </p>
+            <p>
+              Quantity: <span>150</span>
+            </p>
+          </div>
+          <div className={styles.controllers}>
+            <button>
+              <Edit2 />
+            </button>
+            <button>
+              <Trash2 />
+            </button>
+          </div>
+        </div>
       </div>
 
       <Modal
