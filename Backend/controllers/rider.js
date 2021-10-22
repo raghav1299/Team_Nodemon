@@ -83,7 +83,7 @@ function sendNotificationtoAtimabh(token, body) {
     priority: "high",
     notification: {
       body: body,
-      title: "New Order to be delivered",
+      title: "New Order",
     },
   });
 
@@ -116,11 +116,11 @@ exports.place_order = async (req, res) => {
     var over_all_products = [];
     var inc_id = req.body.inc_id;
     var orderid = nanoid();
-    // console.log(inc_id);
+    
     const order_history = req.body.orders;
-    // res.send(order_history)
+    
     const promise2 = order_history.map(async (data) => {
-      //  console.log(data.inc_id+","+data.quantity)
+   
       const product_data = await db.products.findOne({
         attributes: ["mrp", "product_name", "image_address"],
         where: { inc_id: data.inc_id },
@@ -139,30 +139,18 @@ exports.place_order = async (req, res) => {
       product_details.price = product_data.mrp * data.quantity;
       product_details.name = product_data.product_name;
       product_details.quantity = data.quantity;
-      //  console.log(product_details);
+      
       return product_details;
     });
-    /*
-    const amqpServer = process.env.rabbitServer
-        // const amqpServer = "amqp://admin:password@rabbitmq.chetanpareek.tech"
-        const connection = await amqp.connect(amqpServer)
-        const channel = await connection.createChannel();
-        await channel.assertQueue("tm queue");
-        // await channel.sendToQueue("tm queue", Buffer.from(JSON.stringify(msg)))        
-        await channel.sendToQueue("tm queue", Buffer.from(JSON.stringify(msg)))
-        console.log(`Job sent successfully ${msg.number}`);
-        await channel.close();
-        await connection.close();
- */
-
+   
     await Promise.all(promise2).then((data) => {
       over_all_products = data;
-      // console.log(over_all_products);
+      
     });
     var total_price = over_all_products.reduce(
       (accumulator, current) => accumulator.price + current.price
     );
-    // console.log(total_price);
+    
     const user_coord = await db.user.findOne({
       where: { inc_id: inc_id },
       attributes: [
@@ -176,27 +164,27 @@ exports.place_order = async (req, res) => {
       ],
       raw: true,
     });
-    // console.log(user_coord);
+   
     const shop_coord = await db.shop.findAll({
       attributes: ["inc_id", "shop_name", "lat", "long"],
       raw: true,
     });
-    //  console.log(shop_coord);
+    
     coord.push(shop_coord);
     var coordinates = coord[0];
     var promise = coordinates.map((data1) => {
-      // console.log(data1);
+    
       return calculateDistanceBetweenUserAndShop(
         user_coord.lat,
         user_coord.long,
         data1.lat,
         data1.long
       ).then((data) => {
-        // console.log(data)
+        
         let shops = {};
         shops.inc_id = data1.inc_id;
         shops.distance = data;
-        // console.log(shops);
+       
         return shops;
       });
     });
@@ -205,10 +193,9 @@ exports.place_order = async (req, res) => {
       const sorted = sortArray(data, {
         by: "distance",
       });
-      // console.log(sorted);
+     
       c = sorted[0].inc_id;
-      // console.log('c.inc_id');
-      // console.log(c);
+    
       db.shop
         .findOne({
           attributes: ["shop_name", "fcm_token"],
@@ -217,11 +204,9 @@ exports.place_order = async (req, res) => {
         })
         .then((data) => {
           body = over_all_products;
-          // console.log(body);
-          // console.log(data);
+         
           sendNotificationtoAtimabh(data.fcm_token, body);
-          // console.log(order_history);
-          // res.send(data)
+          
         });
     });
 
@@ -235,26 +220,21 @@ exports.place_order = async (req, res) => {
       attributes: ["inc_id", "curr_lat", "curr_long", "username"],
       raw: true,
     });
-    // console.log(riderCoord);
     rider_coord.push(riderCoord);
     var rider_coordinates = rider_coord[0];
-    // console.log(rider_coordinates);
     var promise1 = riderCoord.map((data1) => {
-      // console.log(data1.curr_lat,data1.curr_long);
       return calculateDistanceBetweenUserAndRider(
         shop_coordinates.lat,
         shop_coordinates.long,
         data1.curr_lat,
         data1.curr_long
       ).then((data) => {
-        // console.log(data);
         var rider_details = {};
         rider_details.inc_id = data1.inc_id;
         rider_details.distance = data;
         return rider_details;
       });
     });
-    // console.log(shop_coordinates);
     await Promise.all(promise1).then((data) => {
       var sorted_rider = sortArray(data, {
         by: "distance",
@@ -268,8 +248,6 @@ exports.place_order = async (req, res) => {
         })
         .then((data) => {
           var token = data.fcm_token;
-          //  console.log(token);
-          //  res.send(token)
           var body = `Pickup Location:- \n Latitude:- ${shop_coordinates.lat} Longitude:- ${shop_coordinates.long} \n Shop:-${shop_coordinates.shop_address} \n \n
                     Drop Location:- \n Latitude:- ${user_coord.lat} Longitude:- ${user_coord.long} \n Home Address:- Location - ${user_coord.location}, City - ${user_coord.city}, Pincode:- ${user_coord.pincode}, State - ${user_coord.state}, Country - ${user_coord.country}
         `;
@@ -297,15 +275,10 @@ exports.place_order = async (req, res) => {
               active_order: 1,
             })
             .then((data) => {
-              // console.log(data);
-              // console.log('check db');
             });
           sendNotificationtoAtimabh(token, body);
-          // console.log(body);
         });
     });
-    // console.log(token);
-    // // var title = 'pickup and delivery',
     const latest_rider = await db.delivery_boy_history.findOne({
       order: [["inc_id", "DESC"]],
       raw: true,
@@ -349,14 +322,10 @@ exports.post_details = async (req, res) => {
 exports.set_fcm_token = async (req, res) => {
   try {
     const token = req.query.token;
-    // const curr_lat = req.query.latitude
-    // const curr_long = req.query.longitude
     const inc_id = req.query.inc_id;
     const data = await db.delivery_boy.update(
       {
         fcm_token: token,
-        //   curr_lat: curr_lat,
-        //   curr_long: curr_long
       },
       {
         where: { inc_id: inc_id },
@@ -460,11 +429,9 @@ exports.set_order_delivered = async (req, res) => {
         },
       }
     );
-    //  console.log(data);
     res.status(200).json({
       status: "success",
       message: "order delivered",
-      //total_riders: data.length,
       data: data,
     });
   } catch (error) {
