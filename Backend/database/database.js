@@ -2,8 +2,8 @@ const Sequelize = require("sequelize");
 const tags = require("./../models/tags.js");
 var db = {};
 
-const sequelize = new Sequelize("shadowfax", "admin", "qwertop098", {
-  host: "shadowfax1.cedjgswziywb.ap-south-1.rds.amazonaws.com",
+const sequelize = new Sequelize(process.env.db, process.env.user, process.env.password, {
+  host: process.env.host,
   port: 3306,
   dialect: "mysql",
   define: {
