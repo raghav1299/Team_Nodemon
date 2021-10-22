@@ -1,16 +1,34 @@
 import React, {useState, useEffect} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import BottomTabNavigators from "./src/Navigation/BottomTabNavigators/BottomTabNavigators";
-import {AuthStackNavigators} from "./src/Navigation/AuthNavigators/AuthStackNavigators";
+import {AuthStackNavigators, NetworkErrorStack} from "./src/Navigation/AuthNavigators/AuthStackNavigators";
 import {Observer} from "mobx-react";
 import Store from "./src/Store/Store";
 import messaging from "@react-native-firebase/messaging";
-import {getData} from "./src/Functions/AppFuntions";
+import {getData, showNotification} from "./src/Functions/AppFuntions";
 import {Loader} from "./src/Components/Components";
 import SplashScreen from "react-native-splash-screen";
 import {API_CALL} from "./src/Functions/ApiFuntions";
+import NetInfo from "@react-native-community/netinfo";
 
 export default function App() {
+    const [networkState, setNetworkState] = useState(true);
+    useEffect(() => {
+        const unsubscribe = NetInfo.addEventListener(({isConnected}) => {
+            if (isConnected) {
+                setNetworkState(true);
+            } else if (!isConnected) {
+                showNotification("Internet Disconnected");
+                setNetworkState(false);
+            }
+        });
+
+        return () => {
+            console.log("UNMOUNTED");
+            unsubscribe();
+        };
+    }, []);
+
     async function UpdateTokenToServer(id, token) {
         try {
             const data = await API_CALL(
@@ -45,13 +63,23 @@ export default function App() {
 
         SplashScreen.hide();
     });
-    return (
-        <Observer>
-            {() => (
-                <NavigationContainer>
-                    {Store.authTokenVal == 0 ? <AuthStackNavigators /> : <BottomTabNavigators />}
-                </NavigationContainer>
-            )}
-        </Observer>
-    );
+    if (!networkState) {
+        return (
+            <NavigationContainer>
+                <NetworkErrorStack />
+            </NavigationContainer>
+        )
+        }
+        else{
+            return (
+                <Observer>
+                    {() => (
+                        <NavigationContainer>
+                            {Store.authTokenVal == 0 ? <AuthStackNavigators /> : <BottomTabNavigators />}
+                        </NavigationContainer>
+                    )}
+                </Observer>
+            );
+        }
+  
 }
