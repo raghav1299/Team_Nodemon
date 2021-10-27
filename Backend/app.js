@@ -24,8 +24,3 @@ app.listen(PORT, () => {
 
 
 
-
-//sequelize-auto -h shadowfax1.cedjgswziywb.ap-south-1.rds.amazonaws.com -d shadowfax -u admin -x "qazwsx&*%^" --dialect mysql -o ./models
-//https://github.com/raghav1299/Team_Nodemon.git
-//kill $(lsof -ti:3000)
-//ssh -i chetan.pem azureuser@52.173.38.188
